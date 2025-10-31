@@ -8,7 +8,13 @@ import {
     BarChart3,
     Settings,
     Menu,
-    X
+    X,
+    Home,
+    Bell,
+    Search,
+    User,
+    Sun,
+    Sparkles
 } from 'lucide-react';
 
 // Import pages
@@ -76,7 +82,7 @@ function App() {
                     <h2 className="text-2xl font-bold text-gray-800 mb-2">Smart Grocery Assistant</h2>
                     <p className="text-gray-600 mb-6">Preparing your personalized grocery experience...</p>
                     <div className="w-64 bg-gray-200 rounded-full h-2 mx-auto">
-                        <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full animate-pulse" style={{width: '60%'}}></div>
+                        <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full animate-pulse" style={{ width: '60%' }}></div>
                     </div>
                 </div>
             </div>
