@@ -278,46 +278,68 @@ function App() {
             </div>
 
             {/* Main content */}
-            <div className="lg:pl-72">
+            <div className="lg:pl-80">
                 {/* Top bar */}
-                <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-200/60 shadow-sm">
-                    <div className="flex items-center justify-between px-6 py-4">
-                        <div className="flex items-center space-x-4">
+                <div className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-gray-200/50 shadow-lg">
+                    <div className="flex items-center justify-between px-8 py-5">
+                        <div className="flex items-center space-x-6">
                             <button
                                 onClick={() => setSidebarOpen(true)}
-                                className="lg:hidden p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200"
+                                className="lg:hidden p-3 rounded-2xl bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:shadow-lg transition-all duration-200"
                             >
                                 <Menu className="h-6 w-6" />
                             </button>
                             <div className="hidden lg:block">
-                                <h1 className="text-2xl font-bold text-gray-900 capitalize">
-                                    {navigation.find(item => item.href === location.pathname)?.name || 'Dashboard'}
-                                </h1>
-                                <p className="text-sm text-gray-500 mt-1">
-                                    Welcome back! Here's what's happening with your groceries today.
+                                <div className="flex items-center space-x-3 mb-2">
+                                    <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                                        {navigation.find(item => item.href === location.pathname)?.name || 'Dashboard'}
+                                    </h1>
+                                    <div className="px-3 py-1 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full">
+                                        <span className="text-xs font-bold text-purple-600">✨ AI</span>
+                                    </div>
+                                </div>
+                                <p className="text-gray-600 font-medium">
+                                    {navigation.find(item => item.href === location.pathname)?.description || 'Welcome back! Here\'s what\'s happening today.'}
                                 </p>
                             </div>
                         </div>
 
                         {/* Top bar actions */}
-                        <div className="flex items-center space-x-3">
-                            <div className="hidden md:flex items-center space-x-4">
-                                <div className="flex items-center space-x-2 px-3 py-2 bg-gray-50 rounded-xl">
-                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                                    <span className="text-sm font-medium text-gray-600">Online</span>
+                        <div className="flex items-center space-x-4">
+                            {/* Search bar */}
+                            <div className="hidden md:flex items-center bg-gray-50 rounded-2xl px-4 py-2 hover:bg-gray-100 transition-colors">
+                                <Search className="h-5 w-5 text-gray-400 mr-3" />
+                                <input 
+                                    type="text" 
+                                    placeholder="Search groceries..." 
+                                    className="bg-transparent text-gray-600 placeholder-gray-400 outline-none w-48"
+                                />
+                            </div>
+
+                            {/* Status indicators */}
+                            <div className="hidden lg:flex items-center space-x-3">
+                                <div className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-emerald-50 to-green-50 rounded-2xl border border-emerald-200">
+                                    <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
+                                    <span className="text-sm font-semibold text-emerald-700">All Systems Active</span>
                                 </div>
-                                <div className="text-sm text-gray-500">
-                                    {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                <div className="px-3 py-2 bg-gray-100 rounded-xl">
+                                    <span className="text-sm font-semibold text-gray-600">
+                                        {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                    </span>
                                 </div>
                             </div>
 
-                            <button className="relative p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200">
-                                <Clock className="h-6 w-6" />
-                                <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
-                            </button>
+                            {/* Action buttons */}
+                            <div className="flex items-center space-x-2">
+                                <button className="relative p-3 rounded-2xl bg-gradient-to-r from-orange-100 to-red-100 text-orange-600 hover:shadow-lg transition-all duration-200 hover:scale-105">
+                                    <Bell className="h-5 w-5" />
+                                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
+                                        <span className="text-xs font-bold text-white">3</span>
+                                    </div>
+                                </button>
 
-                            <button className="p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200">
-                                <Heart className="h-6 w-6" />
+                                <button className="p-3 rounded-2xl bg-gradient-to-r from-pink-100 to-rose-100 text-pink-600 hover:shadow-lg transition-all duration-200 hover:scale-105">
+                                    <Sun className="h-5 w-5" />
                             </button>
 
                             <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center cursor-pointer">
