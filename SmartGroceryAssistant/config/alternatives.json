@@ -1,45 +1,100 @@
 {
-  "healthy_alternatives": {
-    "white_bread": ["whole wheat bread", "multigrain bread", "sourdough bread"],
-    "white_rice": ["brown rice", "quinoa", "wild rice"],
-    "regular_pasta": ["whole wheat pasta", "quinoa pasta", "lentil pasta"],
-    "whole_milk": ["low-fat milk", "almond milk", "oat milk"],
-    "butter": ["olive oil", "avocado oil", "coconut oil"],
-    "potato_chips": ["baked chips", "air-popped popcorn", "nuts"],
-    "soda": ["sparkling water", "fruit-infused water", "herbal tea"],
-    "candy": ["dark chocolate", "dried fruits", "nuts"],
-    "ice_cream": ["frozen yogurt", "nice cream", "sorbet"]
-  },
-  "category_defaults": {
-    "dairy": {
-      "expiration_days": 7,
-      "storage_tip": "Keep refrigerated at 40°F or below"
+    "healthy_alternatives": {
+        "white_bread": [
+            "whole wheat bread",
+            "multigrain bread",
+            "sourdough bread"
+        ],
+        "white_rice": [
+            "brown rice",
+            "quinoa",
+            "wild rice"
+        ],
+        "regular_pasta": [
+            "whole wheat pasta",
+            "quinoa pasta",
+            "lentil pasta"
+        ],
+        "whole_milk": [
+            "low-fat milk",
+            "almond milk",
+            "oat milk"
+        ],
+        "butter": [
+            "olive oil",
+            "avocado oil",
+            "coconut oil"
+        ],
+        "potato_chips": [
+            "baked chips",
+            "air-popped popcorn",
+            "nuts"
+        ],
+        "soda": [
+            "sparkling water",
+            "fruit-infused water",
+            "herbal tea"
+        ],
+        "candy": [
+            "dark chocolate",
+            "dried fruits",
+            "nuts"
+        ],
+        "ice_cream": [
+            "frozen yogurt",
+            "nice cream",
+            "sorbet"
+        ]
     },
-    "meat": {
-      "expiration_days": 3,
-      "storage_tip": "Store in coldest part of refrigerator"
+    "category_defaults": {
+        "dairy": {
+            "expiration_days": 7,
+            "storage_tip": "Keep refrigerated at 40°F or below"
+        },
+        "meat": {
+            "expiration_days": 3,
+            "storage_tip": "Store in coldest part of refrigerator"
+        },
+        "fruits": {
+            "expiration_days": 5,
+            "storage_tip": "Store in cool, dry place or refrigerate"
+        },
+        "vegetables": {
+            "expiration_days": 7,
+            "storage_tip": "Store in refrigerator crisper drawer"
+        },
+        "bread": {
+            "expiration_days": 5,
+            "storage_tip": "Store in cool, dry place or freeze"
+        },
+        "eggs": {
+            "expiration_days": 14,
+            "storage_tip": "Keep refrigerated in original carton"
+        }
     },
-    "fruits": {
-      "expiration_days": 5,
-      "storage_tip": "Store in cool, dry place or refrigerate"
-    },
-    "vegetables": {
-      "expiration_days": 7,
-      "storage_tip": "Store in refrigerator crisper drawer"
-    },
-    "bread": {
-      "expiration_days": 5,
-      "storage_tip": "Store in cool, dry place or freeze"
-    },
-    "eggs": {
-      "expiration_days": 14,
-      "storage_tip": "Keep refrigerated in original carton"
+    "seasonal_recommendations": {
+        "spring": [
+            "asparagus",
+            "spring onions",
+            "fresh herbs",
+            "strawberries"
+        ],
+        "summer": [
+            "tomatoes",
+            "corn",
+            "berries",
+            "stone fruits"
+        ],
+        "fall": [
+            "apples",
+            "pumpkins",
+            "squash",
+            "root vegetables"
+        ],
+        "winter": [
+            "citrus fruits",
+            "winter vegetables",
+            "warming spices"
+        ]
     }
-  },
-  "seasonal_recommendations": {
-    "spring": ["asparagus", "spring onions", "fresh herbs", "strawberries"],
-    "summer": ["tomatoes", "corn", "berries", "stone fruits"],
-    "fall": ["apples", "pumpkins", "squash", "root vegetables"],
-    "winter": ["citrus fruits", "winter vegetables", "warming spices"]
-  }
 }
