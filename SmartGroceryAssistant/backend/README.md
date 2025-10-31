@@ -8,12 +8,16 @@ The backend is organized using Flask blueprints for modular route management:
 
 ```
 backend/
-├── app.py                      # Main application factory
-├── run.py                     # Server startup script
+├── app.py                      # Main Flask application factory
+├── run.py                     # Web server startup script
+├── cli.py                     # CLI application launcher
+├── main.py                    # Original CLI application
 ├── requirements.txt           # Python dependencies
-├── app/
+├── test_app.py               # Application tests
+├── api_server_old.py         # Legacy API server (backup)
+├── app/                      # Web application modules
 │   ├── __init__.py           # Package initialization
-│   ├── routes/               # API route modules
+│   ├── routes/               # API route blueprints
 │   │   ├── __init__.py
 │   │   ├── shopping_list.py  # Shopping list CRUD operations
 │   │   ├── suggestions.py    # AI suggestions and patterns
@@ -23,7 +27,24 @@ backend/
 │   └── utils/
 │       ├── __init__.py
 │       └── error_handlers.py # Error handling utilities
-└── README.md                 # This file
+├── src/                      # Core application logic
+│   ├── models/               # Data models
+│   │   ├── grocery_item.py   # Grocery item model
+│   │   ├── shopping_list.py  # Shopping list model
+│   │   └── purchase_history.py # Purchase history model
+│   ├── engines/              # AI/Logic engines
+│   │   ├── rule_engine.py    # Rule-based suggestion engine
+│   │   └── recommendation_engine.py # Health recommendation engine
+│   └── utils/                # Utility modules
+│       ├── data_manager.py   # Data persistence layer
+│       └── expiration_tracker.py # Expiration tracking logic
+├── config/                   # Configuration files
+│   └── alternatives.json     # Healthy alternatives database
+├── data/                     # Data storage
+│   ├── grocery_list.json     # Current shopping list
+│   ├── purchase_history.json # Purchase history
+│   └── user_preferences.json # User settings
+└── README.md                 # This documentation
 ```
 
 ## 🚀 Quick Start
@@ -55,12 +76,20 @@ backend/
    pip install -r requirements.txt
    ```
 
-4. **Start the server:**
+4. **Run the application:**
+
+   **Web API Server (for React frontend):**
    ```bash
    python run.py
    ```
+   The API server will start on `http://localhost:5000`
 
-The API server will start on `http://localhost:5000`
+   **Command Line Interface (original CLI):**
+   ```bash
+   python cli.py
+   # or directly:
+   python main.py
+   ```
 
 ## 📡 API Endpoints
 
