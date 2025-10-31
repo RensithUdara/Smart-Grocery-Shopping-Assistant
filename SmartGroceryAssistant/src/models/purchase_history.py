@@ -32,7 +32,7 @@ class PurchaseHistory:
             category=item.category,
             quantity=item.quantity,
             unit=item.unit,
-            purchase_date=datetime.now(),
+            purchase_date=item.purchase_date or datetime.now(),
             expiration_days=item.expiration_days,
             price=item.price,
             is_organic=item.is_organic
@@ -172,7 +172,7 @@ class PurchaseHistory:
         self._purchase_patterns = {
             'total_items': len(set(item.name for item in self._purchases)),
             'categories': len(set(item.category for item in self._purchases)),
-            'last_updated': datetime.now()
+            'last_updated': datetime.now().isoformat()
         }
     
     def to_dict(self) -> dict:
