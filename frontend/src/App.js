@@ -184,15 +184,24 @@ function App() {
                             </div>
                         </div>
 
-                        <div className="flex-1 lg:flex lg:items-center lg:justify-between">
-                            <h1 className="text-2xl font-semibold text-gray-900 lg:ml-0 ml-4">
-                                {navigation.find(nav => nav.href === location.pathname)?.name || 'Dashboard'}
-                            </h1>
-
-                            <div className="hidden lg:flex lg:items-center lg:space-x-4">
-                                <div className="text-sm text-gray-500">
-                                    Welcome to your Smart Grocery Assistant
-                                </div>
+                        {/* Top bar actions */}
+                        <div className="flex items-center space-x-3">
+                            <div className="hidden md:flex items-center space-x-2 px-3 py-2 bg-gray-50 rounded-xl">
+                                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                <span className="text-sm font-medium text-gray-600">All systems operational</span>
+                            </div>
+                            
+                            <button className="relative p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200">
+                                <Clock className="h-6 w-6" />
+                                <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+                            </button>
+                            
+                            <button className="p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200">
+                                <Heart className="h-6 w-6" />
+                            </button>
+                            
+                            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center cursor-pointer">
+                                <span className="text-white font-semibold text-sm">U</span>
                             </div>
                         </div>
                     </div>
