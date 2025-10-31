@@ -1,1 +1,0 @@
-# Smart Grocery Shopping Assistant - Source Package
