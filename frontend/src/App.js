@@ -26,16 +26,17 @@ import { apiService } from './services/apiService';
 function App() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [currentTime, setCurrentTime] = useState(new Date());
     const location = useLocation();
 
     const navigation = [
-        { name: 'Dashboard', href: '/', icon: BarChart3 },
-        { name: 'Shopping List', href: '/shopping-list', icon: ShoppingCart },
-        { name: 'Smart Suggestions', href: '/suggestions', icon: Brain },
-        { name: 'Expiration Tracker', href: '/expiration', icon: Clock },
-        { name: 'Health Guide', href: '/health', icon: Heart },
-        { name: 'Analytics', href: '/analytics', icon: BarChart3 },
-        { name: 'Settings', href: '/settings', icon: Settings },
+        { name: 'Dashboard', href: '/', icon: BarChart3, description: 'Overview of your grocery status' },
+        { name: 'Shopping List', href: '/shopping-list', icon: ShoppingCart, description: 'Manage your shopping items' },
+        { name: 'Smart Suggestions', href: '/suggestions', icon: Brain, description: 'AI-powered recommendations' },
+        { name: 'Expiration Tracker', href: '/expiration', icon: Clock, description: 'Track item freshness' },
+        { name: 'Health Guide', href: '/health', icon: Heart, description: 'Nutritional insights' },
+        { name: 'Analytics', href: '/analytics', icon: BarChart3, description: 'Shopping patterns & trends' },
+        { name: 'Settings', href: '/settings', icon: Settings, description: 'Customize your experience' },
     ];
 
     useEffect(() => {
@@ -51,16 +52,32 @@ function App() {
         };
 
         initializeApp();
+
+        // Update time every minute
+        const timeInterval = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 60000);
+
+        return () => clearInterval(timeInterval);
     }, []);
 
     const closeSidebar = () => setSidebarOpen(false);
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">Loading Smart Grocery Assistant...</p>
+                    <div className="relative mb-8">
+                        <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto animate-bounce">
+                            <ShoppingCart className="h-8 w-8 text-white" />
+                        </div>
+                        <div className="absolute inset-0 w-16 h-16 border-4 border-blue-200 rounded-full animate-ping mx-auto"></div>
+                    </div>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Smart Grocery Assistant</h2>
+                    <p className="text-gray-600 mb-6">Preparing your personalized grocery experience...</p>
+                    <div className="w-64 bg-gray-200 rounded-full h-2 mx-auto">
+                        <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full animate-pulse" style={{width: '60%'}}></div>
+                    </div>
                 </div>
             </div>
         );
@@ -186,9 +203,14 @@ function App() {
 
                         {/* Top bar actions */}
                         <div className="flex items-center space-x-3">
-                            <div className="hidden md:flex items-center space-x-2 px-3 py-2 bg-gray-50 rounded-xl">
-                                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                                <span className="text-sm font-medium text-gray-600">All systems operational</span>
+                            <div className="hidden md:flex items-center space-x-4">
+                                <div className="flex items-center space-x-2 px-3 py-2 bg-gray-50 rounded-xl">
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                    <span className="text-sm font-medium text-gray-600">Online</span>
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                    {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </div>
                             </div>
 
                             <button className="relative p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200">
