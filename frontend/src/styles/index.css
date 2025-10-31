@@ -1332,7 +1332,7 @@ code {
 .card-neon {
     background: linear-gradient(145deg, #ffffff, #f0f0f0);
     border-radius: 20px;
-    box-shadow: 
+    box-shadow:
         20px 20px 60px #d9d9d9,
         -20px -20px 60px #ffffff;
 }
@@ -1340,7 +1340,7 @@ code {
 .card-floating {
     background: white;
     border-radius: 24px;
-    box-shadow: 
+    box-shadow:
         0 20px 25px -5px rgba(0, 0, 0, 0.1),
         0 10px 10px -5px rgba(0, 0, 0, 0.04);
     transition: all 0.3s ease;
@@ -1348,25 +1348,44 @@ code {
 
 .card-floating:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 
+    box-shadow:
         0 32px 40px -12px rgba(0, 0, 0, 0.15),
         0 16px 16px -8px rgba(0, 0, 0, 0.08);
 }
 
 /* Animated Elements */
 @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
 }
 
 @keyframes glow {
-    0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.4); }
-    50% { box-shadow: 0 0 40px rgba(139, 92, 246, 0.8); }
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 40px rgba(139, 92, 246, 0.8);
+    }
 }
 
 @keyframes rainbow {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
 }
 
 .animate-float {
@@ -1440,19 +1459,19 @@ code {
 
 /* Enhanced Shadows */
 .shadow-colorful {
-    box-shadow: 
+    box-shadow:
         0 4px 14px 0 rgba(139, 92, 246, 0.15),
         0 2px 4px 0 rgba(236, 72, 153, 0.1);
 }
 
 .shadow-soft {
-    box-shadow: 
+    box-shadow:
         0 20px 25px -5px rgba(0, 0, 0, 0.1),
         0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 .shadow-dreamy {
-    box-shadow: 
+    box-shadow:
         0 25px 50px -12px rgba(139, 92, 246, 0.25),
         0 25px 50px -12px rgba(236, 72, 153, 0.15);
 }
@@ -1463,7 +1482,7 @@ code {
         border-radius: 16px;
         margin: 0 16px;
     }
-    
+
     .btn-magical {
         padding: 12px 24px;
         border-radius: 12px;
@@ -1472,6 +1491,7 @@ code {
 
 /* Accessibility Improvements */
 @media (prefers-reduced-motion: reduce) {
+
     .animate-float,
     .animate-glow,
     .animate-rainbow,
@@ -1479,7 +1499,7 @@ code {
     .animate-pulse {
         animation: none;
     }
-    
+
     .card-floating:hover {
         transform: none;
     }
