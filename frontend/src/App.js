@@ -8,7 +8,13 @@ import {
     BarChart3,
     Settings,
     Menu,
-    X
+    X,
+    Home,
+    Bell,
+    Search,
+    User,
+    Sun,
+    Sparkles
 } from 'lucide-react';
 
 // Import pages
@@ -26,16 +32,73 @@ import { apiService } from './services/apiService';
 function App() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [currentTime, setCurrentTime] = useState(new Date());
     const location = useLocation();
 
     const navigation = [
-        { name: 'Dashboard', href: '/', icon: BarChart3 },
-        { name: 'Shopping List', href: '/shopping-list', icon: ShoppingCart },
-        { name: 'Smart Suggestions', href: '/suggestions', icon: Brain },
-        { name: 'Expiration Tracker', href: '/expiration', icon: Clock },
-        { name: 'Health Guide', href: '/health', icon: Heart },
-        { name: 'Analytics', href: '/analytics', icon: BarChart3 },
-        { name: 'Settings', href: '/settings', icon: Settings },
+        {
+            name: 'Dashboard',
+            href: '/',
+            icon: Home,
+            description: 'Overview of your grocery status',
+            gradient: 'from-purple-400 to-pink-400',
+            bgColor: 'bg-purple-50',
+            textColor: 'text-purple-600'
+        },
+        {
+            name: 'Shopping List',
+            href: '/shopping-list',
+            icon: ShoppingCart,
+            description: 'Manage your shopping items',
+            gradient: 'from-blue-400 to-cyan-400',
+            bgColor: 'bg-blue-50',
+            textColor: 'text-blue-600'
+        },
+        {
+            name: 'Smart Suggestions',
+            href: '/suggestions',
+            icon: Brain,
+            description: 'AI-powered recommendations',
+            gradient: 'from-emerald-400 to-teal-400',
+            bgColor: 'bg-emerald-50',
+            textColor: 'text-emerald-600'
+        },
+        {
+            name: 'Expiration Tracker',
+            href: '/expiration',
+            icon: Clock,
+            description: 'Track item freshness',
+            gradient: 'from-orange-400 to-red-400',
+            bgColor: 'bg-orange-50',
+            textColor: 'text-orange-600'
+        },
+        {
+            name: 'Health Guide',
+            href: '/health',
+            icon: Heart,
+            description: 'Nutritional insights',
+            gradient: 'from-rose-400 to-pink-400',
+            bgColor: 'bg-rose-50',
+            textColor: 'text-rose-600'
+        },
+        {
+            name: 'Analytics',
+            href: '/analytics',
+            icon: BarChart3,
+            description: 'Shopping patterns & trends',
+            gradient: 'from-indigo-400 to-purple-400',
+            bgColor: 'bg-indigo-50',
+            textColor: 'text-indigo-600'
+        },
+        {
+            name: 'Settings',
+            href: '/settings',
+            icon: Settings,
+            description: 'Customize your experience',
+            gradient: 'from-gray-400 to-slate-400',
+            bgColor: 'bg-gray-50',
+            textColor: 'text-gray-600'
+        },
     ];
 
     useEffect(() => {
@@ -51,16 +114,39 @@ function App() {
         };
 
         initializeApp();
+
+        // Update time every minute
+        const timeInterval = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 60000);
+
+        return () => clearInterval(timeInterval);
     }, []);
 
     const closeSidebar = () => setSidebarOpen(false);
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50">
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50">
                 <div className="text-center">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-                    <p className="mt-4 text-gray-600">Loading Smart Grocery Assistant...</p>
+                    <div className="relative mb-8">
+                        <div className="w-20 h-20 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto animate-bounce shadow-2xl">
+                            <Sparkles className="h-10 w-10 text-white animate-pulse" />
+                        </div>
+                        <div className="absolute -inset-4 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 rounded-3xl opacity-30 animate-ping"></div>
+                    </div>
+                    <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent mb-3">
+                        Smart Grocery
+                    </h1>
+                    <p className="text-lg text-gray-600 mb-8 font-medium">Creating your magical grocery experience ✨</p>
+                    <div className="w-80 bg-gray-200 rounded-full h-3 mx-auto overflow-hidden">
+                        <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 h-3 rounded-full animate-pulse shadow-sm" style={{ width: '75%' }}></div>
+                    </div>
+                    <div className="mt-6 flex justify-center space-x-2">
+                        <div className="w-3 h-3 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                        <div className="w-3 h-3 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="w-3 h-3 bg-red-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    </div>
                 </div>
             </div>
         );
@@ -186,9 +272,14 @@ function App() {
 
                         {/* Top bar actions */}
                         <div className="flex items-center space-x-3">
-                            <div className="hidden md:flex items-center space-x-2 px-3 py-2 bg-gray-50 rounded-xl">
-                                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                                <span className="text-sm font-medium text-gray-600">All systems operational</span>
+                            <div className="hidden md:flex items-center space-x-4">
+                                <div className="flex items-center space-x-2 px-3 py-2 bg-gray-50 rounded-xl">
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                    <span className="text-sm font-medium text-gray-600">Online</span>
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                    {currentTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </div>
                             </div>
 
                             <button className="relative p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200">
