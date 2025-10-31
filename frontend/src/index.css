@@ -38,6 +38,7 @@ code {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -53,9 +54,11 @@ code {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.05);
   }
+
   100% {
     transform: scale(1);
   }
@@ -70,7 +73,7 @@ code {
   .mobile-padding {
     padding: 16px !important;
   }
-  
+
   .mobile-text-center {
     text-align: center !important;
   }
