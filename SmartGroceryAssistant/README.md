@@ -39,7 +39,20 @@ A comprehensive React-based web application for intelligent grocery shopping wit
 
 ```
 SmartGroceryAssistant/
-├── api_server.py                     # Flask backend API
+├── backend/                          # Flask REST API server
+│   ├── app.py                        # Main application factory
+│   ├── run.py                        # Server startup script
+│   ├── requirements.txt              # Python dependencies
+│   ├── app/
+│   │   ├── routes/                   # API route blueprints
+│   │   │   ├── shopping_list.py      # Shopping list endpoints
+│   │   │   ├── suggestions.py        # AI suggestions endpoints
+│   │   │   ├── health.py             # Health recommendations
+│   │   │   ├── expiration.py         # Expiration tracking
+│   │   │   └── analytics.py          # Analytics and data management
+│   │   └── utils/
+│   │       └── error_handlers.py     # Error handling utilities
+│   └── README.md                     # Backend documentation
 ├── src/                              # Original Python application
 │   ├── models/                       # Data models
 │   ├── engines/                      # AI engines
@@ -66,6 +79,7 @@ SmartGroceryAssistant/
 │   │   └── styles/
 │   │       └── index.css             # Application styles
 │   └── public/
+├── api_server.py                     # Legacy API server (deprecated)
 └── README.md                         # This file
 ```
 
@@ -77,14 +91,19 @@ SmartGroceryAssistant/
 - npm or yarn
 
 ### Backend Setup
-1. **Install Python dependencies:**
+1. **Navigate to backend directory:**
    ```bash
-   pip install flask flask-cors
+   cd backend
    ```
 
-2. **Start the Flask API server:**
+2. **Install Python dependencies:**
    ```bash
-   python api_server.py
+   pip install -r requirements.txt
+   ```
+
+3. **Start the Flask API server:**
+   ```bash
+   python run.py
    ```
    The API will be available at `http://localhost:5000`
 
