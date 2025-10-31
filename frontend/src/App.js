@@ -127,18 +127,25 @@ function App() {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-pink-50 via-purple-50 to-indigo-50">
                 <div className="text-center">
                     <div className="relative mb-8">
-                        <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto animate-bounce">
-                            <ShoppingCart className="h-8 w-8 text-white" />
+                        <div className="w-20 h-20 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto animate-bounce shadow-2xl">
+                            <Sparkles className="h-10 w-10 text-white animate-pulse" />
                         </div>
-                        <div className="absolute inset-0 w-16 h-16 border-4 border-blue-200 rounded-full animate-ping mx-auto"></div>
+                        <div className="absolute -inset-4 bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 rounded-3xl opacity-30 animate-ping"></div>
                     </div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Smart Grocery Assistant</h2>
-                    <p className="text-gray-600 mb-6">Preparing your personalized grocery experience...</p>
-                    <div className="w-64 bg-gray-200 rounded-full h-2 mx-auto">
-                        <div className="bg-gradient-to-r from-blue-500 to-indigo-600 h-2 rounded-full animate-pulse" style={{ width: '60%' }}></div>
+                    <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent mb-3">
+                        Smart Grocery
+                    </h1>
+                    <p className="text-lg text-gray-600 mb-8 font-medium">Creating your magical grocery experience ✨</p>
+                    <div className="w-80 bg-gray-200 rounded-full h-3 mx-auto overflow-hidden">
+                        <div className="bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 h-3 rounded-full animate-pulse shadow-sm" style={{ width: '75%' }}></div>
+                    </div>
+                    <div className="mt-6 flex justify-center space-x-2">
+                        <div className="w-3 h-3 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+                        <div className="w-3 h-3 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="w-3 h-3 bg-red-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                     </div>
                 </div>
             </div>
