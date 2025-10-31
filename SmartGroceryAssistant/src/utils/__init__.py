@@ -1,1 +1,0 @@
-# Utils package for Smart Grocery Assistant
