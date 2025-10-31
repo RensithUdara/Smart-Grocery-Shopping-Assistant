@@ -171,14 +171,14 @@ function App() {
                 {/* Header */}
                 <div className="relative h-28 px-6 flex items-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 overflow-hidden shadow-2xl">
                     <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/10 to-black/20"></div>
-                    
+
                     {/* Animated background patterns */}
                     <div className="absolute inset-0">
                         <div className="absolute top-0 left-0 w-40 h-40 bg-white/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0s' }}></div>
                         <div className="absolute bottom-0 right-0 w-32 h-32 bg-white/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
                         <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-white/5 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
                     </div>
-                    
+
                     <div className="relative z-10 flex items-center justify-between w-full">
                         <div className="flex items-center space-x-5">
                             <div className="relative group">
@@ -204,7 +204,7 @@ function App() {
                             <X className="h-6 w-6" />
                         </button>
                     </div>
-                    
+
                     {/* Enhanced decorative shapes */}
                     <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-bl from-white/15 to-transparent rounded-full -translate-y-18 translate-x-18 blur-xl"></div>
                     <div className="absolute bottom-0 left-0 w-28 h-28 bg-gradient-to-tr from-white/15 to-transparent rounded-full translate-y-14 -translate-x-14 blur-xl"></div>
@@ -265,7 +265,7 @@ function App() {
                                             <div className={`w-1 h-8 rounded-full transition-all duration-500 ${isActive ? 'bg-white/40' : 'bg-gray-300 group-hover:bg-gray-400'}`}></div>
                                         </div>
                                     </div>
-                                    
+
                                     {/* Enhanced decorative elements */}
                                     {isActive && (
                                         <div className="absolute inset-0 rounded-3xl">
@@ -273,10 +273,10 @@ function App() {
                                             <div className="absolute bottom-2 left-2 w-6 h-6 bg-white/15 rounded-full blur-md animate-pulse" style={{ animationDelay: '1s' }}></div>
                                         </div>
                                     )}
-                                    
+
                                     {/* Gradient hover overlay */}
                                     <div className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-[0.15] transition-all duration-500 rounded-3xl`}></div>
-                                    
+
                                     {/* Shimmer effect on hover */}
                                     <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700">
                                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
@@ -331,7 +331,7 @@ function App() {
                                 </div>
                             </div>
                         </div>
-                        
+
                         {/* Bottom gradient bar */}
                         <div className="h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-b-3xl"></div>
                     </div>
