@@ -39,11 +39,13 @@ A comprehensive React-based web application for intelligent grocery shopping wit
 
 ```
 SmartGroceryAssistant/
-├── backend/                          # Flask REST API server
-│   ├── app.py                        # Main application factory
-│   ├── run.py                        # Server startup script
+├── backend/                          # Complete backend application
+│   ├── app.py                        # Flask web API server factory
+│   ├── run.py                        # Web server startup script
+│   ├── cli.py                        # CLI application launcher
+│   ├── main.py                       # Original CLI application
 │   ├── requirements.txt              # Python dependencies
-│   ├── app/
+│   ├── app/                          # Web API modules
 │   │   ├── routes/                   # API route blueprints
 │   │   │   ├── shopping_list.py      # Shopping list endpoints
 │   │   │   ├── suggestions.py        # AI suggestions endpoints
@@ -52,11 +54,13 @@ SmartGroceryAssistant/
 │   │   │   └── analytics.py          # Analytics and data management
 │   │   └── utils/
 │   │       └── error_handlers.py     # Error handling utilities
+│   ├── src/                          # Core application logic
+│   │   ├── models/                   # Data models
+│   │   ├── engines/                  # AI engines
+│   │   └── utils/                    # Utilities
+│   ├── config/                       # Configuration files
+│   ├── data/                         # Data storage
 │   └── README.md                     # Backend documentation
-├── src/                              # Original Python application
-│   ├── models/                       # Data models
-│   ├── engines/                      # AI engines
-│   └── utils/                        # Utilities
 ├── frontend/                         # React web application
 │   ├── package.json                  # Dependencies and scripts
 │   ├── src/
