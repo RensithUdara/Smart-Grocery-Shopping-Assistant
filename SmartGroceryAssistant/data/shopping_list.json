@@ -1,6 +1,58 @@
 {
-    "items": [],
-    "created_date": "2025-10-31T12:00:00",
-    "item_count": 0,
-    "total_quantity": 0
+  "items": [
+    {
+      "name": "whole wheat bread",
+      "category": "grains",
+      "quantity": 1,
+      "unit": "loaf",
+      "purchase_date": "2025-10-31T10:30:17.205295",
+      "expiration_days": 7,
+      "price": 0.0,
+      "is_organic": true
+    },
+    {
+      "name": "low-fat milk",
+      "category": "dairy",
+      "quantity": 2,
+      "unit": "liters",
+      "purchase_date": "2025-10-31T10:30:17.205295",
+      "expiration_days": 7,
+      "price": 0.0,
+      "is_organic": false
+    },
+    {
+      "name": "chicken breast",
+      "category": "protein",
+      "quantity": 1,
+      "unit": "kg",
+      "purchase_date": "2025-10-31T10:30:17.205295",
+      "expiration_days": 7,
+      "price": 0.0,
+      "is_organic": false
+    },
+    {
+      "name": "broccoli",
+      "category": "vegetables",
+      "quantity": 2,
+      "unit": "heads",
+      "purchase_date": "2025-10-31T10:30:17.205295",
+      "expiration_days": 7,
+      "price": 0.0,
+      "is_organic": false
+    },
+    {
+      "name": "bananas",
+      "category": "fruits",
+      "quantity": 6,
+      "unit": "pieces",
+      "purchase_date": "2025-10-31T10:30:17.205295",
+      "expiration_days": 7,
+      "price": 0.0,
+      "is_organic": false
+    }
+  ],
+  "created_date": "2025-10-31T10:30:17.205295",
+  "item_count": 5,
+  "total_quantity": 12,
+  "last_saved": "2025-10-31T10:30:34.674466"
 }
