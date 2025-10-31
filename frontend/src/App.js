@@ -309,9 +309,9 @@ function App() {
                             {/* Search bar */}
                             <div className="hidden md:flex items-center bg-gray-50 rounded-2xl px-4 py-2 hover:bg-gray-100 transition-colors">
                                 <Search className="h-5 w-5 text-gray-400 mr-3" />
-                                <input 
-                                    type="text" 
-                                    placeholder="Search groceries..." 
+                                <input
+                                    type="text"
+                                    placeholder="Search groceries..."
                                     className="bg-transparent text-gray-600 placeholder-gray-400 outline-none w-48"
                                 />
                             </div>
@@ -340,32 +340,32 @@ function App() {
 
                                 <button className="p-3 rounded-2xl bg-gradient-to-r from-pink-100 to-rose-100 text-pink-600 hover:shadow-lg transition-all duration-200 hover:scale-105">
                                     <Sun className="h-5 w-5" />
-                            </button>
+                                </button>
 
-                            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center cursor-pointer">
-                                <span className="text-white font-semibold text-sm">U</span>
+                                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center cursor-pointer">
+                                    <span className="text-white font-semibold text-sm">U</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {/* Page content */}
-                <main className="flex-1 p-6 bg-gray-50/50 min-h-screen">
-                    <div className="max-w-7xl mx-auto">
-                        <Routes>
-                            <Route path="/" element={<Dashboard />} />
-                            <Route path="/shopping-list" element={<ShoppingList />} />
-                            <Route path="/suggestions" element={<Suggestions />} />
-                            <Route path="/expiration" element={<ExpirationTracker />} />
-                            <Route path="/health" element={<HealthRecommendations />} />
-                            <Route path="/analytics" element={<Analytics />} />
-                            <Route path="/settings" element={<SettingsPage />} />
-                        </Routes>
-                    </div>
-                </main>
+                    {/* Page content */}
+                    <main className="flex-1 p-6 bg-gray-50/50 min-h-screen">
+                        <div className="max-w-7xl mx-auto">
+                            <Routes>
+                                <Route path="/" element={<Dashboard />} />
+                                <Route path="/shopping-list" element={<ShoppingList />} />
+                                <Route path="/suggestions" element={<Suggestions />} />
+                                <Route path="/expiration" element={<ExpirationTracker />} />
+                                <Route path="/health" element={<HealthRecommendations />} />
+                                <Route path="/analytics" element={<Analytics />} />
+                                <Route path="/settings" element={<SettingsPage />} />
+                            </Routes>
+                        </div>
+                    </main>
+                </div>
             </div>
-        </div>
-    );
+            );
 }
 
-export default App;
+            export default App;
