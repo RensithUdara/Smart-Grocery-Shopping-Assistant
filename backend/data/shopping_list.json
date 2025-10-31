@@ -33,7 +33,7 @@
     {
       "name": "broccoli",
       "category": "vegetables",
-      "quantity": 2,
+      "quantity": 3,
       "unit": "heads",
       "purchase_date": "2025-10-31T10:30:17.205295",
       "expiration_days": 7,
@@ -53,6 +53,6 @@
   ],
   "created_date": "2025-10-31T10:30:17.205295",
   "item_count": 5,
-  "total_quantity": 12,
-  "last_saved": "2025-10-31T10:30:34.674466"
+  "total_quantity": 13,
+  "last_saved": "2025-10-31T13:33:15.580284"
 }
