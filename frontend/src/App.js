@@ -164,45 +164,55 @@ function App() {
 
             {/* Sidebar */}
             <div className={`
-        fixed inset-y-0 left-0 z-50 w-80 bg-white/95 backdrop-blur-xl shadow-2xl border-r border-gray-200/50 transform transition-all duration-300 ease-in-out
+        fixed inset-y-0 left-0 z-50 w-80 bg-gradient-to-b from-white/98 via-white/95 to-gray-50/98 backdrop-blur-2xl shadow-2xl border-r border-gradient-to-b from-purple-200/30 via-pink-200/30 to-blue-200/30 transform transition-all duration-500 ease-out
         lg:translate-x-0 lg:static lg:inset-0
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
                 {/* Header */}
-                <div className="relative h-24 px-6 flex items-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 overflow-hidden">
-                    <div className="absolute inset-0 bg-black/10"></div>
+                <div className="relative h-28 px-6 flex items-center bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 overflow-hidden shadow-2xl">
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-black/10 to-black/20"></div>
+
+                    {/* Animated background patterns */}
+                    <div className="absolute inset-0">
+                        <div className="absolute top-0 left-0 w-40 h-40 bg-white/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0s' }}></div>
+                        <div className="absolute bottom-0 right-0 w-32 h-32 bg-white/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+                        <div className="absolute top-1/2 left-1/2 w-24 h-24 bg-white/5 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+                    </div>
+
                     <div className="relative z-10 flex items-center justify-between w-full">
-                        <div className="flex items-center space-x-4">
-                            <div className="relative">
-                                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg">
-                                    <Sparkles className="h-7 w-7 text-white" />
+                        <div className="flex items-center space-x-5">
+                            <div className="relative group">
+                                <div className="w-14 h-14 bg-white/25 backdrop-blur-lg rounded-2xl flex items-center justify-center shadow-2xl border border-white/20 group-hover:scale-110 transition-transform duration-300">
+                                    <Sparkles className="h-8 w-8 text-white drop-shadow-lg" />
                                 </div>
-                                <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full animate-pulse"></div>
+                                <div className="absolute -top-2 -right-2 w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full animate-bounce shadow-lg border-2 border-white/50"></div>
+                                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </div>
                             <div>
-                                <h1 className="text-xl font-bold text-white tracking-wide">
+                                <h1 className="text-2xl font-bold text-white tracking-wide drop-shadow-lg">
                                     Smart Grocery
                                 </h1>
-                                <p className="text-white/80 text-sm font-medium -mt-1">
+                                <p className="text-white/90 text-sm font-semibold -mt-1 drop-shadow-sm">
                                     Your AI Assistant ✨
                                 </p>
                             </div>
                         </div>
                         <button
                             onClick={closeSidebar}
-                            className="lg:hidden p-2 rounded-xl bg-white/20 hover:bg-white/30 text-white transition-all duration-200"
+                            className="lg:hidden p-3 rounded-2xl bg-white/25 hover:bg-white/35 text-white transition-all duration-300 hover:scale-110 backdrop-blur-sm shadow-lg border border-white/20"
                         >
-                            <X className="h-5 w-5" />
+                            <X className="h-6 w-6" />
                         </button>
                     </div>
-                    {/* Decorative shapes */}
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
-                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
+
+                    {/* Enhanced decorative shapes */}
+                    <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-bl from-white/15 to-transparent rounded-full -translate-y-18 translate-x-18 blur-xl"></div>
+                    <div className="absolute bottom-0 left-0 w-28 h-28 bg-gradient-to-tr from-white/15 to-transparent rounded-full translate-y-14 -translate-x-14 blur-xl"></div>
                 </div>
 
                 {/* Navigation */}
-                <nav className="mt-6 px-4">
-                    <div className="space-y-3">
+                <nav className="mt-8 px-5">
+                    <div className="space-y-2">
                         {navigation.map((item, index) => {
                             const isActive = location.pathname === item.href;
                             const Icon = item.icon;
@@ -213,40 +223,64 @@ function App() {
                                     to={item.href}
                                     onClick={closeSidebar}
                                     className={`
-                    group block p-4 rounded-2xl transition-all duration-300 ease-in-out relative overflow-hidden hover:scale-105
+                    group block p-5 rounded-3xl transition-all duration-500 ease-out relative overflow-hidden transform hover:scale-[1.02] active:scale-[0.98]
                     ${isActive
-                                            ? `bg-gradient-to-r ${item.gradient} text-white shadow-xl transform scale-105`
-                                            : `hover:${item.bgColor} text-gray-700 hover:shadow-lg border-2 border-transparent hover:border-gray-100`
+                                            ? `bg-gradient-to-r ${item.gradient} text-white shadow-2xl shadow-purple-500/25 border border-white/20`
+                                            : `hover:${item.bgColor} text-gray-700 hover:shadow-xl hover:shadow-gray-300/30 border-2 border-gray-100/50 hover:border-gray-200/80 bg-white/60 backdrop-blur-sm`
                                         }
                   `}
+                                    style={{
+                                        animationDelay: `${index * 100}ms`
+                                    }}
                                 >
-                                    <div className="flex items-center space-x-4">
+                                    <div className="flex items-center space-x-5">
                                         <div className={`
-                      p-3 rounded-xl transition-all duration-300
+                      relative p-4 rounded-2xl transition-all duration-500 group-hover:rotate-6 group-hover:scale-110
                       ${isActive
-                                                ? 'bg-white/20 shadow-lg'
-                                                : `${item.bgColor} group-hover:scale-110`
+                                                ? 'bg-white/25 shadow-2xl backdrop-blur-sm border border-white/30'
+                                                : `${item.bgColor} group-hover:shadow-lg border border-gray-200/50`
                                             }
                     `}>
-                                            <Icon className={`h-6 w-6 ${isActive ? 'text-white' : item.textColor}`} />
+                                            <Icon className={`h-7 w-7 transition-colors duration-300 ${isActive ? 'text-white drop-shadow-lg' : item.textColor}`} />
+                                            {isActive && (
+                                                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-white/20 to-transparent animate-pulse"></div>
+                                            )}
                                         </div>
                                         <div className="flex-1">
-                                            <h3 className={`font-semibold text-lg ${isActive ? 'text-white' : 'text-gray-800'}`}>
+                                            <h3 className={`font-bold text-xl mb-1 transition-colors duration-300 ${isActive ? 'text-white drop-shadow-lg' : 'text-gray-800'}`}>
                                                 {item.name}
                                             </h3>
-                                            <p className={`text-sm mt-1 ${isActive ? 'text-white/80' : 'text-gray-500'}`}>
+                                            <p className={`text-sm font-medium leading-relaxed ${isActive ? 'text-white/90' : 'text-gray-600'}`}>
                                                 {item.description}
                                             </p>
                                         </div>
-                                        {isActive && (
-                                            <div className="flex space-x-1">
-                                                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                                                <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                                            </div>
-                                        )}
+                                        <div className="flex flex-col items-center space-y-2">
+                                            {isActive && (
+                                                <div className="flex space-x-1">
+                                                    <div className="w-2.5 h-2.5 bg-white rounded-full animate-pulse shadow-lg"></div>
+                                                    <div className="w-2.5 h-2.5 bg-white/80 rounded-full animate-pulse shadow-lg" style={{ animationDelay: '0.3s' }}></div>
+                                                    <div className="w-2.5 h-2.5 bg-white/60 rounded-full animate-pulse shadow-lg" style={{ animationDelay: '0.6s' }}></div>
+                                                </div>
+                                            )}
+                                            <div className={`w-1 h-8 rounded-full transition-all duration-500 ${isActive ? 'bg-white/40' : 'bg-gray-300 group-hover:bg-gray-400'}`}></div>
+                                        </div>
                                     </div>
-                                    {/* Decorative gradient overlay for hover effect */}
-                                    <div className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`}></div>
+
+                                    {/* Enhanced decorative elements */}
+                                    {isActive && (
+                                        <div className="absolute inset-0 rounded-3xl">
+                                            <div className="absolute top-2 right-2 w-8 h-8 bg-white/20 rounded-full blur-lg animate-pulse"></div>
+                                            <div className="absolute bottom-2 left-2 w-6 h-6 bg-white/15 rounded-full blur-md animate-pulse" style={{ animationDelay: '1s' }}></div>
+                                        </div>
+                                    )}
+
+                                    {/* Gradient hover overlay */}
+                                    <div className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-[0.15] transition-all duration-500 rounded-3xl`}></div>
+
+                                    {/* Shimmer effect on hover */}
+                                    <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
+                                    </div>
                                 </Link>
                             );
                         })}
@@ -254,25 +288,52 @@ function App() {
                 </nav>
 
                 {/* User Profile Section */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-gray-50 to-white rounded-t-3xl border-t border-gray-200">
-                    <div className="flex items-center space-x-4 p-4 rounded-2xl bg-white hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-100">
-                        <div className="relative">
-                            <div className="w-12 h-12 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-2xl flex items-center justify-center shadow-lg">
-                                <User className="h-6 w-6 text-white" />
+                <div className="absolute bottom-0 left-0 right-0 p-5">
+                    <div className="bg-gradient-to-r from-white/90 via-white/95 to-gray-50/90 backdrop-blur-xl rounded-3xl border border-gray-200/60 shadow-2xl shadow-gray-300/20">
+                        <div className="flex items-center space-x-5 p-6 hover:bg-gradient-to-r hover:from-purple-50/50 hover:to-pink-50/50 transition-all duration-500 cursor-pointer rounded-3xl group">
+                            <div className="relative">
+                                <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-3xl flex items-center justify-center shadow-2xl border-2 border-white/50 group-hover:scale-110 transition-transform duration-300">
+                                    <User className="h-8 w-8 text-white drop-shadow-lg" />
+                                </div>
+                                <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full border-3 border-white shadow-xl animate-pulse flex items-center justify-center">
+                                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                                </div>
+                                {/* Decorative ring */}
+                                <div className="absolute inset-0 rounded-3xl border-2 border-gradient-to-r from-purple-300/50 to-pink-300/50 scale-110 opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
                             </div>
-                            <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white shadow-sm animate-pulse"></div>
-                        </div>
-                        <div className="flex-1">
-                            <div className="text-base font-bold text-gray-800">Alex Johnson</div>
-                            <div className="text-sm text-gray-500 flex items-center space-x-2">
-                                <span>Premium Pro</span>
-                                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
-                                <span className="text-purple-600 font-medium">✨ AI Enhanced</span>
+                            <div className="flex-1">
+                                <div className="text-xl font-bold text-gray-800 mb-1 group-hover:text-gray-900 transition-colors">Alex Johnson</div>
+                                <div className="text-sm text-gray-600 flex items-center space-x-3">
+                                    <div className="flex items-center space-x-2">
+                                        <div className="w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full animate-pulse"></div>
+                                        <span className="font-semibold">Premium Pro</span>
+                                    </div>
+                                    <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                                    <span className="text-purple-600 font-bold flex items-center space-x-1">
+                                        <Sparkles className="h-3 w-3" />
+                                        <span>AI Enhanced</span>
+                                    </span>
+                                </div>
+                                <div className="mt-2 flex items-center space-x-2">
+                                    <div className="flex-1 bg-gradient-to-r from-purple-200 to-pink-200 rounded-full h-1.5 overflow-hidden">
+                                        <div className="bg-gradient-to-r from-purple-500 to-pink-500 h-full w-4/5 rounded-full shadow-sm"></div>
+                                    </div>
+                                    <span className="text-xs font-bold text-purple-600">80%</span>
+                                </div>
+                            </div>
+                            <div className="relative">
+                                <div className="p-3 rounded-2xl hover:bg-gray-100/80 transition-all duration-300 hover:scale-110 group/settings">
+                                    <Settings className="h-6 w-6 text-gray-400 group-hover/settings:text-gray-600 transition-colors" />
+                                </div>
+                                {/* Notification badge */}
+                                <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-red-400 to-pink-400 rounded-full flex items-center justify-center shadow-lg">
+                                    <span className="text-white text-xs font-bold">3</span>
+                                </div>
                             </div>
                         </div>
-                        <div className="p-2 rounded-xl hover:bg-gray-100 transition-colors">
-                            <Settings className="h-5 w-5 text-gray-400" />
-                        </div>
+
+                        {/* Bottom gradient bar */}
+                        <div className="h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-b-3xl"></div>
                     </div>
                 </div>
             </div>
