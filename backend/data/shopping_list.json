@@ -49,10 +49,50 @@
       "expiration_days": 7,
       "price": 0.0,
       "is_organic": false
+    },
+    {
+      "name": "white bread",
+      "category": "bakery",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-10-31T15:55:31.180680",
+      "expiration_days": 7,
+      "price": 10,
+      "is_organic": false
+    },
+    {
+      "name": "bread",
+      "category": "grains",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-10-31T15:55:53.578644",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "chicken",
+      "category": "protein",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-10-31T15:55:55.132225",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "onions",
+      "category": "vegetables",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-10-31T15:55:57.095156",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
     }
   ],
   "created_date": "2025-10-31T10:30:17.205295",
-  "item_count": 5,
-  "total_quantity": 13,
-  "last_saved": "2025-10-31T13:33:15.580284"
+  "item_count": 9,
+  "total_quantity": 17,
+  "last_saved": "2025-10-31T15:55:57.095156"
 }
