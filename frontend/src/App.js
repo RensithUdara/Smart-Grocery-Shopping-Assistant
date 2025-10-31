@@ -342,30 +342,34 @@ function App() {
                                     <Sun className="h-5 w-5" />
                                 </button>
 
-                                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center cursor-pointer">
-                                    <span className="text-white font-semibold text-sm">U</span>
+                                <div className="relative group">
+                                    <div className="w-10 h-10 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-2xl flex items-center justify-center cursor-pointer hover:shadow-lg transition-all duration-200 hover:scale-105">
+                                        <User className="h-5 w-5 text-white" />
+                                    </div>
+                                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white shadow-sm animate-pulse"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    {/* Page content */}
-                    <main className="flex-1 p-6 bg-gray-50/50 min-h-screen">
-                        <div className="max-w-7xl mx-auto">
-                            <Routes>
-                                <Route path="/" element={<Dashboard />} />
-                                <Route path="/shopping-list" element={<ShoppingList />} />
-                                <Route path="/suggestions" element={<Suggestions />} />
-                                <Route path="/expiration" element={<ExpirationTracker />} />
-                                <Route path="/health" element={<HealthRecommendations />} />
-                                <Route path="/analytics" element={<Analytics />} />
-                                <Route path="/settings" element={<SettingsPage />} />
-                            </Routes>
-                        </div>
-                    </main>
                 </div>
+
+                {/* Page content */}
+                <main className="flex-1 p-8 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/30 min-h-screen">
+                    <div className="max-w-7xl mx-auto">
+                        <Routes>
+                            <Route path="/" element={<Dashboard />} />
+                            <Route path="/shopping-list" element={<ShoppingList />} />
+                            <Route path="/suggestions" element={<Suggestions />} />
+                            <Route path="/expiration" element={<ExpirationTracker />} />
+                            <Route path="/health" element={<HealthRecommendations />} />
+                            <Route path="/analytics" element={<Analytics />} />
+                            <Route path="/settings" element={<SettingsPage />} />
+                        </Routes>
+                    </div>
+                </main>
             </div>
-            );
+        </div>
+    );
 }
 
-            export default App;
+export default App;
