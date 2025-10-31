@@ -83,15 +83,15 @@ code {
     flex: 1 1 0%;
 }
 
-.space-x-2 > * + * {
+.space-x-2>*+* {
     margin-left: 0.5rem;
 }
 
-.space-x-3 > * + * {
+.space-x-3>*+* {
     margin-left: 0.75rem;
 }
 
-.space-x-4 > * + * {
+.space-x-4>*+* {
     margin-left: 1rem;
 }
 
@@ -957,7 +957,7 @@ code {
     .sm\\:grid-cols-2 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    
+
     .sm\\:px-6 {
         padding-left: 1.5rem;
         padding-right: 1.5rem;
@@ -968,20 +968,20 @@ code {
     .md\\:grid-cols-2 {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    
+
     .md\\:grid-cols-3 {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    
+
     .md\\:px-8 {
         padding-left: 2rem;
         padding-right: 2rem;
     }
-    
+
     .md\\:flex {
         display: flex;
     }
-    
+
     .md\\:hidden {
         display: none;
     }
@@ -991,11 +991,11 @@ code {
     .lg\\:grid-cols-3 {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-    
+
     .lg\\:grid-cols-4 {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
-    
+
     .lg\\:px-8 {
         padding-left: 2rem;
         padding-right: 2rem;
@@ -1006,7 +1006,7 @@ code {
     .xl\\:grid-cols-4 {
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
-    
+
     .xl\\:grid-cols-5 {
         grid-template-columns: repeat(5, minmax(0, 1fr));
     }
@@ -1049,11 +1049,15 @@ code {
 }
 
 @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Ensure proper box model for all elements */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
