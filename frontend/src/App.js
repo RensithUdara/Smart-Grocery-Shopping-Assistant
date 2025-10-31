@@ -127,10 +127,10 @@ function App() {
                                 >
                                     <div className={`
                     p-2 rounded-lg mr-3 transition-all duration-200
-                    ${isActive 
-                        ? 'bg-white/20 shadow-lg' 
-                        : 'bg-slate-700/50 group-hover:bg-slate-600/50'
-                    }
+                    ${isActive
+                                            ? 'bg-white/20 shadow-lg'
+                                            : 'bg-slate-700/50 group-hover:bg-slate-600/50'
+                                        }
                   `}>
                                         <Icon className="h-5 w-5 flex-shrink-0" />
                                     </div>
@@ -163,16 +163,26 @@ function App() {
             </div>
 
             {/* Main content */}
-            <div className="lg:pl-64">
+            <div className="lg:pl-72">
                 {/* Top bar */}
-                <div className="sticky top-0 z-30 bg-white border-b border-gray-200 px-6 py-4">
-                    <div className="flex items-center justify-between">
-                        <button
-                            onClick={() => setSidebarOpen(true)}
-                            className="lg:hidden text-gray-400 hover:text-gray-600"
-                        >
-                            <Menu className="h-6 w-6" />
-                        </button>
+                <div className="sticky top-0 z-30 bg-white/95 backdrop-blur-sm border-b border-gray-200/60 shadow-sm">
+                    <div className="flex items-center justify-between px-6 py-4">
+                        <div className="flex items-center space-x-4">
+                            <button
+                                onClick={() => setSidebarOpen(true)}
+                                className="lg:hidden p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200"
+                            >
+                                <Menu className="h-6 w-6" />
+                            </button>
+                            <div className="hidden lg:block">
+                                <h1 className="text-2xl font-bold text-gray-900 capitalize">
+                                    {navigation.find(item => item.href === location.pathname)?.name || 'Dashboard'}
+                                </h1>
+                                <p className="text-sm text-gray-500 mt-1">
+                                    Welcome back! Here's what's happening with your groceries today.
+                                </p>
+                            </div>
+                        </div>
 
                         <div className="flex-1 lg:flex lg:items-center lg:justify-between">
                             <h1 className="text-2xl font-semibold text-gray-900 lg:ml-0 ml-4">
