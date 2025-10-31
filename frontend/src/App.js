@@ -190,16 +190,16 @@ function App() {
                                 <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
                                 <span className="text-sm font-medium text-gray-600">All systems operational</span>
                             </div>
-                            
+
                             <button className="relative p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200">
                                 <Clock className="h-6 w-6" />
                                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
                             </button>
-                            
+
                             <button className="p-2 rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all duration-200">
                                 <Heart className="h-6 w-6" />
                             </button>
-                            
+
                             <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center cursor-pointer">
                                 <span className="text-white font-semibold text-sm">U</span>
                             </div>
@@ -208,16 +208,18 @@ function App() {
                 </div>
 
                 {/* Page content */}
-                <main className="flex-1 p-6">
-                    <Routes>
-                        <Route path="/" element={<Dashboard />} />
-                        <Route path="/shopping-list" element={<ShoppingList />} />
-                        <Route path="/suggestions" element={<Suggestions />} />
-                        <Route path="/expiration" element={<ExpirationTracker />} />
-                        <Route path="/health" element={<HealthRecommendations />} />
-                        <Route path="/analytics" element={<Analytics />} />
-                        <Route path="/settings" element={<SettingsPage />} />
-                    </Routes>
+                <main className="flex-1 p-6 bg-gray-50/50 min-h-screen">
+                    <div className="max-w-7xl mx-auto">
+                        <Routes>
+                            <Route path="/" element={<Dashboard />} />
+                            <Route path="/shopping-list" element={<ShoppingList />} />
+                            <Route path="/suggestions" element={<Suggestions />} />
+                            <Route path="/expiration" element={<ExpirationTracker />} />
+                            <Route path="/health" element={<HealthRecommendations />} />
+                            <Route path="/analytics" element={<Analytics />} />
+                            <Route path="/settings" element={<SettingsPage />} />
+                        </Routes>
+                    </div>
                 </main>
             </div>
         </div>
