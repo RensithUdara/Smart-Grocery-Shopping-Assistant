@@ -109,3 +109,33 @@ def get_meal_plans():
     ]
     
     return jsonify(meal_suggestions)
+
+@expiration_bp.route('/expiration/summary', methods=['GET'])
+def get_expiration_summary():
+    """Get expiration summary for dashboard"""
+    history = data_manager.load_purchase_history()
+    
+    # Check expiring items for different time periods
+    expired_items = expiration_tracker.check_expiring_items(history, -1)  # Already expired
+    urgent_items = expiration_tracker.check_expiring_items(history, 2)    # Expires in 2 days
+    warning_items = expiration_tracker.check_expiring_items(history, 7)   # Expires in 7 days
+    
+    # Count total items in each category
+    expired_count = sum(len(items) for items in expired_items.values())
+    urgent_count = sum(len(items) for items in urgent_items.values())
+    warning_count = sum(len(items) for items in warning_items.values())
+    
+    # Remove urgent items from warning count to avoid double counting
+    warning_count = max(0, warning_count - urgent_count)
+    
+    needs_attention = expired_count > 0 or urgent_count > 0
+    
+    summary = {
+        'expired_items': expired_count,
+        'urgent_items': urgent_count,
+        'warning_items': warning_count,
+        'needs_attention': needs_attention,
+        'total_items': expired_count + urgent_count + warning_count
+    }
+    
+    return jsonify(summary)
