@@ -153,48 +153,57 @@ function App() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-gray-50">
             {/* Mobile sidebar backdrop */}
             {sidebarOpen && (
                 <div
-                    className="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"
+                    className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm lg:hidden"
                     onClick={closeSidebar}
                 />
             )}
 
             {/* Sidebar */}
             <div className={`
-        fixed inset-y-0 left-0 z-50 w-72 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 shadow-2xl transform transition-all duration-300 ease-in-out
+        fixed inset-y-0 left-0 z-50 w-80 bg-white/95 backdrop-blur-xl shadow-2xl border-r border-gray-200/50 transform transition-all duration-300 ease-in-out
         lg:translate-x-0 lg:static lg:inset-0
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
                 {/* Header */}
-                <div className="flex items-center justify-between h-20 px-6 border-b border-slate-700/50">
-                    <div className="flex items-center space-x-3">
-                        <div className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-lg">
-                            <ShoppingCart className="h-7 w-7 text-white" />
-                        </div>
-                        <div>
-                            <span className="text-xl font-bold text-white">
-                                Smart Grocery
-                            </span>
-                            <div className="text-sm text-slate-300 -mt-1">
-                                Assistant
+                <div className="relative h-24 px-6 flex items-center bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 overflow-hidden">
+                    <div className="absolute inset-0 bg-black/10"></div>
+                    <div className="relative z-10 flex items-center justify-between w-full">
+                        <div className="flex items-center space-x-4">
+                            <div className="relative">
+                                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center shadow-lg">
+                                    <Sparkles className="h-7 w-7 text-white" />
+                                </div>
+                                <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full animate-pulse"></div>
+                            </div>
+                            <div>
+                                <h1 className="text-xl font-bold text-white tracking-wide">
+                                    Smart Grocery
+                                </h1>
+                                <p className="text-white/80 text-sm font-medium -mt-1">
+                                    Your AI Assistant ✨
+                                </p>
                             </div>
                         </div>
+                        <button
+                            onClick={closeSidebar}
+                            className="lg:hidden p-2 rounded-xl bg-white/20 hover:bg-white/30 text-white transition-all duration-200"
+                        >
+                            <X className="h-5 w-5" />
+                        </button>
                     </div>
-                    <button
-                        onClick={closeSidebar}
-                        className="lg:hidden p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-700/50 transition-all duration-200"
-                    >
-                        <X className="h-5 w-5" />
-                    </button>
+                    {/* Decorative shapes */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
                 </div>
 
                 {/* Navigation */}
-                <nav className="mt-8 px-4">
-                    <div className="space-y-2">
-                        {navigation.map((item) => {
+                <nav className="mt-6 px-4">
+                    <div className="space-y-3">
+                        {navigation.map((item, index) => {
                             const isActive = location.pathname === item.href;
                             const Icon = item.icon;
 
@@ -204,26 +213,40 @@ function App() {
                                     to={item.href}
                                     onClick={closeSidebar}
                                     className={`
-                    group flex items-center px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-200 ease-in-out relative overflow-hidden
+                    group block p-4 rounded-2xl transition-all duration-300 ease-in-out relative overflow-hidden hover:scale-105
                     ${isActive
-                                            ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/25 scale-105'
-                                            : 'text-slate-300 hover:text-white hover:bg-slate-700/50 hover:scale-105 hover:shadow-lg'
+                                            ? `bg-gradient-to-r ${item.gradient} text-white shadow-xl transform scale-105`
+                                            : `hover:${item.bgColor} text-gray-700 hover:shadow-lg border-2 border-transparent hover:border-gray-100`
                                         }
                   `}
                                 >
-                                    <div className={`
-                    p-2 rounded-lg mr-3 transition-all duration-200
-                    ${isActive
-                                            ? 'bg-white/20 shadow-lg'
-                                            : 'bg-slate-700/50 group-hover:bg-slate-600/50'
-                                        }
-                  `}>
-                                        <Icon className="h-5 w-5 flex-shrink-0" />
+                                    <div className="flex items-center space-x-4">
+                                        <div className={`
+                      p-3 rounded-xl transition-all duration-300
+                      ${isActive
+                                                ? 'bg-white/20 shadow-lg'
+                                                : `${item.bgColor} group-hover:scale-110`
+                                            }
+                    `}>
+                                            <Icon className={`h-6 w-6 ${isActive ? 'text-white' : item.textColor}`} />
+                                        </div>
+                                        <div className="flex-1">
+                                            <h3 className={`font-semibold text-lg ${isActive ? 'text-white' : 'text-gray-800'}`}>
+                                                {item.name}
+                                            </h3>
+                                            <p className={`text-sm mt-1 ${isActive ? 'text-white/80' : 'text-gray-500'}`}>
+                                                {item.description}
+                                            </p>
+                                        </div>
+                                        {isActive && (
+                                            <div className="flex space-x-1">
+                                                <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                                                <div className="w-2 h-2 bg-white/70 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                                            </div>
+                                        )}
                                     </div>
-                                    <span className="flex-1">{item.name}</span>
-                                    {isActive && (
-                                        <div className="w-2 h-2 bg-white rounded-full shadow-lg"></div>
-                                    )}
+                                    {/* Decorative gradient overlay for hover effect */}
+                                    <div className={`absolute inset-0 bg-gradient-to-r ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300 rounded-2xl`}></div>
                                 </Link>
                             );
                         })}
@@ -231,19 +254,25 @@ function App() {
                 </nav>
 
                 {/* User Profile Section */}
-                <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-700/50">
-                    <div className="flex items-center space-x-3 p-3 rounded-xl bg-slate-800/50 hover:bg-slate-700/50 transition-all duration-200 cursor-pointer">
-                        <div className="w-10 h-10 bg-gradient-to-r from-emerald-400 to-blue-500 rounded-full flex items-center justify-center">
-                            <span className="text-white font-semibold text-sm">U</span>
+                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-r from-gray-50 to-white rounded-t-3xl border-t border-gray-200">
+                    <div className="flex items-center space-x-4 p-4 rounded-2xl bg-white hover:shadow-lg transition-all duration-300 cursor-pointer border border-gray-100">
+                        <div className="relative">
+                            <div className="w-12 h-12 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded-2xl flex items-center justify-center shadow-lg">
+                                <User className="h-6 w-6 text-white" />
+                            </div>
+                            <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white shadow-sm animate-pulse"></div>
                         </div>
                         <div className="flex-1">
-                            <div className="text-sm font-medium text-white">User</div>
-                            <div className="text-xs text-slate-400">Premium Member</div>
+                            <div className="text-base font-bold text-gray-800">Alex Johnson</div>
+                            <div className="text-sm text-gray-500 flex items-center space-x-2">
+                                <span>Premium Pro</span>
+                                <div className="w-1 h-1 bg-gray-400 rounded-full"></div>
+                                <span className="text-purple-600 font-medium">✨ AI Enhanced</span>
+                            </div>
                         </div>
-                        <Settings className="h-4 w-4 text-slate-400" />
-                    </div>
-                    <div className="text-xs text-slate-500 text-center mt-3">
-                        v1.0.0 • Smart Grocery Assistant
+                        <div className="p-2 rounded-xl hover:bg-gray-100 transition-colors">
+                            <Settings className="h-5 w-5 text-gray-400" />
+                        </div>
                     </div>
                 </div>
             </div>
