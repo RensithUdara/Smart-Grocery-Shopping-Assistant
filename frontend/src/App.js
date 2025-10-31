@@ -36,64 +36,64 @@ function App() {
     const location = useLocation();
 
     const navigation = [
-        { 
-            name: 'Dashboard', 
-            href: '/', 
-            icon: Home, 
+        {
+            name: 'Dashboard',
+            href: '/',
+            icon: Home,
             description: 'Overview of your grocery status',
             gradient: 'from-purple-400 to-pink-400',
             bgColor: 'bg-purple-50',
             textColor: 'text-purple-600'
         },
-        { 
-            name: 'Shopping List', 
-            href: '/shopping-list', 
-            icon: ShoppingCart, 
+        {
+            name: 'Shopping List',
+            href: '/shopping-list',
+            icon: ShoppingCart,
             description: 'Manage your shopping items',
             gradient: 'from-blue-400 to-cyan-400',
             bgColor: 'bg-blue-50',
             textColor: 'text-blue-600'
         },
-        { 
-            name: 'Smart Suggestions', 
-            href: '/suggestions', 
-            icon: Brain, 
+        {
+            name: 'Smart Suggestions',
+            href: '/suggestions',
+            icon: Brain,
             description: 'AI-powered recommendations',
             gradient: 'from-emerald-400 to-teal-400',
             bgColor: 'bg-emerald-50',
             textColor: 'text-emerald-600'
         },
-        { 
-            name: 'Expiration Tracker', 
-            href: '/expiration', 
-            icon: Clock, 
+        {
+            name: 'Expiration Tracker',
+            href: '/expiration',
+            icon: Clock,
             description: 'Track item freshness',
             gradient: 'from-orange-400 to-red-400',
             bgColor: 'bg-orange-50',
             textColor: 'text-orange-600'
         },
-        { 
-            name: 'Health Guide', 
-            href: '/health', 
-            icon: Heart, 
+        {
+            name: 'Health Guide',
+            href: '/health',
+            icon: Heart,
             description: 'Nutritional insights',
             gradient: 'from-rose-400 to-pink-400',
             bgColor: 'bg-rose-50',
             textColor: 'text-rose-600'
         },
-        { 
-            name: 'Analytics', 
-            href: '/analytics', 
-            icon: BarChart3, 
+        {
+            name: 'Analytics',
+            href: '/analytics',
+            icon: BarChart3,
             description: 'Shopping patterns & trends',
             gradient: 'from-indigo-400 to-purple-400',
             bgColor: 'bg-indigo-50',
             textColor: 'text-indigo-600'
         },
-        { 
-            name: 'Settings', 
-            href: '/settings', 
-            icon: Settings, 
+        {
+            name: 'Settings',
+            href: '/settings',
+            icon: Settings,
             description: 'Customize your experience',
             gradient: 'from-gray-400 to-slate-400',
             bgColor: 'bg-gray-50',
