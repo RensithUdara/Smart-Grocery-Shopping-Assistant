@@ -1027,7 +1027,8 @@ code {
 
 /* Additional component fixes */
 .sidebar {
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(20px);
 }
 
 .sidebar-open {
@@ -1036,6 +1037,65 @@ code {
 
 .sidebar-closed {
     transform: translateX(-100%);
+}
+
+/* Enhanced sidebar animations */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes navItemAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(200%) rotate(45deg);
+    }
+}
+
+@keyframes floatingGlow {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-10px) scale(1.05);
+        opacity: 1;
+    }
+}
+
+.nav-item-stagger {
+    animation: navItemAppear 0.6s ease-out forwards;
+}
+
+.floating-glow {
+    animation: floatingGlow 3s ease-in-out infinite;
+}
+
+/* Enhanced gradient borders */
+.border-gradient {
+    position: relative;
+    background: linear-gradient(white, white) padding-box,
+                linear-gradient(135deg, rgba(147, 51, 234, 0.3), rgba(219, 39, 119, 0.3)) border-box;
+    border: 2px solid transparent;
 }
 
 /* Loading spinner */
@@ -1098,11 +1158,63 @@ code {
     from {
         transform: translateX(-100%);
     }
-
     to {
         transform: translateX(0);
     }
 }
+
+/* Modern glassmorphism utilities */
+.glass-morphism {
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.glass-morphism-strong {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Enhanced hover effects */
+.hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+/* Gradient text utilities */
+.text-gradient-purple {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-gradient-rainbow {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Navigation specific animations */
+.nav-item {
+    animation: slideInLeft 0.5s ease-out forwards;
+    animation-fill-mode: both;
+}
+
+/* Staggered animation delays */
+.nav-item:nth-child(1) { animation-delay: 0.1s; }
+.nav-item:nth-child(2) { animation-delay: 0.2s; }
+.nav-item:nth-child(3) { animation-delay: 0.3s; }
+.nav-item:nth-child(4) { animation-delay: 0.4s; }
+.nav-item:nth-child(5) { animation-delay: 0.5s; }
+.nav-item:nth-child(6) { animation-delay: 0.6s; }
+.nav-item:nth-child(7) { animation-delay: 0.7s; }
 
 @keyframes bounce {
 
