@@ -10,6 +10,7 @@ import Dashboard from './pages/Dashboard';
 import ShoppingList from './pages/ShoppingList';
 import Suggestions from './pages/Suggestions';
 import Expiration from './pages/Expiration';
+import MealPlanning from './pages/MealPlanning';
 import Budget from './pages/Budget';
 import Analytics from './pages/Analytics';
 import PurchaseHistory from './pages/PurchaseHistory';
