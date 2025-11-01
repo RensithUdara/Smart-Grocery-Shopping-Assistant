@@ -1,37 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import {
-  Box,
-  Typography,
-  Card,
-  CardContent,
-  Chip,
-  Button,
-  TextField,
-  Tabs,
-  Tab,
-  List,
-  ListItem,
-  ListItemText,
-  LinearProgress,
-  Alert,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper
+    Box,
+    Typography,
+    Card,
+    CardContent,
+    Chip,
+    Button,
+    TextField,
+    Tabs,
+    Tab,
+    List,
+    ListItem,
+    ListItemText,
+    LinearProgress,
+    Alert,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper
 } from '@mui/material';
 import {
-  Store as StoreIcon,
-  Compare as CompareIcon,
-  LocationOn as LocationIcon,
-  Star as StarIcon,
-  AttachMoney as MoneyIcon,
-  ShoppingCart as CartIcon,
-  Refresh as RefreshIcon
+    Store as StoreIcon,
+    Compare as CompareIcon,
+    LocationOn as LocationIcon,
+    Star as StarIcon,
+    AttachMoney as MoneyIcon,
+    ShoppingCart as CartIcon,
+    Refresh as RefreshIcon
 } from '@mui/icons-material';
-import apiService from '../services/api';interface TabPanelProps {
+import apiService from '../services/api'; interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
     value: number;
