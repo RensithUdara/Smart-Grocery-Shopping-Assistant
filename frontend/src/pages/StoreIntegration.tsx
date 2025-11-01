@@ -348,44 +348,44 @@ const StoreIntegration: React.FC = () => {
 
                 <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 2 }}>
                     {nearbyStores.map((store) => (
-                            <Card
-                                sx={{
-                                    cursor: 'pointer',
-                                    border: selectedStores.includes(store.store_id) ? '2px solid #1976d2' : '1px solid #e0e0e0'
-                                }}
-                                onClick={() => handleStoreSelection(store.store_id)}
-                            >
-                                <CardContent>
-                                    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                                        <Typography variant="h6" component="div">
-                                            {store.name}
-                                        </Typography>
-                                        <Chip
-                                            icon={<StarIcon />}
-                                            label={store.ratings}
-                                            size="small"
-                                            color="primary"
-                                        />
-                                    </Box>
-
-                                    <Typography color="text.secondary" gutterBottom>
-                                        <LocationIcon sx={{ fontSize: 16, mr: 0.5 }} />
-                                        {store.address}
+                        <Card
+                            sx={{
+                                cursor: 'pointer',
+                                border: selectedStores.includes(store.store_id) ? '2px solid #1976d2' : '1px solid #e0e0e0'
+                            }}
+                            onClick={() => handleStoreSelection(store.store_id)}
+                        >
+                            <CardContent>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
+                                    <Typography variant="h6" component="div">
+                                        {store.name}
                                     </Typography>
+                                    <Chip
+                                        icon={<StarIcon />}
+                                        label={store.ratings}
+                                        size="small"
+                                        color="primary"
+                                    />
+                                </Box>
 
-                                    <Typography variant="body2">
-                                        Distance: {store.distance} miles
-                                    </Typography>
+                                <Typography color="text.secondary" gutterBottom>
+                                    <LocationIcon sx={{ fontSize: 16, mr: 0.5 }} />
+                                    {store.address}
+                                </Typography>
 
-                                    <Box sx={{ mt: 1 }}>
-                                        <Chip
-                                            label={selectedStores.includes(store.store_id) ? 'Selected' : 'Click to Select'}
-                                            size="small"
-                                            color={selectedStores.includes(store.store_id) ? 'success' : 'default'}
-                                        />
-                                    </Box>
-                                </CardContent>
-                            </Card>
+                                <Typography variant="body2">
+                                    Distance: {store.distance} miles
+                                </Typography>
+
+                                <Box sx={{ mt: 1 }}>
+                                    <Chip
+                                        label={selectedStores.includes(store.store_id) ? 'Selected' : 'Click to Select'}
+                                        size="small"
+                                        color={selectedStores.includes(store.store_id) ? 'success' : 'default'}
+                                    />
+                                </Box>
+                            </CardContent>
+                        </Card>
                     ))}
                 </Box>
             </TabPanel>
@@ -399,90 +399,91 @@ const StoreIntegration: React.FC = () => {
                         {/* Store Totals Summary */}
                         <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 2, mb: 3 }}>
                             {Object.entries(priceComparison.store_totals || {}).map(([storeId, data]: [string, any]) => (
-                                    <Card>
-                                        <CardContent>
-                                            <Typography variant="h6">{data.store_name}</Typography>
-                                            <Typography variant="h4" color="primary">
-                                                {formatCurrency(data.total)}
+                                <Card>
+                                    <CardContent>
+                                        <Typography variant="h6">{data.store_name}</Typography>
+                                        <Typography variant="h4" color="primary">
+                                            {formatCurrency(data.total)}
+                                        </Typography>
+                                        <Typography color="text.secondary">
+                                            {data.items_available}/{shoppingList.length} items available
+                                        </Typography>
+                                        {data.items_missing > 0 && (
+                                            <Typography color="error" variant="body2">
+                                                {data.items_missing} items missing
                                             </Typography>
-                                            <Typography color="text.secondary">
-                                                {data.items_available}/{shoppingList.length} items available
-                                            </Typography>
-                                            {data.items_missing > 0 && (
-                                                <Typography color="error" variant="body2">
-                                                    {data.items_missing} items missing
-                                                </Typography>
-                                            )}
-                                        </CardContent>
-                                    </Card>
+                                        )}
+                                    </CardContent>
+                                </Card>
                                 </Grid>
                             ))}
-                        </Grid>
+                    </Grid>
 
                         {/* Detailed Item Comparison */}
-                        <TableContainer component={Paper}>
-                            <Table>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Item</TableCell>
-                                        {nearbyStores.slice(0, 4).map(store => (
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Item</TableCell>
+                                {nearbyStores.slice(0, 4).map(store => (
+                                    <TableCell key={store.store_id} align="center">
+                                        {store.name}
+                                    </TableCell>
+                                ))}
+                                <TableCell align="center">Best Deal</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {shoppingList.map((item) => (
+                                <TableRow key={item}>
+                                    <TableCell>{item}</TableCell>
+                                    {nearbyStores.slice(0, 4).map(store => {
+                                        const itemData = priceComparison.items?.[item]?.[store.store_id];
+                                        return (
                                             <TableCell key={store.store_id} align="center">
-                                                {store.name}
-                                            </TableCell>
-                                        ))}
-                                        <TableCell align="center">Best Deal</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {shoppingList.map((item) => (
-                                        <TableRow key={item}>
-                                            <TableCell>{item}</TableCell>
-                                            {nearbyStores.slice(0, 4).map(store => {
-                                                const itemData = priceComparison.items?.[item]?.[store.store_id];
-                                                return (
-                                                    <TableCell key={store.store_id} align="center">
-                                                        {itemData ? (
-                                                            <Box>
-                                                                <Typography variant="body2">
-                                                                    {formatCurrency(itemData.price)}
-                                                                </Typography>
-                                                                <Chip
-                                                                    label={itemData.in_stock ? 'In Stock' : 'Out of Stock'}
-                                                                    size="small"
-                                                                    color={itemData.in_stock ? 'success' : 'error'}
-                                                                />
-                                                            </Box>
-                                                        ) : (
-                                                            <Typography variant="body2" color="text.secondary">
-                                                                N/A
-                                                            </Typography>
-                                                        )}
-                                                    </TableCell>
-                                                );
-                                            })}
-                                            <TableCell align="center">
-                                                {priceComparison.best_deals?.[item] && (
+                                                {itemData ? (
                                                     <Box>
-                                                        <Typography variant="body2" color="success.main">
-                                                            {formatCurrency(priceComparison.best_deals[item].price)}
+                                                        <Typography variant="body2">
+                                                            {formatCurrency(itemData.price)}
                                                         </Typography>
-                                                        <Typography variant="caption">
-                                                            {priceComparison.best_deals[item].store_name}
-                                                        </Typography>
+                                                        <Chip
+                                                            label={itemData.in_stock ? 'In Stock' : 'Out of Stock'}
+                                                            size="small"
+                                                            color={itemData.in_stock ? 'success' : 'error'}
+                                                        />
                                                     </Box>
+                                                ) : (
+                                                    <Typography variant="body2" color="text.secondary">
+                                                        N/A
+                                                    </Typography>
                                                 )}
                                             </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </Box>
-                )}
-            </TabPanel>
+                                        );
+                                    })}
+                                    <TableCell align="center">
+                                        {priceComparison.best_deals?.[item] && (
+                                            <Box>
+                                                <Typography variant="body2" color="success.main">
+                                                    {formatCurrency(priceComparison.best_deals[item].price)}
+                                                </Typography>
+                                                <Typography variant="caption">
+                                                    {priceComparison.best_deals[item].store_name}
+                                                </Typography>
+                                            </Box>
+                                        )}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+        </Box>
+    )
+}
+            </TabPanel >
 
-            {/* Recommendations Tab */}
-            <TabPanel value={tabValue} index={2}>
+    {/* Recommendations Tab */ }
+    < TabPanel value = { tabValue } index = { 2} >
                 <Typography variant="h6" gutterBottom>Store Recommendations</Typography>
 
                 <Grid container spacing={2}>
@@ -546,136 +547,140 @@ const StoreIntegration: React.FC = () => {
                         </Grid>
                     ))}
                 </Grid>
-            </TabPanel>
+            </TabPanel >
 
-            {/* Price History Tab */}
-            <TabPanel value={tabValue} index={3}>
-                <Box sx={{ display: 'flex', gap: 2, mb: 3, alignItems: 'center' }}>
-                    <FormControl sx={{ minWidth: 200 }}>
-                        <InputLabel>Select Item</InputLabel>
-                        <Select
-                            value={selectedItem}
-                            label="Select Item"
-                            onChange={(e) => setSelectedItem(e.target.value)}
-                        >
-                            {shoppingList.map((item) => (
-                                <MenuItem key={item} value={item}>
-                                    {item}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                    <Button
-                        variant="contained"
-                        onClick={() => selectedItem && loadPriceHistory(selectedItem)}
-                        disabled={!selectedItem || loading}
-                    >
-                        Get Price History
-                    </Button>
-                </Box>
+    {/* Price History Tab */ }
+    < TabPanel value = { tabValue } index = { 3} >
+        <Box sx={{ display: 'flex', gap: 2, mb: 3, alignItems: 'center' }}>
+            <FormControl sx={{ minWidth: 200 }}>
+                <InputLabel>Select Item</InputLabel>
+                <Select
+                    value={selectedItem}
+                    label="Select Item"
+                    onChange={(e) => setSelectedItem(e.target.value)}
+                >
+                    {shoppingList.map((item) => (
+                        <MenuItem key={item} value={item}>
+                            {item}
+                        </MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
+            <Button
+                variant="contained"
+                onClick={() => selectedItem && loadPriceHistory(selectedItem)}
+                disabled={!selectedItem || loading}
+            >
+                Get Price History
+            </Button>
+        </Box>
 
-                {priceHistory && (
-                    <Box>
-                        <Typography variant="h6" gutterBottom>
-                            Price History: {priceHistory.item_name}
-                        </Typography>
+{
+    priceHistory && (
+        <Box>
+            <Typography variant="h6" gutterBottom>
+                Price History: {priceHistory.item_name}
+            </Typography>
 
-                        <Grid container spacing={2}>
-                            {Object.entries(priceHistory.price_history).map(([storeId, data]: [string, any]) => (
-                                <Grid item xs={12} md={6} key={storeId}>
-                                    <Card>
-                                        <CardContent>
-                                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                                                <Typography variant="h6">{data.store_name}</Typography>
-                                                {getTrendIcon(data.price_trend)}
-                                            </Box>
+            <Grid container spacing={2}>
+                {Object.entries(priceHistory.price_history).map(([storeId, data]: [string, any]) => (
+                    <Grid item xs={12} md={6} key={storeId}>
+                        <Card>
+                            <CardContent>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                                    <Typography variant="h6">{data.store_name}</Typography>
+                                    {getTrendIcon(data.price_trend)}
+                                </Box>
 
-                                            <Typography variant="h5" color="primary" gutterBottom>
-                                                {formatCurrency(data.current_price)}
-                                            </Typography>
+                                <Typography variant="h5" color="primary" gutterBottom>
+                                    {formatCurrency(data.current_price)}
+                                </Typography>
 
-                                            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                                                <Typography variant="body2">
-                                                    Trend: <Chip label={data.price_trend} size="small" />
-                                                </Typography>
-                                            </Box>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                                    <Typography variant="body2">
+                                        Trend: <Chip label={data.price_trend} size="small" />
+                                    </Typography>
+                                </Box>
 
-                                            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                <Typography variant="caption">
-                                                    Low: {formatCurrency(data.lowest_price)}
-                                                </Typography>
-                                                <Typography variant="caption">
-                                                    High: {formatCurrency(data.highest_price)}
-                                                </Typography>
-                                            </Box>
-                                        </CardContent>
-                                    </Card>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Box>
-                )}
-            </TabPanel>
-
-            {/* Current Deals Tab */}
-            <TabPanel value={tabValue} index={4}>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                    <Typography variant="h6">Current Deals & Promotions</Typography>
-                    <IconButton onClick={loadCurrentDeals} disabled={loading}>
-                        <RefreshIcon />
-                    </IconButton>
-                </Box>
-
-                {currentDeals.map((storeDeals) => (
-                    <Accordion key={storeDeals.store_id} sx={{ mb: 2 }}>
-                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                                <OffersIcon />
-                                <Typography variant="h6">{storeDeals.store_name}</Typography>
-                                <Chip
-                                    label={`${storeDeals.deals_count} deals`}
-                                    size="small"
-                                    color="secondary"
-                                />
-                            </Box>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Grid container spacing={2}>
-                                {storeDeals.deals.map((deal: any, index: number) => (
-                                    <Grid item xs={12} sm={6} md={4} key={index}>
-                                        <Card variant="outlined">
-                                            <CardContent>
-                                                <Typography variant="h6" color="primary">
-                                                    {deal.item_name}
-                                                </Typography>
-                                                <Typography color="text.secondary" gutterBottom>
-                                                    {deal.category}
-                                                </Typography>
-                                                <Typography variant="h5">
-                                                    {formatCurrency(deal.price)}
-                                                </Typography>
-                                                <Typography variant="body2">
-                                                    per {deal.unit}
-                                                </Typography>
-                                                <Box sx={{ mt: 1 }}>
-                                                    <Chip
-                                                        label={deal.deal_type === 'clearance' ? 'Clearance' : 'Special Price'}
-                                                        size="small"
-                                                        color={deal.deal_type === 'clearance' ? 'warning' : 'success'}
-                                                    />
-                                                </Box>
-                                            </CardContent>
-                                        </Card>
-                                    </Grid>
-                                ))}
-                            </Grid>
-                        </AccordionDetails>
-                    </Accordion>
+                                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <Typography variant="caption">
+                                        Low: {formatCurrency(data.lowest_price)}
+                                    </Typography>
+                                    <Typography variant="caption">
+                                        High: {formatCurrency(data.highest_price)}
+                                    </Typography>
+                                </Box>
+                            </CardContent>
+                        </Card>
+                    </Grid>
                 ))}
-            </TabPanel>
+            </Grid>
+        </Box>
+    )
+}
+            </TabPanel >
 
-            {/* Route Optimization Dialog */}
-            <Dialog open={routeDialogOpen} onClose={() => setRouteDialogOpen(false)} maxWidth="md" fullWidth>
+    {/* Current Deals Tab */ }
+    < TabPanel value = { tabValue } index = { 4} >
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Typography variant="h6">Current Deals & Promotions</Typography>
+            <IconButton onClick={loadCurrentDeals} disabled={loading}>
+                <RefreshIcon />
+            </IconButton>
+        </Box>
+
+{
+    currentDeals.map((storeDeals) => (
+        <Accordion key={storeDeals.store_id} sx={{ mb: 2 }}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                    <OffersIcon />
+                    <Typography variant="h6">{storeDeals.store_name}</Typography>
+                    <Chip
+                        label={`${storeDeals.deals_count} deals`}
+                        size="small"
+                        color="secondary"
+                    />
+                </Box>
+            </AccordionSummary>
+            <AccordionDetails>
+                <Grid container spacing={2}>
+                    {storeDeals.deals.map((deal: any, index: number) => (
+                        <Grid item xs={12} sm={6} md={4} key={index}>
+                            <Card variant="outlined">
+                                <CardContent>
+                                    <Typography variant="h6" color="primary">
+                                        {deal.item_name}
+                                    </Typography>
+                                    <Typography color="text.secondary" gutterBottom>
+                                        {deal.category}
+                                    </Typography>
+                                    <Typography variant="h5">
+                                        {formatCurrency(deal.price)}
+                                    </Typography>
+                                    <Typography variant="body2">
+                                        per {deal.unit}
+                                    </Typography>
+                                    <Box sx={{ mt: 1 }}>
+                                        <Chip
+                                            label={deal.deal_type === 'clearance' ? 'Clearance' : 'Special Price'}
+                                            size="small"
+                                            color={deal.deal_type === 'clearance' ? 'warning' : 'success'}
+                                        />
+                                    </Box>
+                                </CardContent>
+                            </Card>
+                        </Grid>
+                    ))}
+                </Grid>
+            </AccordionDetails>
+        </Accordion>
+    ))
+}
+            </TabPanel >
+
+    {/* Route Optimization Dialog */ }
+    < Dialog open = { routeDialogOpen } onClose = {() => setRouteDialogOpen(false)} maxWidth = "md" fullWidth >
                 <DialogTitle>
                     <RouteIcon sx={{ mr: 1 }} />
                     Optimized Shopping Route
@@ -712,10 +717,10 @@ const StoreIntegration: React.FC = () => {
                 <DialogActions>
                     <Button onClick={() => setRouteDialogOpen(false)}>Close</Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog >
 
-            {/* Shopping Strategy Dialog */}
-            <Dialog open={strategyDialogOpen} onClose={() => setStrategyDialogOpen(false)} maxWidth="md" fullWidth>
+    {/* Shopping Strategy Dialog */ }
+    < Dialog open = { strategyDialogOpen } onClose = {() => setStrategyDialogOpen(false)} maxWidth = "md" fullWidth >
                 <DialogTitle>Smart Shopping Strategy</DialogTitle>
                 <DialogContent>
                     {shoppingStrategy && (
@@ -788,8 +793,8 @@ const StoreIntegration: React.FC = () => {
                 <DialogActions>
                     <Button onClick={() => setStrategyDialogOpen(false)}>Close</Button>
                 </DialogActions>
-            </Dialog>
-        </Box>
+            </Dialog >
+        </Box >
     );
 };
 
