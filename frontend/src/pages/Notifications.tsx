@@ -157,7 +157,7 @@ const Notifications: React.FC = () => {
         try {
             setLoading(true);
             const response = await apiService.post('/notifications/preferences', newPreferences);
-            if (response.status === 'success') {
+            if (response.data.status === 'success') {
                 setPreferences(newPreferences);
                 showSnackbar('Preferences updated successfully', 'success');
                 setSettingsOpen(false);
