@@ -16,6 +16,7 @@ import {
     Analytics,
     History,
     AccountBalanceWallet,
+    Restaurant,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
