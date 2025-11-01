@@ -15,6 +15,7 @@ import {
     Schedule,
     Analytics,
     History,
+    AccountBalanceWallet,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -28,6 +29,7 @@ const Navbar: React.FC = () => {
         { path: '/shopping-list', label: 'Shopping List', icon: <ShoppingCart /> },
         { path: '/suggestions', label: 'Suggestions', icon: <Lightbulb /> },
         { path: '/expiration', label: 'Expiration', icon: <Schedule /> },
+        { path: '/budget', label: 'Budget', icon: <AccountBalanceWallet /> },
         { path: '/analytics', label: 'Analytics', icon: <Analytics /> },
         { path: '/purchase-history', label: 'History', icon: <History /> },
     ];
