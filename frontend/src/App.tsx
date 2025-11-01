@@ -12,7 +12,9 @@ import Suggestions from './pages/Suggestions';
 import Expiration from './pages/Expiration';
 import MealPlanning from './pages/MealPlanning';
 import Budget from './pages/Budget';
+import EnhancedAnalytics from './pages/EnhancedAnalytics';
 import Notifications from './pages/Notifications';
+import StoreIntegration from './pages/StoreIntegration';
 import Analytics from './pages/Analytics';
 import PurchaseHistory from './pages/PurchaseHistory';
 
@@ -93,6 +95,7 @@ function App() {
               <Route path="/meal-planning" element={<MealPlanning />} />
               <Route path="/budget" element={<Budget />} />
               <Route path="/notifications" element={<Notifications />} />
+              <Route path="/store-integration" element={<StoreIntegration />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/purchase-history" element={<PurchaseHistory />} />
             </Routes>
