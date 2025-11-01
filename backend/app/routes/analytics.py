@@ -7,12 +7,14 @@ from datetime import datetime, timedelta
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
 from src.utils.data_manager import DataManager
+from src.utils.advanced_analytics import AdvancedAnalytics
 from src.models.shopping_list import ShoppingList
 from src.models.purchase_history import PurchaseHistory
 from src.models.grocery_item import GroceryItem
 
 analytics_bp = Blueprint('analytics', __name__)
 data_manager = DataManager()
+advanced_analytics = AdvancedAnalytics()
 
 @analytics_bp.route('/analytics', methods=['GET'])
 def get_analytics():
