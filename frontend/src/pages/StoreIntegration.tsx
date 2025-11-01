@@ -346,9 +346,8 @@ const StoreIntegration: React.FC = () => {
 
                 {loading && <LinearProgress sx={{ mb: 2 }} />}
 
-                <Grid container spacing={2}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 2 }}>
                     {nearbyStores.map((store) => (
-                        <Grid item xs={12} md={6} lg={4} key={store.store_id}>
                             <Card
                                 sx={{
                                     cursor: 'pointer',
@@ -387,9 +386,8 @@ const StoreIntegration: React.FC = () => {
                                     </Box>
                                 </CardContent>
                             </Card>
-                        </Grid>
                     ))}
-                </Grid>
+                </Box>
             </TabPanel>
 
             {/* Price Comparison Tab */}
@@ -399,9 +397,8 @@ const StoreIntegration: React.FC = () => {
                         <Typography variant="h6" gutterBottom>Price Comparison Results</Typography>
 
                         {/* Store Totals Summary */}
-                        <Grid container spacing={2} sx={{ mb: 3 }}>
+                        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 2, mb: 3 }}>
                             {Object.entries(priceComparison.store_totals || {}).map(([storeId, data]: [string, any]) => (
-                                <Grid item xs={12} sm={6} md={4} key={storeId}>
                                     <Card>
                                         <CardContent>
                                             <Typography variant="h6">{data.store_name}</Typography>
