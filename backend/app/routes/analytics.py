@@ -7,12 +7,14 @@ from datetime import datetime, timedelta
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
 
 from src.utils.data_manager import DataManager
+from src.utils.advanced_analytics import AdvancedAnalytics
 from src.models.shopping_list import ShoppingList
 from src.models.purchase_history import PurchaseHistory
 from src.models.grocery_item import GroceryItem
 
 analytics_bp = Blueprint('analytics', __name__)
 data_manager = DataManager()
+advanced_analytics = AdvancedAnalytics()
 
 @analytics_bp.route('/analytics', methods=['GET'])
 def get_analytics():
@@ -214,3 +216,157 @@ def update_preferences():
         return jsonify({'message': 'Preferences updated successfully'})
     else:
         return jsonify({'error': 'Failed to update preferences'}), 500
+
+# Enhanced Analytics Endpoints
+
+@analytics_bp.route('/analytics/enhanced/spending-trends', methods=['GET'])
+def get_enhanced_spending_trends():
+    """Get enhanced spending trends and patterns"""
+    try:
+        days = int(request.args.get('days', 30))
+        trends_data = advanced_analytics.get_spending_trends(days)
+        
+        return jsonify({
+            'status': 'success',
+            'data': trends_data
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Failed to get spending trends: {str(e)}'
+        }), 500
+
+@analytics_bp.route('/analytics/enhanced/nutritional-analysis', methods=['GET'])
+def get_enhanced_nutritional_analysis():
+    """Get nutritional analysis and health insights"""
+    try:
+        days = int(request.args.get('days', 30))
+        nutrition_data = advanced_analytics.get_nutritional_analysis(days)
+        
+        return jsonify({
+            'status': 'success',
+            'data': nutrition_data
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Failed to get nutritional analysis: {str(e)}'
+        }), 500
+
+@analytics_bp.route('/analytics/enhanced/seasonal-patterns', methods=['GET'])
+def get_enhanced_seasonal_patterns():
+    """Get seasonal shopping patterns and recommendations"""
+    try:
+        patterns_data = advanced_analytics.get_seasonal_patterns()
+        
+        return jsonify({
+            'status': 'success',
+            'data': patterns_data
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Failed to get seasonal patterns: {str(e)}'
+        }), 500
+
+@analytics_bp.route('/analytics/enhanced/waste-reduction', methods=['GET'])
+def get_enhanced_waste_reduction():
+    """Get waste reduction metrics and efficiency analysis"""
+    try:
+        waste_data = advanced_analytics.get_waste_reduction_metrics()
+        
+        return jsonify({
+            'status': 'success',
+            'data': waste_data
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Failed to get waste reduction metrics: {str(e)}'
+        }), 500
+
+@analytics_bp.route('/analytics/enhanced/predictive-insights', methods=['GET'])
+def get_enhanced_predictive_insights():
+    """Get enhanced predictive insights for future shopping needs"""
+    try:
+        insights_data = advanced_analytics.get_predictive_insights()
+        
+        return jsonify({
+            'status': 'success',
+            'data': insights_data
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Failed to get predictive insights: {str(e)}'
+        }), 500
+
+@analytics_bp.route('/analytics/enhanced/comprehensive-report', methods=['GET'])
+def get_enhanced_comprehensive_report():
+    """Get comprehensive enhanced analytics report"""
+    try:
+        comprehensive_data = advanced_analytics.generate_comprehensive_report()
+        
+        return jsonify({
+            'status': 'success',
+            'data': comprehensive_data
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Failed to generate comprehensive report: {str(e)}'
+        }), 500
+
+@analytics_bp.route('/analytics/enhanced/dashboard-summary', methods=['GET'])
+def get_enhanced_dashboard_summary():
+    """Get summary data for enhanced analytics dashboard"""
+    try:
+        # Get key metrics for dashboard
+        spending_trends = advanced_analytics.get_spending_trends(30)
+        nutritional_analysis = advanced_analytics.get_nutritional_analysis(30)
+        waste_metrics = advanced_analytics.get_waste_reduction_metrics()
+        predictive_insights = advanced_analytics.get_predictive_insights()
+        
+        summary = {
+            'spending': {
+                'total_30_days': spending_trends['total_spent'],
+                'daily_average': spending_trends['average_daily'],
+                'trend': spending_trends['trend_analysis']['trend'],
+                'change_percent': spending_trends['trend_analysis']['change_percent']
+            },
+            'nutrition': {
+                'health_score': nutritional_analysis['health_score']['overall_score'],
+                'protein_score': nutritional_analysis['health_score']['protein_score'],
+                'fiber_score': nutritional_analysis['health_score']['fiber_score'],
+                'recommendations_count': len(nutritional_analysis['recommendations'])
+            },
+            'efficiency': {
+                'waste_rate': waste_metrics['waste_rate_percentage'],
+                'efficiency_score': waste_metrics['efficiency_score'],
+                'waste_cost': waste_metrics['estimated_waste_cost'],
+                'items_tracked': waste_metrics['total_items_tracked']
+            },
+            'predictions': {
+                'items_predicted': len(predictive_insights['predicted_needs']),
+                'high_confidence': len([p for p in predictive_insights['predicted_needs'] if p['confidence'] > 80]),
+                'shopping_frequency': predictive_insights['shopping_patterns'].get('average_days_between_trips', 0)
+            },
+            'generated_at': datetime.now().isoformat()
+        }
+        
+        return jsonify({
+            'status': 'success',
+            'data': summary
+        })
+    
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'message': f'Failed to get dashboard summary: {str(e)}'
+        }), 500
