@@ -201,7 +201,7 @@ const Budget: React.FC = () => {
             {alerts.length > 0 && (
                 <Box sx={{ mb: 3 }}>
                     {alerts.map((alert, index) => (
-                        <Alert 
+                        <Alert
                             key={index}
                             severity={getSeverityColor(alert.severity) as any}
                             action={
@@ -364,7 +364,7 @@ const Budget: React.FC = () => {
                                         <ListItemText
                                             primary={optimization.message}
                                             secondary={
-                                                optimization.potential_savings && 
+                                                optimization.potential_savings &&
                                                 `Potential savings: $${optimization.potential_savings.toFixed(2)}`
                                             }
                                         />
