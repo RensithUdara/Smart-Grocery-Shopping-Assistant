@@ -47,42 +47,42 @@ import {
 
 // Meal Planning API functions (to be added to services/api.ts)
 const mealPlanningApi = {
-    getSuggestions: () => 
+    getSuggestions: () =>
         fetch('/api/meal-planning/suggestions').then(res => res.json()),
-    
-    generateWeeklyPlan: (preferences: any) => 
+
+    generateWeeklyPlan: (preferences: any) =>
         fetch('/api/meal-planning/weekly-plan', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(preferences)
         }).then(res => res.json()),
-    
-    getBatchSuggestions: () => 
+
+    getBatchSuggestions: () =>
         fetch('/api/meal-planning/batch-suggestions').then(res => res.json()),
-    
+
     getRecipes: (filters: any = {}) => {
         const params = new URLSearchParams(filters);
         return fetch(`/api/meal-planning/recipes?${params}`).then(res => res.json());
     },
-    
-    checkIngredients: (recipeId: string) => 
+
+    checkIngredients: (recipeId: string) =>
         fetch('/api/meal-planning/ingredients-check', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ recipe_id: recipeId })
         }).then(res => res.json()),
-    
-    getRecipeNutrition: (recipeId: string) => 
+
+    getRecipeNutrition: (recipeId: string) =>
         fetch(`/api/meal-planning/recipe/${recipeId}/nutrition`).then(res => res.json()),
-    
-    generateShoppingList: (recipeIds: string[]) => 
+
+    generateShoppingList: (recipeIds: string[]) =>
         fetch('/api/meal-planning/shopping-list-from-plan', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ selected_recipes: recipeIds })
         }).then(res => res.json()),
-    
-    getDietaryOptions: () => 
+
+    getDietaryOptions: () =>
         fetch('/api/meal-planning/dietary-options').then(res => res.json())
 };
 
@@ -136,14 +136,14 @@ const MealPlanning: React.FC = () => {
         recipes: [] as Recipe[],
         dietaryOptions: null as any,
     });
-    
+
     const [selectedRecipes, setSelectedRecipes] = useState<string[]>([]);
     const [planPreferences, setPlanPreferences] = useState({
         dietary_type: 'any',
         cooking_time: 'any',
         servings: 4
     });
-    const [recipeDialog, setRecipeDialog] = useState<{open: boolean, recipe: Recipe | null}>({
+    const [recipeDialog, setRecipeDialog] = useState<{ open: boolean, recipe: Recipe | null }>({
         open: false,
         recipe: null
     });
@@ -188,8 +188,8 @@ const MealPlanning: React.FC = () => {
     };
 
     const handleRecipeSelect = (recipeId: string) => {
-        setSelectedRecipes(prev => 
-            prev.includes(recipeId) 
+        setSelectedRecipes(prev =>
+            prev.includes(recipeId)
                 ? prev.filter(id => id !== recipeId)
                 : [...prev, recipeId]
         );
@@ -225,7 +225,7 @@ const MealPlanning: React.FC = () => {
             case 'asian': return <Restaurant />;
             case 'italian': return <Restaurant />;
             case 'comfort': return <LocalDining />;
-            case 'baking': return <Cook />;
+            case 'baking': return <Kitchen />;
             case 'salad': return <LocalDining />;
             default: return <Restaurant />;
         }
@@ -282,7 +282,7 @@ const MealPlanning: React.FC = () => {
                 ) : (
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                         {mealData.suggestions.slice(0, 6).map((suggestion, index) => (
-                            <Card key={index} sx={{ cursor: 'pointer' }} onClick={() => setRecipeDialog({open: true, recipe: suggestion})}>
+                            <Card key={index} sx={{ cursor: 'pointer' }} onClick={() => setRecipeDialog({ open: true, recipe: suggestion })}>
                                 <CardContent>
                                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
                                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -299,11 +299,11 @@ const MealPlanning: React.FC = () => {
                                             <Chip size="small" label={`${suggestion.servings} servings`} />
                                         </Box>
                                     </Box>
-                                    
+
                                     <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
                                         {suggestion.recommendation_reason}
                                     </Typography>
-                                    
+
                                     <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                                         <Typography variant="body2" sx={{ fontWeight: 500 }}>Uses:</Typography>
                                         {suggestion.matching_ingredients.map((ingredient: string, i: number) => (
@@ -340,14 +340,14 @@ const MealPlanning: React.FC = () => {
                         <Typography variant="h6" sx={{ mb: 2 }}>
                             Generate Weekly Meal Plan
                         </Typography>
-                        
+
                         <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap' }}>
                             <FormControl size="small" sx={{ minWidth: 150 }}>
                                 <InputLabel>Dietary Type</InputLabel>
                                 <Select
                                     value={planPreferences.dietary_type}
                                     label="Dietary Type"
-                                    onChange={(e) => setPlanPreferences(prev => ({...prev, dietary_type: e.target.value}))}
+                                    onChange={(e) => setPlanPreferences(prev => ({ ...prev, dietary_type: e.target.value }))}
                                 >
                                     <MenuItem value="any">Any</MenuItem>
                                     <MenuItem value="vegetarian">Vegetarian</MenuItem>
@@ -355,30 +355,30 @@ const MealPlanning: React.FC = () => {
                                     <MenuItem value="healthy">Healthy</MenuItem>
                                 </Select>
                             </FormControl>
-                            
+
                             <FormControl size="small" sx={{ minWidth: 150 }}>
                                 <InputLabel>Cooking Time</InputLabel>
                                 <Select
                                     value={planPreferences.cooking_time}
                                     label="Cooking Time"
-                                    onChange={(e) => setPlanPreferences(prev => ({...prev, cooking_time: e.target.value}))}
+                                    onChange={(e) => setPlanPreferences(prev => ({ ...prev, cooking_time: e.target.value }))}
                                 >
                                     <MenuItem value="any">Any</MenuItem>
                                     <MenuItem value="quick">Quick (≤15 min)</MenuItem>
                                     <MenuItem value="medium">Medium</MenuItem>
                                 </Select>
                             </FormControl>
-                            
+
                             <TextField
                                 size="small"
                                 type="number"
                                 label="Servings"
                                 value={planPreferences.servings}
-                                onChange={(e) => setPlanPreferences(prev => ({...prev, servings: parseInt(e.target.value) || 4}))}
+                                onChange={(e) => setPlanPreferences(prev => ({ ...prev, servings: parseInt(e.target.value) || 4 }))}
                                 sx={{ width: 100 }}
                             />
                         </Box>
-                        
+
                         <Button
                             variant="contained"
                             onClick={generateWeeklyPlan}
@@ -396,13 +396,13 @@ const MealPlanning: React.FC = () => {
                             <Typography variant="h6" sx={{ mb: 2 }}>
                                 Weekly Meal Plan - {mealData.weeklyPlan.week_start}
                             </Typography>
-                            
+
                             {Object.entries(mealData.weeklyPlan.daily_meals || {}).map(([date, meals]: [string, any]) => (
                                 <Box key={date} sx={{ mb: 3 }}>
                                     <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
                                         {new Date(date).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
                                     </Typography>
-                                    
+
                                     <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
                                         {['breakfast', 'lunch', 'dinner'].map(mealType => {
                                             const meal = meals[mealType];
@@ -466,19 +466,19 @@ const MealPlanning: React.FC = () => {
                                         <Typography variant="h6">{batch.recipe.name}</Typography>
                                         <Chip label={`${batch.portions} portions`} color="primary" />
                                     </Box>
-                                    
+
                                     <Typography variant="body2" color="primary" sx={{ mb: 1 }}>
                                         {batch.prep_benefit}
                                     </Typography>
-                                    
+
                                     <Typography variant="body2" sx={{ mb: 2 }}>
                                         <strong>Storage:</strong> {batch.storage_tips}
                                     </Typography>
-                                    
+
                                     <Typography variant="body2" sx={{ mb: 2 }}>
                                         <strong>Reheating:</strong> {batch.reheating_instructions}
                                     </Typography>
-                                    
+
                                     {batch.missing_ingredients.length > 0 && (
                                         <Box sx={{ mt: 2 }}>
                                             <Typography variant="body2" sx={{ fontWeight: 500 }}>Still need:</Typography>
@@ -501,10 +501,10 @@ const MealPlanning: React.FC = () => {
                 <Typography variant="h6" sx={{ mb: 2 }}>
                     📚 Browse All Recipes
                 </Typography>
-                
+
                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     {mealData.recipes.slice(0, 8).map((recipe) => (
-                        <Card key={recipe.recipe_id} sx={{ cursor: 'pointer' }} onClick={() => setRecipeDialog({open: true, recipe})}>
+                        <Card key={recipe.recipe_id} sx={{ cursor: 'pointer' }} onClick={() => setRecipeDialog({ open: true, recipe })}>
                             <CardContent>
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -521,7 +521,7 @@ const MealPlanning: React.FC = () => {
                                         <Chip size="small" label={`${recipe.servings} servings`} />
                                     </Box>
                                 </Box>
-                                
+
                                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                     <Typography variant="body2">
                                         🔥 {recipe.nutrition.calories} cal | 🥩 {recipe.nutrition.protein}g protein
@@ -564,9 +564,9 @@ const MealPlanning: React.FC = () => {
             )}
 
             {/* Recipe Details Dialog */}
-            <Dialog 
-                open={recipeDialog.open} 
-                onClose={() => setRecipeDialog({open: false, recipe: null})}
+            <Dialog
+                open={recipeDialog.open}
+                onClose={() => setRecipeDialog({ open: false, recipe: null })}
                 maxWidth="md"
                 fullWidth
             >
@@ -589,7 +589,7 @@ const MealPlanning: React.FC = () => {
                                 <Chip size="small" label={`👥 ${recipeDialog.recipe.servings} servings`} />
                                 <Chip size="small" label={`🔥 ${recipeDialog.recipe.nutrition.calories} cal`} />
                             </Box>
-                            
+
                             <Typography variant="h6" sx={{ mb: 1 }}>Ingredients:</Typography>
                             <List dense>
                                 {recipeDialog.recipe.ingredients.map((ingredient: string, index: number) => (
@@ -601,7 +601,7 @@ const MealPlanning: React.FC = () => {
                                     </ListItem>
                                 ))}
                             </List>
-                            
+
                             <Typography variant="h6" sx={{ mb: 1, mt: 2 }}>Instructions:</Typography>
                             <List>
                                 {recipeDialog.recipe.instructions.map((step: string, index: number) => (
@@ -615,14 +615,14 @@ const MealPlanning: React.FC = () => {
                             </List>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={() => setRecipeDialog({open: false, recipe: null})}>
+                            <Button onClick={() => setRecipeDialog({ open: false, recipe: null })}>
                                 Close
                             </Button>
-                            <Button 
-                                variant="contained" 
+                            <Button
+                                variant="contained"
                                 onClick={() => {
                                     handleRecipeSelect(recipeDialog.recipe!.recipe_id);
-                                    setRecipeDialog({open: false, recipe: null});
+                                    setRecipeDialog({ open: false, recipe: null });
                                 }}
                             >
                                 {selectedRecipes.includes(recipeDialog.recipe.recipe_id) ? 'Remove from Selection' : 'Add to Selection'}
