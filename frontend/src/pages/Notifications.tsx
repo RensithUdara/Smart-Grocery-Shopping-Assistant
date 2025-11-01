@@ -19,16 +19,12 @@ import {
     Switch,
     FormControlLabel,
     TextField,
-    Tabs,
-    Tab,
     Alert,
     Snackbar,
-    Divider,
-    Grid
+    Divider
 } from '@mui/material';
 import {
     Notifications as NotificationsIcon,
-    Warning as WarningIcon,
     ShoppingCart as ShoppingCartIcon,
     RestaurantMenu as MealIcon,
     MonetizationOn as BudgetIcon,
@@ -105,40 +101,38 @@ const Notifications: React.FC = () => {
         return () => clearInterval(interval);
     }, []);
 
-    const loadNotifications = async () => {
-        try {
-            const response = await apiService.get('/notifications');
-            if (response.status === 'success') {
-                setNotifications(response.notifications);
-            }
-        } catch (error) {
-            console.error('Failed to load notifications:', error);
-        }
-    };
+  const loadNotifications = async () => {
+    try {
+      const response = await apiService.get('/notifications');
+      if (response.data.status === 'success') {
+        setNotifications(response.data.notifications);
+      }
+    } catch (error) {
+      console.error('Failed to load notifications:', error);
+    }
+  };
 
-    const loadPreferences = async () => {
-        try {
-            const response = await apiService.get('/notifications/preferences');
-            if (response.status === 'success') {
-                setPreferences(response.preferences);
-            }
-        } catch (error) {
-            console.error('Failed to load preferences:', error);
-        }
-    };
+  const loadPreferences = async () => {
+    try {
+      const response = await apiService.get('/notifications/preferences');
+      if (response.data.status === 'success') {
+        setPreferences(response.data.preferences);
+      }
+    } catch (error) {
+      console.error('Failed to load preferences:', error);
+    }
+  };
 
-    const loadSummary = async () => {
-        try {
-            const response = await apiService.get('/notifications/summary');
-            if (response.status === 'success') {
-                setSummary(response.summary);
-            }
-        } catch (error) {
-            console.error('Failed to load summary:', error);
-        }
-    };
-
-    const markAsRead = async (notificationId: string) => {
+  const loadSummary = async () => {
+    try {
+      const response = await apiService.get('/notifications/summary');
+      if (response.data.status === 'success') {
+        setSummary(response.data.summary);
+      }
+    } catch (error) {
+      console.error('Failed to load summary:', error);
+    }
+  };    const markAsRead = async (notificationId: string) => {
         try {
             await apiService.post(`/notifications/${notificationId}/read`);
             setNotifications(prev =>
@@ -265,61 +259,51 @@ const Notifications: React.FC = () => {
                 </Box>
             </Box>
 
-            {/* Summary Cards */}
-            {summary && (
-                <Grid container spacing={3} sx={{ mb: 3 }}>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" color="primary">
-                                    {summary.total_active}
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary">
-                                    Active Notifications
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" color="error">
-                                    {summary.by_priority.urgent + summary.by_priority.high}
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary">
-                                    High Priority
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" color="warning.main">
-                                    {summary.by_type.expiration_alert || 0}
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary">
-                                    Expiration Alerts
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" color="info.main">
-                                    {summary.by_type.budget_warning || 0}
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary">
-                                    Budget Warnings
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                </Grid>
-            )}
-
-            {/* Notifications List */}
+      {/* Summary Cards */}
+      {summary && (
+        <Box sx={{ display: 'flex', gap: 3, mb: 3, flexWrap: 'wrap' }}>
+          <Card sx={{ flex: 1, minWidth: 200 }}>
+            <CardContent>
+              <Typography variant="h6" color="primary">
+                {summary.total_active}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Active Notifications
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{ flex: 1, minWidth: 200 }}>
+            <CardContent>
+              <Typography variant="h6" color="error">
+                {summary.by_priority.urgent + summary.by_priority.high}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                High Priority
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{ flex: 1, minWidth: 200 }}>
+            <CardContent>
+              <Typography variant="h6" color="warning.main">
+                {summary.by_type.expiration_alert || 0}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Expiration Alerts
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card sx={{ flex: 1, minWidth: 200 }}>
+            <CardContent>
+              <Typography variant="h6" color="info.main">
+                {summary.by_type.budget_warning || 0}
+              </Typography>
+              <Typography variant="body2" color="textSecondary">
+                Budget Warnings
+              </Typography>
+            </CardContent>
+          </Card>
+        </Box>
+      )}            {/* Notifications List */}
             <Card>
                 <CardContent>
                     <Typography variant="h6" gutterBottom>
