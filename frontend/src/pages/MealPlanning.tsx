@@ -261,7 +261,7 @@ const MealPlanning: React.FC = () => {
                 <Tabs value={tabValue} onChange={(_, newValue) => setTabValue(newValue)}>
                     <Tab label="Recipe Suggestions" icon={<Lightbulb />} />
                     <Tab label="Weekly Meal Plan" icon={<Schedule />} />
-                    <Tab label="Batch Cooking" icon={<Cook />} />
+                    <Tab label="Batch Cooking" icon={<Kitchen />} />
                     <Tab label="Recipe Browser" icon={<Restaurant />} />
                 </Tabs>
             </Box>
@@ -575,7 +575,7 @@ const MealPlanning: React.FC = () => {
                         <DialogTitle>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                 {getCategoryIcon(recipeDialog.recipe.category)}
-                                {recipeDialog.recipe.name || recipeDialog.recipe.recipe_name}
+                                {recipeDialog.recipe.name}
                             </Box>
                         </DialogTitle>
                         <DialogContent>
