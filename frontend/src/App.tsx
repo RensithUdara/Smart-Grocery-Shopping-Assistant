@@ -89,6 +89,7 @@ function App() {
               <Route path="/shopping-list" element={<ShoppingList />} />
               <Route path="/suggestions" element={<Suggestions />} />
               <Route path="/expiration" element={<Expiration />} />
+              <Route path="/meal-planning" element={<MealPlanning />} />
               <Route path="/budget" element={<Budget />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/purchase-history" element={<PurchaseHistory />} />
