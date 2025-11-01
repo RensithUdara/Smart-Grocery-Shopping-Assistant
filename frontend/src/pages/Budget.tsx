@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
     Container,
-    Grid,
     Card,
     CardContent,
     Typography,
@@ -200,220 +199,202 @@ const Budget: React.FC = () => {
 
             {/* Budget Alerts */}
             {alerts.length > 0 && (
-                <Grid container spacing={3} sx={{ mb: 3 }}>
+                <Box sx={{ mb: 3 }}>
                     {alerts.map((alert, index) => (
-                        <Grid item xs={12} key={index}>
-                            <Alert
-                                severity={getSeverityColor(alert.severity) as any}
-                                action={
-                                    alert.suggestion && (
-                                        <Button color="inherit" size="small">
-                                            View Tips
-                                        </Button>
-                                    )
-                                }
-                            >
-                                <Typography variant="body2">
-                                    {alert.message}
-                                    {alert.suggestion && (
-                                        <Box sx={{ mt: 1, fontStyle: 'italic' }}>
-                                            💡 {alert.suggestion}
-                                        </Box>
-                                    )}
-                                </Typography>
-                            </Alert>
-                        </Grid>
+                        <Alert
+                            key={index}
+                            severity={getSeverityColor(alert.severity) as any}
+                            action={
+                                alert.suggestion && (
+                                    <Button color="inherit" size="small">
+                                        View Tips
+                                    </Button>
+                                )
+                            }
+                            sx={{ mb: index < alerts.length - 1 ? 2 : 0 }}
+                        >
+                            <Typography variant="body2">
+                                {alert.message}
+                                {alert.suggestion && (
+                                    <Box sx={{ mt: 1, fontStyle: 'italic' }}>
+                                        💡 {alert.suggestion}
+                                    </Box>
+                                )}
+                            </Typography>
+                        </Alert>
                     ))}
-                </Grid>
-            )}
-
-            {/* Budget Overview */}
-            <Grid container spacing={3} sx={{ mb: 3 }}>
-                <Grid item xs={12} md={4}>
-                    <Card>
-                        <CardContent>
-                            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                                <AccountBalanceWallet sx={{ mr: 1, color: '#2196f3' }} />
-                                <Typography variant="h6">Monthly Budget</Typography>
+                </Box>
+            )}            {/* Budget Overview */}
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, mb: 3 }}>
+                <Card sx={{ flex: 1 }}>
+                    <CardContent>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                            <AccountBalanceWallet sx={{ mr: 1, color: '#2196f3' }} />
+                            <Typography variant="h6">Monthly Budget</Typography>
+                        </Box>
+                        <Typography variant="h4" sx={{ fontWeight: 600 }}>
+                            ${summary?.total_spent || 0}
+                        </Typography>
+                        <Typography color="textSecondary" variant="body2">
+                            of ${summary?.budget_limit || 300} budgeted
+                        </Typography>
+                        {summary?.budget_percentage && (
+                            <Box sx={{ mt: 2 }}>
+                                <LinearProgress
+                                    variant="determinate"
+                                    value={Math.min(summary.budget_percentage, 100)}
+                                    sx={{
+                                        height: 8,
+                                        borderRadius: 4,
+                                        backgroundColor: '#e0e0e0',
+                                        '& .MuiLinearProgress-bar': {
+                                            backgroundColor: getBudgetStatusColor(summary.budget_status)
+                                        }
+                                    }}
+                                />
+                                <Typography variant="body2" sx={{ mt: 1 }}>
+                                    {summary.budget_percentage}% used
+                                </Typography>
                             </Box>
-                            <Typography variant="h4" sx={{ fontWeight: 600 }}>
-                                ${summary?.total_spent || 0}
-                            </Typography>
-                            <Typography color="textSecondary" variant="body2">
-                                of ${summary?.budget_limit || 300} budgeted
-                            </Typography>
-                            {summary?.budget_percentage && (
-                                <Box sx={{ mt: 2 }}>
-                                    <LinearProgress
-                                        variant="determinate"
-                                        value={Math.min(summary.budget_percentage, 100)}
-                                        sx={{
-                                            height: 8,
-                                            borderRadius: 4,
-                                            backgroundColor: '#e0e0e0',
-                                            '& .MuiLinearProgress-bar': {
-                                                backgroundColor: getBudgetStatusColor(summary.budget_status)
-                                            }
-                                        }}
-                                    />
-                                    <Typography variant="body2" sx={{ mt: 1 }}>
-                                        {summary.budget_percentage}% used
-                                    </Typography>
-                                </Box>
-                            )}
-                        </CardContent>
-                    </Card>
-                </Grid>
+                        )}
+                    </CardContent>
+                </Card>
 
-                <Grid item xs={12} md={4}>
-                    <Card>
-                        <CardContent>
-                            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                                <TrendingUp sx={{ mr: 1, color: '#4caf50' }} />
-                                <Typography variant="h6">Daily Average</Typography>
-                            </Box>
-                            <Typography variant="h4" sx={{ fontWeight: 600 }}>
-                                ${summary?.average_daily_spend || 0}
-                            </Typography>
-                            <Typography color="textSecondary" variant="body2">
-                                Last {summary?.days_analyzed || 30} days
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
+                <Card sx={{ flex: 1 }}>
+                    <CardContent>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                            <TrendingUp sx={{ mr: 1, color: '#4caf50' }} />
+                            <Typography variant="h6">Daily Average</Typography>
+                        </Box>
+                        <Typography variant="h4" sx={{ fontWeight: 600 }}>
+                            ${summary?.average_daily_spend || 0}
+                        </Typography>
+                        <Typography color="textSecondary" variant="body2">
+                            Last {summary?.days_analyzed || 30} days
+                        </Typography>
+                    </CardContent>
+                </Card>
 
-                <Grid item xs={12} md={4}>
-                    <Card>
-                        <CardContent>
-                            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-                                <Assessment sx={{ mr: 1, color: '#ff9800' }} />
-                                <Typography variant="h6">Budget Status</Typography>
-                            </Box>
-                            <Chip
-                                label={summary?.budget_status?.replace('_', ' ').toUpperCase() || 'NO DATA'}
-                                sx={{
-                                    backgroundColor: getBudgetStatusColor(summary?.budget_status),
-                                    color: 'white',
-                                    fontWeight: 600
-                                }}
-                            />
-                        </CardContent>
-                    </Card>
-                </Grid>
-            </Grid>
+                <Card sx={{ flex: 1 }}>
+                    <CardContent>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                            <Assessment sx={{ mr: 1, color: '#ff9800' }} />
+                            <Typography variant="h6">Budget Status</Typography>
+                        </Box>
+                        <Chip
+                            label={summary?.budget_status?.replace('_', ' ').toUpperCase() || 'NO DATA'}
+                            sx={{
+                                backgroundColor: getBudgetStatusColor(summary?.budget_status),
+                                color: 'white',
+                                fontWeight: 600
+                            }}
+                        />
+                    </CardContent>
+                </Card>
+            </Box>
 
             {/* Category Breakdown */}
             {categoryBreakdown?.breakdown && (
-                <Grid container spacing={3} sx={{ mb: 3 }}>
-                    <Grid item xs={12}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" sx={{ mb: 2 }}>
-                                    📊 Category Spending Breakdown
-                                </Typography>
-                                <List>
-                                    {categoryBreakdown.breakdown.map((category: CategoryBreakdown, index: number) => (
-                                        <React.Fragment key={category.category}>
-                                            <ListItem>
-                                                <ListItemIcon>
-                                                    <ShoppingCart />
-                                                </ListItemIcon>
-                                                <ListItemText
-                                                    primary={
-                                                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                                                            <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                                                                {category.category.charAt(0).toUpperCase() + category.category.slice(1)}
-                                                            </Typography>
-                                                            <Typography variant="body1" sx={{ fontWeight: 600 }}>
-                                                                ${category.amount_spent}
-                                                            </Typography>
-                                                        </Box>
-                                                    }
-                                                    secondary={
-                                                        <Box sx={{ mt: 1 }}>
-                                                            <LinearProgress
-                                                                variant="determinate"
-                                                                value={Math.min(category.budget_usage, 100)}
-                                                                sx={{
-                                                                    height: 6,
-                                                                    borderRadius: 3,
-                                                                    backgroundColor: '#e0e0e0',
-                                                                    '& .MuiLinearProgress-bar': {
-                                                                        backgroundColor: category.status === 'over' ? '#f44336' : '#4caf50'
-                                                                    }
-                                                                }}
-                                                            />
-                                                            <Typography variant="caption" color="textSecondary">
-                                                                {category.budget_usage}% of ${category.category_budget} budget ({category.percentage_of_total}% of total)
-                                                            </Typography>
-                                                        </Box>
-                                                    }
-                                                />
-                                            </ListItem>
-                                            {index < categoryBreakdown.breakdown.length - 1 && <Divider />}
-                                        </React.Fragment>
-                                    ))}
-                                </List>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                </Grid>
+                <Card sx={{ mb: 3 }}>
+                    <CardContent>
+                        <Typography variant="h6" sx={{ mb: 2 }}>
+                            📊 Category Spending Breakdown
+                        </Typography>
+                        <List>
+                            {categoryBreakdown.breakdown.map((category: CategoryBreakdown, index: number) => (
+                                <React.Fragment key={category.category}>
+                                    <ListItem>
+                                        <ListItemIcon>
+                                            <ShoppingCart />
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary={
+                                                <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                                                    <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                                                        {category.category.charAt(0).toUpperCase() + category.category.slice(1)}
+                                                    </Typography>
+                                                    <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                                                        ${category.amount_spent}
+                                                    </Typography>
+                                                </Box>
+                                            }
+                                            secondary={
+                                                <Box sx={{ mt: 1 }}>
+                                                    <LinearProgress
+                                                        variant="determinate"
+                                                        value={Math.min(category.budget_usage, 100)}
+                                                        sx={{
+                                                            height: 6,
+                                                            borderRadius: 3,
+                                                            backgroundColor: '#e0e0e0',
+                                                            '& .MuiLinearProgress-bar': {
+                                                                backgroundColor: category.status === 'over' ? '#f44336' : '#4caf50'
+                                                            }
+                                                        }}
+                                                    />
+                                                    <Typography variant="caption" color="textSecondary">
+                                                        {category.budget_usage}% of ${category.category_budget} budget ({category.percentage_of_total}% of total)
+                                                    </Typography>
+                                                </Box>
+                                            }
+                                        />
+                                    </ListItem>
+                                    {index < categoryBreakdown.breakdown.length - 1 && <Divider />}
+                                </React.Fragment>
+                            ))}
+                        </List>
+                    </CardContent>
+                </Card>
             )}
 
             {/* Cost Optimizations and Recommendations */}
-            <Grid container spacing={3}>
+            <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, gap: 3, mb: 3 }}>
                 {optimizations.length > 0 && (
-                    <Grid item xs={12} md={6}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" sx={{ mb: 2 }}>
-                                    💡 Cost Optimization Tips
-                                </Typography>
-                                <List>
-                                    {optimizations.slice(0, 3).map((optimization, index) => (
-                                        <ListItem key={index}>
-                                            <ListItemIcon>
-                                                <Lightbulb color="primary" />
-                                            </ListItemIcon>
-                                            <ListItemText
-                                                primary={optimization.message}
-                                                secondary={
-                                                    optimization.potential_savings &&
-                                                    `Potential savings: $${optimization.potential_savings.toFixed(2)}`
-                                                }
-                                            />
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </CardContent>
-                        </Card>
-                    </Grid>
+                    <Card sx={{ flex: 1 }}>
+                        <CardContent>
+                            <Typography variant="h6" sx={{ mb: 2 }}>
+                                💡 Cost Optimization Tips
+                            </Typography>
+                            <List>
+                                {optimizations.slice(0, 3).map((optimization, index) => (
+                                    <ListItem key={index}>
+                                        <ListItemIcon>
+                                            <Lightbulb color="primary" />
+                                        </ListItemIcon>
+                                        <ListItemText
+                                            primary={optimization.message}
+                                            secondary={
+                                                optimization.potential_savings &&
+                                                `Potential savings: $${optimization.potential_savings.toFixed(2)}`
+                                            }
+                                        />
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </CardContent>
+                    </Card>
                 )}
 
                 {recommendations.length > 0 && (
-                    <Grid item xs={12} md={6}>
-                        <Card>
-                            <CardContent>
-                                <Typography variant="h6" sx={{ mb: 2 }}>
-                                    🎯 Budget Recommendations
-                                </Typography>
-                                <List>
-                                    {recommendations.slice(0, 3).map((recommendation, index) => (
-                                        <ListItem key={index}>
-                                            <ListItemIcon>
-                                                <SaveAlt color="success" />
-                                            </ListItemIcon>
-                                            <ListItemText primary={recommendation} />
-                                        </ListItem>
-                                    ))}
-                                </List>
-                            </CardContent>
-                        </Card>
-                    </Grid>
+                    <Card sx={{ flex: 1 }}>
+                        <CardContent>
+                            <Typography variant="h6" sx={{ mb: 2 }}>
+                                🎯 Budget Recommendations
+                            </Typography>
+                            <List>
+                                {recommendations.slice(0, 3).map((recommendation, index) => (
+                                    <ListItem key={index}>
+                                        <ListItemIcon>
+                                            <SaveAlt color="success" />
+                                        </ListItemIcon>
+                                        <ListItemText primary={recommendation} />
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </CardContent>
+                    </Card>
                 )}
-            </Grid>
-
-            {/* Set Budget Dialog */}
+            </Box>            {/* Set Budget Dialog */}
             <Dialog open={setBudgetOpen} onClose={() => setSetBudgetOpen(false)}>
                 <DialogTitle>Set Monthly Budget</DialogTitle>
                 <DialogContent>

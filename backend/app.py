@@ -26,6 +26,7 @@ def create_app():
     from app.routes.expiration import expiration_bp
     from app.routes.analytics import analytics_bp
     from app.routes.budget import budget_bp
+    from app.routes.meal_planning import meal_planning_bp
     
     app.register_blueprint(shopping_bp, url_prefix='/api')
     app.register_blueprint(suggestions_bp, url_prefix='/api')
@@ -33,6 +34,7 @@ def create_app():
     app.register_blueprint(expiration_bp, url_prefix='/api')
     app.register_blueprint(analytics_bp, url_prefix='/api')
     app.register_blueprint(budget_bp, url_prefix='/api')
+    app.register_blueprint(meal_planning_bp, url_prefix='/api')
     
     return app
 
