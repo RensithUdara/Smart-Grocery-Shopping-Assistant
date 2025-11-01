@@ -36,29 +36,29 @@ import {
 
 // Budget API functions (to be added to services/api.ts)
 const budgetApi = {
-    setSummary: (amount: number) => 
+    setSummary: (amount: number) =>
         fetch('/api/budget/set', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ amount })
         }).then(res => res.json()),
-    
-    getSummary: (days: number = 30) => 
+
+    getSummary: (days: number = 30) =>
         fetch(`/api/budget/summary?days=${days}`).then(res => res.json()),
-    
-    getAlerts: () => 
+
+    getAlerts: () =>
         fetch('/api/budget/alerts').then(res => res.json()),
-    
-    getOptimizations: () => 
+
+    getOptimizations: () =>
         fetch('/api/budget/optimizations').then(res => res.json()),
-    
-    getRecommendations: () => 
+
+    getRecommendations: () =>
         fetch('/api/budget/recommendations').then(res => res.json()),
-    
-    getCategoryBreakdown: (days: number = 30) => 
+
+    getCategoryBreakdown: (days: number = 30) =>
         fetch(`/api/budget/category-breakdown?days=${days}`).then(res => res.json()),
-    
-    getTrends: () => 
+
+    getTrends: () =>
         fetch('/api/budget/trends').then(res => res.json())
 };
 
@@ -203,7 +203,7 @@ const Budget: React.FC = () => {
                 <Grid container spacing={3} sx={{ mb: 3 }}>
                     {alerts.map((alert, index) => (
                         <Grid item xs={12} key={index}>
-                            <Alert 
+                            <Alert
                                 severity={getSeverityColor(alert.severity) as any}
                                 action={
                                     alert.suggestion && (
@@ -378,7 +378,7 @@ const Budget: React.FC = () => {
                                             <ListItemText
                                                 primary={optimization.message}
                                                 secondary={
-                                                    optimization.potential_savings && 
+                                                    optimization.potential_savings &&
                                                     `Potential savings: $${optimization.potential_savings.toFixed(2)}`
                                                 }
                                             />
