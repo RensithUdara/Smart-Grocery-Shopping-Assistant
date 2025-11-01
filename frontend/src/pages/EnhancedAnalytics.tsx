@@ -228,20 +228,20 @@ const EnhancedAnalytics: React.FC = () => {
                             <CardContent>
                                 <Typography variant="h6" gutterBottom>Category Breakdown</Typography>
                                 {Object.entries(spendingTrends.category_breakdown || {}).map(([category, amount]: [string, any]) => {
-                                  const maxAmount = Math.max(...Object.values(spendingTrends.category_breakdown).map((v: any) => Number(v) || 0));
-                                  return (
-                                    <Box key={category} sx={{ mb: 2 }}>
-                                        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                                            <Typography variant="body2">{category}</Typography>
-                                            <Typography variant="body2" fontWeight="bold">${Number(amount).toFixed(2)}</Typography>
+                                    const maxAmount = Math.max(...Object.values(spendingTrends.category_breakdown).map((v: any) => Number(v) || 0));
+                                    return (
+                                        <Box key={category} sx={{ mb: 2 }}>
+                                            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                                                <Typography variant="body2">{category}</Typography>
+                                                <Typography variant="body2" fontWeight="bold">${Number(amount).toFixed(2)}</Typography>
+                                            </Box>
+                                            <LinearProgress
+                                                variant="determinate"
+                                                value={maxAmount > 0 ? (Number(amount) / maxAmount) * 100 : 0}
+                                                sx={{ height: 8, borderRadius: 4 }}
+                                            />
                                         </Box>
-                                        <LinearProgress
-                                            variant="determinate"
-                                            value={maxAmount > 0 ? (Number(amount) / maxAmount) * 100 : 0}
-                                            sx={{ height: 8, borderRadius: 4 }}
-                                        />
-                                    </Box>
-                                  );
+                                    );
                                 })}
                             </CardContent>
                         </Card>
