@@ -20,6 +20,7 @@ import {
     Notifications,
     Store,
     Psychology,
+    LocalHospital,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -33,8 +34,9 @@ const Navbar: React.FC = () => {
         { path: '/shopping-list', label: 'Shopping List', icon: <ShoppingCart /> },
         { path: '/suggestions', label: 'Suggestions', icon: <Lightbulb /> },
         { path: '/ai-recommendations', label: 'AI Recommendations', icon: <Psychology /> },
-        { path: '/store-integration', label: 'Store Integration', icon: <Store /> },
-        { path: '/expiration', label: 'Expiration', icon: <Schedule /> },
+    { path: '/store-integration', label: 'Store Integration', icon: <Store /> },
+    { path: '/nutrition', label: 'Nutrition', icon: <LocalHospital /> },
+    { path: '/expiration', label: 'Expiration', icon: <Schedule /> },
         { path: '/meal-planning', label: 'Meal Planning', icon: <Restaurant /> },
         { path: '/budget', label: 'Budget', icon: <AccountBalanceWallet /> },
         { path: '/notifications', label: 'Notifications', icon: <Notifications /> },
