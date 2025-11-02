@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { 
-    Box, Typography, Card, CardContent, TextField, Button, Chip, Alert, 
+import {
+    Box, Typography, Card, CardContent, TextField, Button, Chip, Alert,
     Tabs, Tab, LinearProgress, Divider, List, ListItem, ListItemText,
     FormControl, InputLabel, Select, MenuItem, Switch, FormControlLabel
 } from '@mui/material';
-import { 
+import {
     LocalHospital as LocalHospitalIcon,
     Restaurant as RestaurantIcon,
     Warning as WarningIcon,
@@ -174,10 +174,10 @@ const Nutrition: React.FC = () => {
                                     </Box>
                                 </Box>
                                 <Divider sx={{ my: 2 }} />
-                                <Chip 
-                                    label={`Nutrition Score: ${analysis.nutrition_score}/100`} 
+                                <Chip
+                                    label={`Nutrition Score: ${analysis.nutrition_score}/100`}
                                     color={analysis.nutrition_score >= 70 ? "success" : analysis.nutrition_score >= 50 ? "warning" : "error"}
-                                    sx={{ mt: 1 }} 
+                                    sx={{ mt: 1 }}
                                 />
                                 {analysis.detailed_breakdown && (
                                     <Box sx={{ mt: 2 }}>
@@ -185,7 +185,7 @@ const Nutrition: React.FC = () => {
                                         <List dense>
                                             {analysis.detailed_breakdown.map((item: any, idx: number) => (
                                                 <ListItem key={idx}>
-                                                    <ListItemText 
+                                                    <ListItemText
                                                         primary={`${item.name} (${item.servings}x)`}
                                                         secondary={`${item.calories} cal, ${item.protein_g}g protein`}
                                                     />
@@ -208,10 +208,10 @@ const Nutrition: React.FC = () => {
                             <Typography variant="caption" color="text.secondary" paragraph>
                                 Enter comma-separated allergies (e.g., milk, egg, nuts)
                             </Typography>
-                            <TextField 
-                                fullWidth 
-                                sx={{ mb: 2 }} 
-                                value={allergiesText} 
+                            <TextField
+                                fullWidth
+                                sx={{ mb: 2 }}
+                                value={allergiesText}
                                 onChange={(e) => setAllergiesText(e.target.value)}
                                 placeholder="milk,egg,nuts,gluten"
                             />
@@ -242,7 +242,7 @@ const Nutrition: React.FC = () => {
                                         <List dense>
                                             {allergenResult.issues.map((issue: any, idx: number) => (
                                                 <ListItem key={idx}>
-                                                    <ListItemText 
+                                                    <ListItemText
                                                         primary={issue.item}
                                                         secondary={`Contains: ${issue.allergens.join(', ')}`}
                                                     />
@@ -262,17 +262,17 @@ const Nutrition: React.FC = () => {
                     <Card>
                         <CardContent>
                             <Typography variant="h6" gutterBottom>Smart Substitutions</Typography>
-                            <Button 
-                                variant="contained" 
-                                onClick={runHealthySwaps} 
+                            <Button
+                                variant="contained"
+                                onClick={runHealthySwaps}
                                 disabled={loading}
                                 sx={{ mr: 2, mb: 2 }}
                             >
                                 Get Healthy Swaps
                             </Button>
-                            <Button 
-                                variant="outlined" 
-                                onClick={() => runSubstitutions('milk')} 
+                            <Button
+                                variant="outlined"
+                                onClick={() => runSubstitutions('milk')}
                                 disabled={loading}
                                 sx={{ mb: 2 }}
                             >
@@ -294,7 +294,7 @@ const Nutrition: React.FC = () => {
                                         <List dense>
                                             {healthySwaps.map((swap: any, idx: number) => (
                                                 <ListItem key={idx}>
-                                                    <ListItemText 
+                                                    <ListItemText
                                                         primary={`${swap.original} → ${swap.substitute}`}
                                                         secondary={swap.reason}
                                                     />
@@ -341,9 +341,9 @@ const Nutrition: React.FC = () => {
                                     <MenuItem value="keto">Ketogenic</MenuItem>
                                 </Select>
                             </FormControl>
-                            <Button 
-                                variant="contained" 
-                                onClick={runMealCompliance} 
+                            <Button
+                                variant="contained"
+                                onClick={runMealCompliance}
                                 disabled={loading}
                                 fullWidth
                             >
@@ -356,8 +356,8 @@ const Nutrition: React.FC = () => {
                         <Card>
                             <CardContent>
                                 <Typography variant="h6" gutterBottom>Compliance Analysis</Typography>
-                                <Alert 
-                                    severity={mealCompliance.compliant ? "success" : "warning"} 
+                                <Alert
+                                    severity={mealCompliance.compliant ? "success" : "warning"}
                                     sx={{ mb: 2 }}
                                 >
                                     <Typography variant="subtitle2">
@@ -365,15 +365,15 @@ const Nutrition: React.FC = () => {
                                     </Typography>
                                     {mealCompliance.message}
                                 </Alert>
-                                
+
                                 {mealCompliance.score !== undefined && (
                                     <Box sx={{ mb: 2 }}>
                                         <Typography variant="subtitle2" gutterBottom>
                                             Compliance Score: {mealCompliance.score}%
                                         </Typography>
-                                        <LinearProgress 
-                                            variant="determinate" 
-                                            value={mealCompliance.score} 
+                                        <LinearProgress
+                                            variant="determinate"
+                                            value={mealCompliance.score}
                                             color={mealCompliance.score >= 70 ? "success" : "warning"}
                                         />
                                     </Box>
