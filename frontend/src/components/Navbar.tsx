@@ -18,6 +18,7 @@ import {
     AccountBalanceWallet,
     Restaurant,
     Notifications,
+    Store,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -30,6 +31,7 @@ const Navbar: React.FC = () => {
         { path: '/', label: 'Dashboard', icon: <DashboardIcon /> },
         { path: '/shopping-list', label: 'Shopping List', icon: <ShoppingCart /> },
         { path: '/suggestions', label: 'Suggestions', icon: <Lightbulb /> },
+        { path: '/store-integration', label: 'Store Integration', icon: <Store /> },
         { path: '/expiration', label: 'Expiration', icon: <Schedule /> },
         { path: '/meal-planning', label: 'Meal Planning', icon: <Restaurant /> },
         { path: '/budget', label: 'Budget', icon: <AccountBalanceWallet /> },
