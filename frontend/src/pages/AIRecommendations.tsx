@@ -273,9 +273,9 @@ const AIRecommendations: React.FC = () => {
                                     </Typography>
                                 </Box>
 
-                <Alert severity="info" sx={{ mb: 1, fontSize: '0.875rem' }}>
-                  {rec.reason}
-                </Alert>                                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                                <Alert severity="info" sx={{ mb: 1, fontSize: '0.875rem' }}>
+                                    {rec.reason}
+                                </Alert>                                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                                     <Chip
                                         label={rec.purchase_urgency}
                                         size="small"
