@@ -159,26 +159,87 @@ class NutritionEngine:
                 results.append({'item': it, 'suggestions': self.substitutions[key]})
         return results
 
-    def evaluate_meal_compliance(self, items: List[Dict[str, Any]], user_goals: Dict[str, float]) -> Dict[str, Any]:
-        """Compare meal nutrients to user goals (e.g., calories, protein).
+    def evaluate_meal_compliance(self, items: List[Dict[str, Any]], user_goals: Dict[str, Any]) -> Dict[str, Any]:
+        """Compare meal nutrients to user goals and dietary restrictions.
 
-        user_goals: { 'calories': 2000, 'protein_g': 50 }
+        user_goals: { 'calories': 2000, 'protein_g': 50, 'diet_type': 'weight_loss' }
         """
         analysis = self.analyze_items(items)
         summary = analysis['summary']
+        
+        # Handle diet type goals
+        diet_type = user_goals.get('diet_type', '')
+        if diet_type:
+            return self._evaluate_diet_compliance(summary, diet_type)
+        
+        # Handle numeric goals
         compliance = {}
-
         for goal, value in user_goals.items():
-            actual = summary.get(goal, 0)
-            diff = actual - value
-            compliance[goal] = {
-                'goal': value,
-                'actual': actual,
-                'difference': round(diff, 2),
-                'within_goal': abs(diff) <= max(0.1 * value, 1)
-            }
+            if isinstance(value, (int, float)) and goal in summary:
+                actual = summary.get(goal, 0)
+                diff = actual - value
+                compliance[goal] = {
+                    'goal': value,
+                    'actual': actual,
+                    'difference': round(diff, 2),
+                    'within_goal': abs(diff) <= max(0.1 * value, 1)
+                }
 
         return {'analysis': analysis, 'compliance': compliance}
+    
+    def _evaluate_diet_compliance(self, summary: Dict[str, float], diet_type: str) -> Dict[str, Any]:
+        """Evaluate compliance with specific diet types"""
+        calories = summary.get('calories', 0)
+        protein = summary.get('protein_g', 0)
+        carbs = summary.get('carbs_g', 0)
+        fat = summary.get('fat_g', 0)
+        
+        recommendations = []
+        score = 50  # Base score
+        
+        if diet_type == 'weight_loss':
+            # Lower calorie, higher protein preference
+            if calories < 600:
+                score += 20
+                recommendations.append("Good calorie control for weight loss")
+            else:
+                recommendations.append("Consider reducing portion sizes")
+                
+            if protein >= 20:
+                score += 15
+                recommendations.append("Excellent protein content")
+            else:
+                recommendations.append("Add more lean protein sources")
+                
+        elif diet_type == 'muscle_gain':
+            if protein >= 25:
+                score += 20
+                recommendations.append("Great protein content for muscle building")
+            else:
+                recommendations.append("Increase protein intake for muscle gain")
+                
+        elif diet_type == 'heart_healthy':
+            if fat < 10:
+                score += 15
+                recommendations.append("Good fat control for heart health")
+            else:
+                recommendations.append("Consider reducing fat content")
+                
+        elif diet_type == 'keto':
+            if carbs < 10:
+                score += 20
+                recommendations.append("Excellent carb control for keto")
+            else:
+                recommendations.append("Reduce carbohydrates for ketogenic diet")
+        
+        compliant = score >= 70
+        
+        return {
+            'compliant': compliant,
+            'score': min(score, 100),
+            'message': f"Meal is {'compliant' if compliant else 'not fully compliant'} with {diet_type} goals",
+            'recommendations': recommendations
+        }
 
 
 if __name__ == '__main__':
