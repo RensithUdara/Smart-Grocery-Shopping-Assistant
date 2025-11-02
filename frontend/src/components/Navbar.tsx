@@ -32,6 +32,7 @@ const Navbar: React.FC = () => {
         { path: '/', label: 'Dashboard', icon: <DashboardIcon /> },
         { path: '/shopping-list', label: 'Shopping List', icon: <ShoppingCart /> },
         { path: '/suggestions', label: 'Suggestions', icon: <Lightbulb /> },
+        { path: '/ai-recommendations', label: 'AI Recommendations', icon: <Psychology /> },
         { path: '/store-integration', label: 'Store Integration', icon: <Store /> },
         { path: '/expiration', label: 'Expiration', icon: <Schedule /> },
         { path: '/meal-planning', label: 'Meal Planning', icon: <Restaurant /> },
