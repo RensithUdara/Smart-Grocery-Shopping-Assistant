@@ -36,7 +36,7 @@ function TabPanel(props: TabPanelProps) {
 const BudgetManagement: React.FC = () => {
     const [tabValue, setTabValue] = useState(0);
     const [loading, setLoading] = useState(false);
-    
+
     // State for different features
     const [budgetSummary, setBudgetSummary] = useState<any>(null);
     const [spendingAnalysis, setSpendingAnalysis] = useState<any>(null);
@@ -45,11 +45,11 @@ const BudgetManagement: React.FC = () => {
     const [savingsOpportunities, setSavingsOpportunities] = useState<any>(null);
     const [transactions, setTransactions] = useState<any>(null);
     const [forecast, setForecast] = useState<any>(null);
-    
+
     // Dialog states
     const [addTransactionDialog, setAddTransactionDialog] = useState(false);
     const [addGoalDialog, setAddGoalDialog] = useState(false);
-    
+
     // Form states
     const [newTransaction, setNewTransaction] = useState({
         item: '',
@@ -58,7 +58,7 @@ const BudgetManagement: React.FC = () => {
         store: '',
         quantity: '1'
     });
-    
+
     const [newGoal, setNewGoal] = useState({
         category: '',
         target_amount: '',
@@ -141,7 +141,7 @@ const BudgetManagement: React.FC = () => {
     };
 
     const categories = [
-        'produce', 'dairy', 'meat', 'pantry', 'snacks', 
+        'produce', 'dairy', 'meat', 'pantry', 'snacks',
         'beverages', 'frozen', 'bakery', 'household', 'personal_care'
     ];
 
@@ -167,8 +167,8 @@ const BudgetManagement: React.FC = () => {
                         <CardContent>
                             <Typography variant="h6" color="primary">Budget Usage</Typography>
                             <Typography variant="h4">{budgetSummary.budget_overview.utilization_percentage}%</Typography>
-                            <LinearProgress 
-                                variant="determinate" 
+                            <LinearProgress
+                                variant="determinate"
                                 value={budgetSummary.budget_overview.utilization_percentage}
                                 color={budgetSummary.budget_overview.utilization_percentage > 90 ? "error" : "primary"}
                                 sx={{ mt: 1 }}
@@ -231,19 +231,19 @@ const BudgetManagement: React.FC = () => {
                                     <Typography variant="body2" color="text.secondary" gutterBottom>
                                         {goal.time_period} budget
                                     </Typography>
-                                    
+
                                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                                         <Typography variant="body2">Spent: ${goal.spent}</Typography>
                                         <Typography variant="body2">Target: ${goal.target}</Typography>
                                     </Box>
-                                    
+
                                     <LinearProgress
                                         variant="determinate"
                                         value={Math.min(goal.utilization_percentage, 100)}
                                         color={getStatusColor(goal.status)}
                                         sx={{ mb: 2, height: 8, borderRadius: 4 }}
                                     />
-                                    
+
                                     <Chip
                                         label={`${goal.utilization_percentage}% used`}
                                         color={getStatusColor(goal.status)}
@@ -255,7 +255,7 @@ const BudgetManagement: React.FC = () => {
                                         variant="outlined"
                                         size="small"
                                     />
-                                    
+
                                     {goal.recommendations && goal.recommendations.length > 0 && (
                                         <Alert severity={goal.status === 'on_track' ? 'success' : 'warning'} sx={{ mt: 2 }}>
                                             {goal.recommendations[0]}
@@ -291,7 +291,7 @@ const BudgetManagement: React.FC = () => {
                                 <Typography variant="h4" color="primary" gutterBottom>
                                     ${forecast.total_forecast}
                                 </Typography>
-                                
+
                                 <Typography variant="subtitle2" gutterBottom>Category Breakdown:</Typography>
                                 <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 1 }}>
                                     {Object.entries(forecast.category_forecasts).map(([category, data]: [string, any]) => (
@@ -418,7 +418,7 @@ const BudgetManagement: React.FC = () => {
                                 Add Transaction
                             </Button>
                         </Box>
-                        
+
                         {transactions && transactions.transactions.length > 0 && (
                             <TableContainer component={Paper}>
                                 <Table>
@@ -470,11 +470,11 @@ const BudgetManagement: React.FC = () => {
                                             size="small"
                                         />
                                     </Box>
-                                    
+
                                     <Typography variant="body2" color="text.secondary" gutterBottom>
                                         Available at {alert.store}
                                     </Typography>
-                                    
+
                                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                                         <Typography variant="body2" sx={{ textDecoration: 'line-through' }}>
                                             Was: ${alert.target_price}
@@ -483,7 +483,7 @@ const BudgetManagement: React.FC = () => {
                                             Now: ${alert.current_price}
                                         </Typography>
                                     </Box>
-                                    
+
                                     <Alert severity="success">
                                         Save ${alert.savings_amount} per unit!
                                     </Alert>
@@ -510,17 +510,17 @@ const BudgetManagement: React.FC = () => {
                                     <Typography variant="h6" gutterBottom sx={{ textTransform: 'capitalize' }}>
                                         {opportunity.type.replace('_', ' ')}
                                     </Typography>
-                                    
+
                                     {opportunity.item && (
                                         <Typography variant="subtitle1" gutterBottom sx={{ textTransform: 'capitalize' }}>
                                             {opportunity.item}
                                         </Typography>
                                     )}
-                                    
+
                                     <Typography variant="body2" color="text.secondary" paragraph>
                                         {opportunity.recommendation}
                                     </Typography>
-                                    
+
                                     {opportunity.potential_savings && (
                                         <Chip
                                             label={`Save $${opportunity.potential_savings}`}
@@ -528,7 +528,7 @@ const BudgetManagement: React.FC = () => {
                                             sx={{ mr: 1 }}
                                         />
                                     )}
-                                    
+
                                     {opportunity.discount && (
                                         <Chip
                                             label={opportunity.discount}
