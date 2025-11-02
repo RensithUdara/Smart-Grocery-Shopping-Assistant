@@ -19,6 +19,7 @@ import AIRecommendations from './pages/AIRecommendations';
 import Analytics from './pages/Analytics';
 import PurchaseHistory from './pages/PurchaseHistory';
 import Nutrition from './pages/Nutrition';
+import BudgetManagement from './pages/BudgetManagement';
 
 // Create a light, colorful theme
 const theme = createTheme({
@@ -99,6 +100,7 @@ function App() {
               <Route path="/notifications" element={<Notifications />} />
               <Route path="/store-integration" element={<StoreIntegration />} />
               <Route path="/nutrition" element={<Nutrition />} />
+              <Route path="/budget-management" element={<BudgetManagement />} />
               <Route path="/ai-recommendations" element={<AIRecommendations />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/purchase-history" element={<PurchaseHistory />} />
