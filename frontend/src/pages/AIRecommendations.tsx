@@ -471,8 +471,7 @@ const AIRecommendations: React.FC = () => {
                                             <Alert
                                                 key={idx}
                                                 severity={item.action === 'stock_up' ? 'success' : 'warning'}
-                                                size="small"
-                                                sx={{ mb: 1 }}
+                                                sx={{ mb: 1, fontSize: '0.875rem' }}
                                             >
                                                 <Typography variant="body2">
                                                     <strong>{item.category}:</strong> {item.reason}
