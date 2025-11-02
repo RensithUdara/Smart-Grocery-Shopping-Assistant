@@ -1,53 +1,79 @@
-from flask import Blueprint, request, jsonify
-import sys
-import os
+#!/usr/bin/env python3
+"""
+Advanced Budget Management API Routes
+
+Flask Blueprint for budget forecasting, spending analysis, price alerts,
+bulk purchase recommendations, and financial goal tracking.
+
+Endpoints:
+- POST /api/budget/forecast - Generate budget forecasts
+- GET /api/budget/spending-analysis - Analyze spending patterns
+- GET /api/budget/price-alerts - Get price drop alerts
+- POST /api/budget/bulk-recommendations - Get bulk purchase recommendations
+- GET /api/budget/goals - Track budget goal progress
+- GET /api/budget/savings-opportunities - Get savings opportunities
+- POST /api/budget/goals - Create or update budget goals
+- GET /api/budget/transactions - Get transaction history
+- POST /api/budget/transactions - Add new transaction
+- DELETE /api/budget/transactions/<id> - Delete transaction
+"""
+
+from flask import Blueprint, jsonify, request
 from datetime import datetime
+import json
+import os
+import sys
 
-# Add src directory to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
-
-from src.utils.budget_manager import BudgetManager
-from src.utils.data_manager import DataManager
+# Try relative import from src.utils
+try:
+    from ...src.utils.budget_engine import BudgetManagementEngine, SpendingTransaction, SpendingCategory, BudgetGoal
+except Exception:
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'utils'))
+    from budget_engine import BudgetManagementEngine, SpendingTransaction, SpendingCategory, BudgetGoal
 
 budget_bp = Blueprint('budget', __name__)
-data_manager = DataManager()
-budget_manager = BudgetManager()
+budget_engine = BudgetManagementEngine()
 
-@budget_bp.route('/budget/set', methods=['POST'])
-def set_budget():
-    """Set monthly budget limit"""
-    data = request.get_json()
-    amount = data.get('amount', 0)
-    
-    result = budget_manager.set_monthly_budget(amount)
-    return jsonify(result)
 
-@budget_bp.route('/budget/summary', methods=['GET'])
-def get_budget_summary():
-    """Get budget spending summary"""
-    days = request.args.get('days', 30, type=int)
-    history = data_manager.load_purchase_history()
-    
-    summary = budget_manager.get_spending_summary(history, days)
-    return jsonify(summary)
+@budget_bp.route('/api/budget/forecast', methods=['POST'])
+def generate_budget_forecast():
+    """Generate budget forecasts based on historical spending patterns."""
+    try:
+        data = request.get_json() or {}
+        time_period = data.get('time_period', 'monthly')  # weekly, monthly, yearly
+        
+        if time_period not in ['weekly', 'monthly', 'yearly']:
+            return jsonify({
+                'success': False,
+                'error': 'Invalid time period. Use weekly, monthly, or yearly.'
+            }), 400
+        
+        forecast = budget_engine.forecast_budget_needs(time_period)
+        
+        return jsonify({
+            'success': True,
+            'data': forecast
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
-@budget_bp.route('/budget/alerts', methods=['GET'])
-def get_budget_alerts():
-    """Get budget alerts and warnings"""
-    history = data_manager.load_purchase_history()
-    alerts = budget_manager.check_budget_alerts(history)
-    return jsonify(alerts)
 
-@budget_bp.route('/budget/optimizations', methods=['GET'])
-def get_cost_optimizations():
-    """Get cost optimization suggestions"""
-    history = data_manager.load_purchase_history()
-    suggestions = budget_manager.suggest_cost_optimizations(history)
-    return jsonify(suggestions)
+@budget_bp.route('/api/budget/spending-analysis', methods=['GET'])
+def get_spending_analysis():
+    """Get comprehensive spending pattern analysis."""
+    try:
+        analysis = budget_engine.analyze_spending_patterns()
+        
+        return jsonify({
+            'success': True,
+            'data': analysis
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
-@budget_bp.route('/budget/price-analysis', methods=['GET'])
-def get_price_analysis():
-    """Get price per unit analysis"""
+
+@budget_bp.route('/api/budget/price-alerts', methods=['GET'])
+def get_price_alerts():
     history = data_manager.load_purchase_history()
     analysis = budget_manager.get_price_per_unit_analysis(history)
     return jsonify(analysis)
