@@ -665,278 +665,280 @@ const SmartRecipe: React.FC = () => {
                                 Smart Meal Planning
                             </Typography>
 
-                <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 3 }}>
-                    <FormControl fullWidth>
-                        <InputLabel>Number of Days</InputLabel>
-                        <Select
-                            value={mealPlanDays}
-                            onChange={(e) => setMealPlanDays(e.target.value as number)}
-                        >
-                            <MenuItem value={3}>3 days</MenuItem>
-                            <MenuItem value={7}>1 week</MenuItem>
-                            <MenuItem value={14}>2 weeks</MenuItem>
-                        </Select>
-                    </FormControl>
-                    <FormControl fullWidth>
-                        <InputLabel>Dietary Preferences</InputLabel>
-                        <Select
-                            multiple
-                            value={dietaryPreferences}
-                            onChange={(e) => setDietaryPreferences(e.target.value as string[])}
-                        >
-                            {categories.dietary_tags.map((tag) => (
-                                <MenuItem key={tag} value={tag}>
-                                    {tag.charAt(0).toUpperCase() + tag.slice(1)}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </Box>                                    variant="contained"
-                                    onClick={generateMealPlan}
-                                    disabled={loading}
-                                    startIcon={<MenuBook />}
+                            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 3 }}>
+                                <FormControl fullWidth>
+                                    <InputLabel>Number of Days</InputLabel>
+                                    <Select
+                                        value={mealPlanDays}
+                                        onChange={(e) => setMealPlanDays(e.target.value as number)}
+                                    >
+                                        <MenuItem value={3}>3 days</MenuItem>
+                                        <MenuItem value={7}>1 week</MenuItem>
+                                        <MenuItem value={14}>2 weeks</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                <FormControl fullWidth>
+                                    <InputLabel>Dietary Preferences</InputLabel>
+                                    <Select
+                                        multiple
+                                        value={dietaryPreferences}
+                                        onChange={(e) => setDietaryPreferences(e.target.value as string[])}
+                                    >
+                                        {categories.dietary_tags.map((tag) => (
+                                            <MenuItem key={tag} value={tag}>
+                                                {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Box>                                    variant="contained"
+                            onClick={generateMealPlan}
+                            disabled={loading}
+                            startIcon={<MenuBook />}
                                 >
-                                    Generate Meal Plan
-                                </Button>
-                            </Box>
-                        </Paper>
+                            Generate Meal Plan
+                        </Button>
+                    </Box>
+                        </Paper >
 
-                        {loading && <CircularProgress sx={{ display: 'block', mx: 'auto', mb: 3 }} />}
+    { loading && <CircularProgress sx={{ display: 'block', mx: 'auto', mb: 3 }} />}
 
-                        {mealPlans.length > 0 && (
-                            <Grid container spacing={3}>
-                                {mealPlans.map((plan, index) => (
-                                    <Grid item xs={12} key={index}>
-                                        <Paper sx={{ p: 3 }}>
-                                            <Typography variant="h6" gutterBottom>
-                                                {new Date(plan.date).toLocaleDateString('en-US', {
-                                                    weekday: 'long',
-                                                    year: 'numeric',
-                                                    month: 'long',
-                                                    day: 'numeric'
-                                                })}
-                                            </Typography>
+{
+    mealPlans.length > 0 && (
+        <Grid container spacing={3}>
+            {mealPlans.map((plan, index) => (
+                <Grid item xs={12} key={index}>
+                    <Paper sx={{ p: 3 }}>
+                        <Typography variant="h6" gutterBottom>
+                            {new Date(plan.date).toLocaleDateString('en-US', {
+                                weekday: 'long',
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            })}
+                        </Typography>
 
-                                            <Grid container spacing={2}>
-                                                {['breakfast', 'lunch', 'dinner'].map((mealType) => {
-                                                    const meal = plan[mealType as keyof typeof plan] as Recipe | null;
-                                                    return (
-                                                        <Grid item xs={12} md={4} key={mealType}>
-                                                            <Card variant="outlined">
-                                                                <CardContent>
-                                                                    <Typography variant="h6" gutterBottom>
-                                                                        {mealType.charAt(0).toUpperCase() + mealType.slice(1)}
-                                                                    </Typography>
-                                                                    {meal ? (
-                                                                        <Box>
-                                                                            <Typography variant="body1" gutterBottom>
-                                                                                {meal.name}
-                                                                            </Typography>
-                                                                            <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
-                                                                                <Chip
-                                                                                    icon={<AccessTime />}
-                                                                                    label={formatTime(meal.prep_time + meal.cook_time)}
-                                                                                    size="small"
-                                                                                />
-                                                                                <Chip
-                                                                                    label={`${meal.nutrition.calories} cal`}
-                                                                                    size="small"
-                                                                                />
-                                                                            </Box>
-                                                                            <Button
-                                                                                size="small"
-                                                                                onClick={() => openRecipeDialog(meal)}
-                                                                            >
-                                                                                View Recipe
-                                                                            </Button>
-                                                                        </Box>
-                                                                    ) : (
-                                                                        <Typography color="text.secondary">
-                                                                            No meal planned
-                                                                        </Typography>
-                                                                    )}
-                                                                </CardContent>
-                                                            </Card>
+                        <Grid container spacing={2}>
+                            {['breakfast', 'lunch', 'dinner'].map((mealType) => {
+                                const meal = plan[mealType as keyof typeof plan] as Recipe | null;
+                                return (
+                                    <Grid item xs={12} md={4} key={mealType}>
+                                        <Card variant="outlined">
+                                            <CardContent>
+                                                <Typography variant="h6" gutterBottom>
+                                                    {mealType.charAt(0).toUpperCase() + mealType.slice(1)}
+                                                </Typography>
+                                                {meal ? (
+                                                    <Box>
+                                                        <Typography variant="body1" gutterBottom>
+                                                            {meal.name}
+                                                        </Typography>
+                                                        <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
+                                                            <Chip
+                                                                icon={<AccessTime />}
+                                                                label={formatTime(meal.prep_time + meal.cook_time)}
+                                                                size="small"
+                                                            />
+                                                            <Chip
+                                                                label={`${meal.nutrition.calories} cal`}
+                                                                size="small"
+                                                            />
+                                                        </Box>
+                                                        <Button
+                                                            size="small"
+                                                            onClick={() => openRecipeDialog(meal)}
+                                                        >
+                                                            View Recipe
+                                                        </Button>
+                                                    </Box>
+                                                ) : (
+                                                    <Typography color="text.secondary">
+                                                        No meal planned
+                                                    </Typography>
+                                                )}
+                                            </CardContent>
+                                        </Card>
                                     </Box>
                                 );
                             })}
                         </Box>                                            <Divider sx={{ my: 2 }} />
 
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={12} md={6}>
-                                                    <Typography variant="subtitle2" gutterBottom>
-                                                        Daily Nutrition Summary
-                                                    </Typography>
-                                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                                                        <Chip label={`${Math.round(plan.total_nutrition.calories)} calories`} />
-                                                        <Chip label={`${Math.round(plan.total_nutrition.protein)}g protein`} />
-                                                        <Chip label={`${Math.round(plan.total_nutrition.carbs)}g carbs`} />
-                                                        <Chip label={`${Math.round(plan.total_nutrition.fat)}g fat`} />
-                                                        <Chip label={`${Math.round(plan.total_nutrition.fiber)}g fiber`} />
-                                                    </Box>
-                                                </Grid>
-                                                <Grid item xs={12} md={6}>
-                                                    <Typography variant="subtitle2" gutterBottom>
-                                                        Estimated Cost
-                                                    </Typography>
-                                                    <Typography variant="h6" color="primary">
-                                                        Rs.{plan.estimated_cost.toFixed(2)}
-                                                    </Typography>
-                                                </Grid>
-                                            </Grid>
-                                        </Paper>
-                                    </Grid>
-                                ))}
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} md={6}>
+                                <Typography variant="subtitle2" gutterBottom>
+                                    Daily Nutrition Summary
+                                </Typography>
+                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                                    <Chip label={`${Math.round(plan.total_nutrition.calories)} calories`} />
+                                    <Chip label={`${Math.round(plan.total_nutrition.protein)}g protein`} />
+                                    <Chip label={`${Math.round(plan.total_nutrition.carbs)}g carbs`} />
+                                    <Chip label={`${Math.round(plan.total_nutrition.fat)}g fat`} />
+                                    <Chip label={`${Math.round(plan.total_nutrition.fiber)}g fiber`} />
+                                </Box>
                             </Grid>
-                        )}
-                    </Box>
+                            <Grid item xs={12} md={6}>
+                                <Typography variant="subtitle2" gutterBottom>
+                                    Estimated Cost
+                                </Typography>
+                                <Typography variant="h6" color="primary">
+                                    Rs.{plan.estimated_cost.toFixed(2)}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                </Grid>
+            ))}
+        </Grid>
+    )
+}
+                    </Box >
                 );
 
             default:
-                return null;
+return null;
         }
     };
 
-    return (
-        <Box sx={{ p: 3 }}>
-            <Typography variant="h4" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
-                <Restaurant sx={{ mr: 2, color: 'primary.main' }} />
-                Smart Recipe Integration
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-                Discover recipes, plan meals, and optimize your cooking with AI-powered recommendations
-            </Typography>
+return (
+    <Box sx={{ p: 3 }}>
+        <Typography variant="h4" gutterBottom sx={{ display: 'flex', alignItems: 'center' }}>
+            <Restaurant sx={{ mr: 2, color: 'primary.main' }} />
+            Smart Recipe Integration
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
+            Discover recipes, plan meals, and optimize your cooking with AI-powered recommendations
+        </Typography>
 
-            {error && (
-                <Alert severity="error" sx={{ mb: 3 }} onClose={() => setError(null)}>
-                    {error}
-                </Alert>
-            )}
+        {error && (
+            <Alert severity="error" sx={{ mb: 3 }} onClose={() => setError(null)}>
+                {error}
+            </Alert>
+        )}
 
-            <Paper sx={{ mb: 3 }}>
-                <Tabs
-                    value={activeTab}
-                    onChange={(_, newValue) => setActiveTab(newValue)}
-                    variant="scrollable"
-                    scrollButtons="auto"
-                >
-                    <Tab icon={<Search />} label="Recipe Search" />
-                    <Tab icon={<Kitchen />} label="By Ingredients" />
-                    <Tab icon={<Star />} label="Recommendations" />
-                    <Tab icon={<MenuBook />} label="Meal Planning" />
-                </Tabs>
-            </Paper>
-
-            {tabContent()}
-
-            {/* Recipe Details Dialog */}
-            <Dialog
-                open={recipeDialogOpen}
-                onClose={() => setRecipeDialogOpen(false)}
-                maxWidth="md"
-                fullWidth
+        <Paper sx={{ mb: 3 }}>
+            <Tabs
+                value={activeTab}
+                onChange={(_, newValue) => setActiveTab(newValue)}
+                variant="scrollable"
+                scrollButtons="auto"
             >
-                {selectedRecipe && (
-                    <>
-                        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <Typography variant="h5">{selectedRecipe.name}</Typography>
-                            <IconButton onClick={() => setRecipeDialogOpen(false)}>
-                                <Close />
-                            </IconButton>
-                        </DialogTitle>
-                        <DialogContent>
-                            <Box sx={{ mb: 3 }}>
-                                <img
-                                    src={selectedRecipe.image_url || '/images/default-recipe.jpg'}
-                                    alt={selectedRecipe.name}
-                                    style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '8px' }}
-                                />
-                            </Box>
+                <Tab icon={<Search />} label="Recipe Search" />
+                <Tab icon={<Kitchen />} label="By Ingredients" />
+                <Tab icon={<Star />} label="Recommendations" />
+                <Tab icon={<MenuBook />} label="Meal Planning" />
+            </Tabs>
+        </Paper>
 
-                            <Typography variant="body1" sx={{ mb: 3 }}>
-                                {selectedRecipe.description}
-                            </Typography>
+        {tabContent()}
 
-                            <Grid container spacing={3}>
-                                <Grid item xs={12} md={6}>
-                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
-                                        <Chip icon={<TimerOutlined />} label={`Prep: ${formatTime(selectedRecipe.prep_time)}`} />
-                                        <Chip icon={<AccessTime />} label={`Cook: ${formatTime(selectedRecipe.cook_time)}`} />
-                                        <Chip icon={<Person />} label={`${selectedRecipe.servings} servings`} />
-                                        <Chip
-                                            label={selectedRecipe.difficulty}
-                                            color={getDifficultyColor(selectedRecipe.difficulty) as any}
-                                        />
-                                    </Box>
+        {/* Recipe Details Dialog */}
+        <Dialog
+            open={recipeDialogOpen}
+            onClose={() => setRecipeDialogOpen(false)}
+            maxWidth="md"
+            fullWidth
+        >
+            {selectedRecipe && (
+                <>
+                    <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Typography variant="h5">{selectedRecipe.name}</Typography>
+                        <IconButton onClick={() => setRecipeDialogOpen(false)}>
+                            <Close />
+                        </IconButton>
+                    </DialogTitle>
+                    <DialogContent>
+                        <Box sx={{ mb: 3 }}>
+                            <img
+                                src={selectedRecipe.image_url || '/images/default-recipe.jpg'}
+                                alt={selectedRecipe.name}
+                                style={{ width: '100%', height: '300px', objectFit: 'cover', borderRadius: '8px' }}
+                            />
+                        </Box>
 
-                                    <Typography variant="h6" gutterBottom>
-                                        Ingredients
-                                    </Typography>
-                                    <List dense>
-                                        {selectedRecipe.ingredients.map((ingredient, index) => (
-                                            <ListItem key={index}>
-                                                <ListItemText
-                                                    primary={`${ingredient.amount} ${ingredient.unit} ${ingredient.item}`}
-                                                    secondary={ingredient.optional ? 'Optional' : ''}
-                                                />
-                                            </ListItem>
-                                        ))}
-                                    </List>
-                                </Grid>
+                        <Typography variant="body1" sx={{ mb: 3 }}>
+                            {selectedRecipe.description}
+                        </Typography>
 
-                                <Grid item xs={12} md={6}>
-                                    <Typography variant="h6" gutterBottom>
-                                        Instructions
-                                    </Typography>
-                                    {selectedRecipe.instructions.map((instruction, index) => (
-                                        <Box key={index} sx={{ mb: 2, display: 'flex' }}>
-                                            <Typography variant="h6" sx={{ mr: 2, color: 'primary.main' }}>
-                                                {index + 1}.
-                                            </Typography>
-                                            <Typography variant="body1">
-                                                {instruction}
-                                            </Typography>
-                                        </Box>
+                        <Grid container spacing={3}>
+                            <Grid item xs={12} md={6}>
+                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
+                                    <Chip icon={<TimerOutlined />} label={`Prep: ${formatTime(selectedRecipe.prep_time)}`} />
+                                    <Chip icon={<AccessTime />} label={`Cook: ${formatTime(selectedRecipe.cook_time)}`} />
+                                    <Chip icon={<Person />} label={`${selectedRecipe.servings} servings`} />
+                                    <Chip
+                                        label={selectedRecipe.difficulty}
+                                        color={getDifficultyColor(selectedRecipe.difficulty) as any}
+                                    />
+                                </Box>
+
+                                <Typography variant="h6" gutterBottom>
+                                    Ingredients
+                                </Typography>
+                                <List dense>
+                                    {selectedRecipe.ingredients.map((ingredient, index) => (
+                                        <ListItem key={index}>
+                                            <ListItemText
+                                                primary={`${ingredient.amount} ${ingredient.unit} ${ingredient.item}`}
+                                                secondary={ingredient.optional ? 'Optional' : ''}
+                                            />
+                                        </ListItem>
                                     ))}
-
-                                    <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-                                        Nutrition (per serving)
-                                    </Typography>
-                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                                        <Chip label={`${selectedRecipe.nutrition.calories} calories`} variant="outlined" />
-                                        <Chip label={`${selectedRecipe.nutrition.protein}g protein`} variant="outlined" />
-                                        <Chip label={`${selectedRecipe.nutrition.carbs}g carbs`} variant="outlined" />
-                                        <Chip label={`${selectedRecipe.nutrition.fat}g fat`} variant="outlined" />
-                                    </Box>
-
-                                    {selectedRecipe.dietary_tags.length > 0 && (
-                                        <Box sx={{ mt: 2 }}>
-                                            <Typography variant="subtitle2" gutterBottom>
-                                                Dietary Tags
-                                            </Typography>
-                                            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                                                {selectedRecipe.dietary_tags.map((tag) => (
-                                                    <Chip key={tag} label={tag} size="small" color="secondary" />
-                                                ))}
-                                            </Box>
-                                        </Box>
-                                    )}
-                                </Grid>
+                                </List>
                             </Grid>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button startIcon={<ShoppingCart />} variant="outlined">
-                                Add to Shopping List
-                            </Button>
-                            <Button onClick={() => setRecipeDialogOpen(false)}>
-                                Close
-                            </Button>
-                        </DialogActions>
-                    </>
-                )}
-            </Dialog>
-        </Box>
-    );
+
+                            <Grid item xs={12} md={6}>
+                                <Typography variant="h6" gutterBottom>
+                                    Instructions
+                                </Typography>
+                                {selectedRecipe.instructions.map((instruction, index) => (
+                                    <Box key={index} sx={{ mb: 2, display: 'flex' }}>
+                                        <Typography variant="h6" sx={{ mr: 2, color: 'primary.main' }}>
+                                            {index + 1}.
+                                        </Typography>
+                                        <Typography variant="body1">
+                                            {instruction}
+                                        </Typography>
+                                    </Box>
+                                ))}
+
+                                <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
+                                    Nutrition (per serving)
+                                </Typography>
+                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                                    <Chip label={`${selectedRecipe.nutrition.calories} calories`} variant="outlined" />
+                                    <Chip label={`${selectedRecipe.nutrition.protein}g protein`} variant="outlined" />
+                                    <Chip label={`${selectedRecipe.nutrition.carbs}g carbs`} variant="outlined" />
+                                    <Chip label={`${selectedRecipe.nutrition.fat}g fat`} variant="outlined" />
+                                </Box>
+
+                                {selectedRecipe.dietary_tags.length > 0 && (
+                                    <Box sx={{ mt: 2 }}>
+                                        <Typography variant="subtitle2" gutterBottom>
+                                            Dietary Tags
+                                        </Typography>
+                                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                                            {selectedRecipe.dietary_tags.map((tag) => (
+                                                <Chip key={tag} label={tag} size="small" color="secondary" />
+                                            ))}
+                                        </Box>
+                                    </Box>
+                                )}
+                            </Grid>
+                        </Grid>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button startIcon={<ShoppingCart />} variant="outlined">
+                            Add to Shopping List
+                        </Button>
+                        <Button onClick={() => setRecipeDialogOpen(false)}>
+                            Close
+                        </Button>
+                    </DialogActions>
+                </>
+            )}
+        </Dialog>
+    </Box>
+);
 };
 
 export default SmartRecipe;
