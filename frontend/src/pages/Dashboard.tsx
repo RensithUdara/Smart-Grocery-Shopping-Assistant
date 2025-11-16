@@ -145,7 +145,7 @@ const Dashboard: React.FC = () => {
                 />
                 <StatCard
                     title="Total Spent"
-                    value={`$${dashboardData.analytics?.total_spent?.toFixed(2) || '0.00'}`}
+                    value={`Rs.${dashboardData.analytics?.total_spent?.toFixed(2) || '0.00'}`}
                     icon={<TrendingUp />}
                     color="#2196F3"
                     onClick={() => navigate('/analytics')}
