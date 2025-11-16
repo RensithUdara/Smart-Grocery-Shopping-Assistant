@@ -53,6 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
         { path: '/shopping-list', label: 'Shopping List', icon: <ShoppingCart />, section: 'shopping' },
         { path: '/suggestions', label: 'Suggestions', icon: <Lightbulb />, section: 'shopping' },
         { path: '/ai-recommendations', label: 'AI Recommendations', icon: <Psychology />, section: 'ai' },
+        { path: '/smart-recipe', label: 'Smart Recipe', icon: <Restaurant />, section: 'ai' },
         { path: '/store-integration', label: 'Store Integration', icon: <Store />, section: 'ai' },
         { path: '/nutrition', label: 'Nutrition', icon: <LocalHospital />, section: 'health' },
         { path: '/budget-management', label: 'Budget Management', icon: <AccountBalanceWallet />, section: 'finance' },
