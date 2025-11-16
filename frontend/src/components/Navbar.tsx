@@ -268,19 +268,6 @@ const Navbar: React.FC<NavbarProps> = ({ sidebarOpen, onSidebarToggle }) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{
-                            fontWeight: 700,
-                            background: 'linear-gradient(45deg, #FFFFFF 30%, #E8F5E8 90%)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                        }}
-                    >
-                        Smart Grocery Assistant
-                    </Typography>
                 </Toolbar>
             </AppBar>
             <Sidebar open={sidebarOpen} onClose={() => onSidebarToggle()} />
