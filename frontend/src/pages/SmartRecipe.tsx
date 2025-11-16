@@ -665,41 +665,33 @@ const SmartRecipe: React.FC = () => {
                                 Smart Meal Planning
                             </Typography>
 
-                            <Grid container spacing={3}>
-                                <Grid item xs={12} md={6}>
-                                    <FormControl fullWidth>
-                                        <InputLabel>Number of Days</InputLabel>
-                                        <Select
-                                            value={mealPlanDays}
-                                            onChange={(e) => setMealPlanDays(e.target.value as number)}
-                                        >
-                                            <MenuItem value={3}>3 days</MenuItem>
-                                            <MenuItem value={7}>1 week</MenuItem>
-                                            <MenuItem value={14}>2 weeks</MenuItem>
-                                        </Select>
-                                    </FormControl>
-                                </Grid>
-                                <Grid item xs={12} md={6}>
-                                    <FormControl fullWidth>
-                                        <InputLabel>Dietary Preferences</InputLabel>
-                                        <Select
-                                            multiple
-                                            value={dietaryPreferences}
-                                            onChange={(e) => setDietaryPreferences(e.target.value as string[])}
-                                        >
-                                            {categories.dietary_tags.map((tag) => (
-                                                <MenuItem key={tag} value={tag}>
-                                                    {tag.charAt(0).toUpperCase() + tag.slice(1)}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                </Grid>
-                            </Grid>
-
-                            <Box sx={{ mt: 3 }}>
-                                <Button
-                                    variant="contained"
+                <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' }, gap: 3 }}>
+                    <FormControl fullWidth>
+                        <InputLabel>Number of Days</InputLabel>
+                        <Select
+                            value={mealPlanDays}
+                            onChange={(e) => setMealPlanDays(e.target.value as number)}
+                        >
+                            <MenuItem value={3}>3 days</MenuItem>
+                            <MenuItem value={7}>1 week</MenuItem>
+                            <MenuItem value={14}>2 weeks</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <FormControl fullWidth>
+                        <InputLabel>Dietary Preferences</InputLabel>
+                        <Select
+                            multiple
+                            value={dietaryPreferences}
+                            onChange={(e) => setDietaryPreferences(e.target.value as string[])}
+                        >
+                            {categories.dietary_tags.map((tag) => (
+                                <MenuItem key={tag} value={tag}>
+                                    {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Box>                                    variant="contained"
                                     onClick={generateMealPlan}
                                     disabled={loading}
                                     startIcon={<MenuBook />}
@@ -765,12 +757,10 @@ const SmartRecipe: React.FC = () => {
                                                                     )}
                                                                 </CardContent>
                                                             </Card>
-                                                        </Grid>
-                                                    );
-                                                })}
-                                            </Grid>
-
-                                            <Divider sx={{ my: 2 }} />
+                                    </Box>
+                                );
+                            })}
+                        </Box>                                            <Divider sx={{ my: 2 }} />
 
                                             <Grid container spacing={2}>
                                                 <Grid item xs={12} md={6}>
