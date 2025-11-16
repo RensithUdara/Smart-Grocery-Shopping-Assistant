@@ -213,7 +213,7 @@ class Notification(Base):
     is_read = Column(Boolean, default=False)
     priority = Column(String(10), default='medium')  # low, medium, high
     action_url = Column(String(255))
-    metadata = Column(JSON, default={})
+    notification_metadata = Column(JSON, default={})
     expires_at = Column(DateTime(timezone=True))
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     
