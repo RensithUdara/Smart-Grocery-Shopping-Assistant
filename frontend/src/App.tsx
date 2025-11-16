@@ -133,6 +133,7 @@ function App() {
                 <Route path="/nutrition" element={<Nutrition />} />
                 <Route path="/budget-management" element={<BudgetManagement />} />
                 <Route path="/ai-recommendations" element={<AIRecommendations />} />
+                <Route path="/smart-recipe" element={<SmartRecipe />} />
                 <Route path="/analytics" element={<Analytics />} />
                 <Route path="/purchase-history" element={<PurchaseHistory />} />
               </Routes>
