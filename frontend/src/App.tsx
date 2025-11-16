@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box } from '@mui/material';
 
 // Components
-import Navbar from './components/Navbar';
+import Navbar, { drawerWidth } from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import ShoppingList from './pages/ShoppingList';
 import Suggestions from './pages/Suggestions';
@@ -83,28 +83,59 @@ const theme = createTheme({
 });
 
 function App() {
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  const handleSidebarToggle = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-          <Navbar />
-          <Box component="main" sx={{ flexGrow: 1, p: 3, backgroundColor: 'background.default' }}>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/shopping-list" element={<ShoppingList />} />
-              <Route path="/suggestions" element={<Suggestions />} />
-              <Route path="/expiration" element={<Expiration />} />
-              <Route path="/meal-planning" element={<MealPlanning />} />
-              <Route path="/budget" element={<Budget />} />
-              <Route path="/notifications" element={<Notifications />} />
-              <Route path="/store-integration" element={<StoreIntegration />} />
-              <Route path="/nutrition" element={<Nutrition />} />
-              <Route path="/budget-management" element={<BudgetManagement />} />
-              <Route path="/ai-recommendations" element={<AIRecommendations />} />
-              <Route path="/analytics" element={<Analytics />} />
-              <Route path="/purchase-history" element={<PurchaseHistory />} />
-            </Routes>
+        <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+          <Navbar sidebarOpen={sidebarOpen} onSidebarToggle={handleSidebarToggle} />
+          <Box
+            component="main"
+            sx={{
+              flexGrow: 1,
+              backgroundColor: 'background.default',
+              transition: (theme) =>
+                theme.transitions.create('margin', {
+                  easing: theme.transitions.easing.sharp,
+                  duration: theme.transitions.duration.leavingScreen,
+                }),
+              marginLeft: sidebarOpen ? 0 : `-${drawerWidth}px`,
+              ...(sidebarOpen && {
+                transition: (theme) =>
+                  theme.transitions.create('margin', {
+                    easing: theme.transitions.easing.easeOut,
+                    duration: theme.transitions.duration.enteringScreen,
+                  }),
+                marginLeft: 0,
+              }),
+            }}
+          >
+            {/* Toolbar spacer */}
+            <Box sx={{ minHeight: '64px' }} />
+
+            <Box sx={{ p: 3 }}>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/shopping-list" element={<ShoppingList />} />
+                <Route path="/suggestions" element={<Suggestions />} />
+                <Route path="/expiration" element={<Expiration />} />
+                <Route path="/meal-planning" element={<MealPlanning />} />
+                <Route path="/budget" element={<Budget />} />
+                <Route path="/notifications" element={<Notifications />} />
+                <Route path="/store-integration" element={<StoreIntegration />} />
+                <Route path="/nutrition" element={<Nutrition />} />
+                <Route path="/budget-management" element={<BudgetManagement />} />
+                <Route path="/ai-recommendations" element={<AIRecommendations />} />
+                <Route path="/analytics" element={<Analytics />} />
+                <Route path="/purchase-history" element={<PurchaseHistory />} />
+              </Routes>
+            </Box>
           </Box>
         </Box>
       </Router>
