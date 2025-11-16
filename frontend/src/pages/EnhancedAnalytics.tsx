@@ -233,7 +233,7 @@ const EnhancedAnalytics: React.FC = () => {
                                         <Box key={category} sx={{ mb: 2 }}>
                                             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                                                 <Typography variant="body2">{category}</Typography>
-                                                <Typography variant="body2" fontWeight="bold">${Number(amount).toFixed(2)}</Typography>
+                                                <Typography variant="body2" fontWeight="bold">Rs.{Number(amount).toFixed(2)}</Typography>
                                             </Box>
                                             <LinearProgress
                                                 variant="determinate"
