@@ -388,7 +388,7 @@ const ShoppingList: React.FC = () => {
 
                         <Box sx={{ display: 'flex', gap: 2 }}>
                             <TextField
-                                label="Price ($)"
+                                label="Price (Rs.)"
                                 type="number"
                                 value={newItem.price}
                                 onChange={(e) => setNewItem({ ...newItem, price: parseFloat(e.target.value) || 0 })}

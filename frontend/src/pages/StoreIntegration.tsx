@@ -136,7 +136,7 @@ const StoreIntegration: React.FC = () => {
     };
 
     const formatCurrency = (amount: number | null) => {
-        return amount ? `$${amount.toFixed(2)}` : 'N/A';
+        return amount ? `Rs.${amount.toFixed(2)}` : 'N/A';
     };
 
     return (
