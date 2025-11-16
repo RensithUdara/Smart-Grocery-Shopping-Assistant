@@ -314,7 +314,7 @@ const Budget: React.FC = () => {
                                                         {category.category.charAt(0).toUpperCase() + category.category.slice(1)}
                                                     </Typography>
                                                     <Typography variant="body1" sx={{ fontWeight: 600 }}>
-                                                        ${category.amount_spent}
+                                                        Rs.{category.amount_spent}
                                                     </Typography>
                                                 </Box>
                                             }
