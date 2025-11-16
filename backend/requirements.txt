@@ -5,7 +5,11 @@ Flask==2.3.2
 Flask-CORS==4.0.0
 Werkzeug==2.3.6
 
+# Database
+SQLAlchemy==2.0.23
+psycopg2-binary==2.9.9
+alembic==1.12.1
+
 # Additional dependencies for enhanced functionality
-# (Add as needed for future features)
-# requests==2.31.0  # For external API calls
-# python-dotenv==1.0.0  # For environment variables
+requests==2.31.0  # For external API calls
+python-dotenv==1.0.0  # For environment variables
