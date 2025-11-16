@@ -281,7 +281,7 @@ const AnalyticsPage: React.FC = () => {
                                                     <Cell key={`cell-${index}`} fill={entry.color} />
                                                 ))}
                                             </Pie>
-                                            <Tooltip formatter={(value) => [`$${Number(value).toFixed(2)}`, 'Amount']} />
+                                            <Tooltip formatter={(value) => [`Rs.${Number(value).toFixed(2)}`, 'Amount']} />
                                         </RechartsPieChart>
                                     </ResponsiveContainer>
                                 </Box>
@@ -303,7 +303,7 @@ const AnalyticsPage: React.FC = () => {
                                             <CartesianGrid strokeDasharray="3 3" />
                                             <XAxis dataKey="month" />
                                             <YAxis />
-                                            <Tooltip formatter={(value) => [`$${Number(value).toFixed(2)}`, 'Amount']} />
+                                            <Tooltip formatter={(value) => [`Rs.${Number(value).toFixed(2)}`, 'Amount']} />
                                             <Legend />
                                             <Line
                                                 type="monotone"
