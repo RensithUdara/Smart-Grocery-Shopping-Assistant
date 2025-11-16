@@ -912,20 +912,12 @@ const SmartRecipe: React.FC = () => {
                                     <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
                                         Nutrition (per serving)
                                     </Typography>
-                                    <Grid container spacing={1}>
-                                        <Grid item xs={6}>
-                                            <Chip label={`${selectedRecipe.nutrition.calories} calories`} variant="outlined" />
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Chip label={`${selectedRecipe.nutrition.protein}g protein`} variant="outlined" />
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Chip label={`${selectedRecipe.nutrition.carbs}g carbs`} variant="outlined" />
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Chip label={`${selectedRecipe.nutrition.fat}g fat`} variant="outlined" />
-                                        </Grid>
-                                    </Grid>
+                                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                                        <Chip label={`${selectedRecipe.nutrition.calories} calories`} variant="outlined" />
+                                        <Chip label={`${selectedRecipe.nutrition.protein}g protein`} variant="outlined" />
+                                        <Chip label={`${selectedRecipe.nutrition.carbs}g carbs`} variant="outlined" />
+                                        <Chip label={`${selectedRecipe.nutrition.fat}g fat`} variant="outlined" />
+                                    </Box>
 
                                     {selectedRecipe.dietary_tags.length > 0 && (
                                         <Box sx={{ mt: 2 }}>
