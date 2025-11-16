@@ -142,7 +142,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, onClose }) => {
                             />
                             {expandedSections[sectionKey] ? <ExpandLess /> : <ExpandMore />}
                         </ListItemButton>
-                        
+
                         <Collapse in={expandedSections[sectionKey]} timeout="auto" unmountOnExit>
                             <List component="div" disablePadding>
                                 {section.items.map((item) => {
