@@ -93,6 +93,7 @@ SmartGroceryAssistant/
 - Python 3.8+
 - Node.js 16+
 - npm or yarn
+- PostgreSQL 12+ (optional, for database mode)
 
 ### Backend Setup
 1. **Navigate to backend directory:**
@@ -105,7 +106,30 @@ SmartGroceryAssistant/
    pip install -r requirements.txt
    ```
 
-3. **Start the Flask API server:**
+3. **Database Setup (Optional)**:
+   
+   **For JSON mode (default):**
+   ```bash
+   # No additional setup required
+   python run.py
+   ```
+   
+   **For PostgreSQL mode (recommended):**
+   ```bash
+   # Install PostgreSQL and create database
+   createdb smart_grocery_db
+   
+   # Configure environment
+   cp .env.example .env
+   # Edit .env file with your database settings
+   
+   # Initialize database
+   python setup_database.py
+   # or
+   python db_cli.py init
+   ```
+
+4. **Start the Flask API server:**
    ```bash
    python run.py
    ```
@@ -193,10 +217,28 @@ SmartGroceryAssistant/
 - `API_PORT`: API server port (default: 5000)
 - `CORS_ORIGINS`: Allowed CORS origins
 
+### Database Configuration
+- `USE_DATABASE`: Enable PostgreSQL mode (default: false)
+- `DATABASE_URL`: PostgreSQL connection string
+- `USE_SQLITE`: Use SQLite for development (default: false)
+
 ### Frontend Configuration
 - API base URL configured in `src/services/apiService.js`
 - Responsive breakpoints in CSS utility classes
 - Chart colors and themes in Analytics components
+
+### Database Modes
+
+**JSON Mode (Default)**:
+- File-based storage in `backend/data/`
+- No database installation required
+- Perfect for development and single-user setups
+
+**PostgreSQL Mode**:
+- Full relational database with ACID properties
+- Advanced querying and analytics capabilities
+- Scalable for multi-user production deployments
+- See `backend/DATABASE.md` for detailed setup instructions
 
 ## 🚀 Production Deployment
 
