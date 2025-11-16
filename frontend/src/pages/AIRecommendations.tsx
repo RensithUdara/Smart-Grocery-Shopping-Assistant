@@ -263,7 +263,7 @@ const AIRecommendations: React.FC = () => {
 
                                 <Box sx={{ mb: 2 }}>
                                     <Typography variant="body2">
-                                        <strong>Estimated Price:</strong> ${rec.estimated_price}
+                                        <strong>Estimated Price:</strong> Rs.{rec.estimated_price}
                                     </Typography>
                                     <Typography variant="body2">
                                         <strong>Suggested Quantity:</strong> {rec.predicted_quantity}
@@ -392,7 +392,7 @@ const AIRecommendations: React.FC = () => {
                                                             <Typography variant="body2">
                                                                 Category: {item.category} |
                                                                 Quantity: {item.predicted_quantity} |
-                                                                Est. Price: ${item.estimated_price}
+                                                                Est. Price: Rs.{item.estimated_price}
                                                             </Typography>
                                                             <Typography variant="body2" color="warning.main">
                                                                 {item.days_until_needed === 0 ? 'Needed now' : `Needed in ${item.days_until_needed} days`}
@@ -417,7 +417,7 @@ const AIRecommendations: React.FC = () => {
                                         <Box key={category} sx={{ mb: 1 }}>
                                             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
                                                 <Typography variant="body2">{category}</Typography>
-                                                <Typography variant="body2">${Number(amount).toFixed(2)}</Typography>
+                                                <Typography variant="body2">Rs.{Number(amount).toFixed(2)}</Typography>
                                             </Box>
                                             <LinearProgress
                                                 variant="determinate"
