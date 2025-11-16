@@ -2,6 +2,10 @@ from flask import Flask
 from flask_cors import CORS
 import sys
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Add src directory to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
@@ -12,8 +16,23 @@ def create_app():
     CORS(app)
     
     # Configuration
-    app.config['DEBUG'] = True
+    app.config['DEBUG'] = os.getenv('FLASK_DEBUG', 'true').lower() == 'true'
     app.config['JSON_SORT_KEYS'] = False
+    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
+    
+    # Database configuration
+    app.config['USE_DATABASE'] = os.getenv('USE_DATABASE', 'false').lower() == 'true'
+    app.config['DATABASE_URL'] = os.getenv('DATABASE_URL', 'sqlite:///smart_grocery.db')
+    
+    # Initialize database if using database mode
+    if app.config['USE_DATABASE']:
+        try:
+            from src.database import init_db
+            init_db()
+            print("✅ Database initialized successfully")
+        except Exception as e:
+            print(f"⚠️  Database initialization warning: {e}")
+            print("   You can run 'python setup_database.py' to set up the database")
     
     # Error handlers
     from app.utils.error_handlers import register_error_handlers
