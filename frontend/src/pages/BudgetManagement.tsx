@@ -157,9 +157,9 @@ const BudgetManagement: React.FC = () => {
                     <Card>
                         <CardContent>
                             <Typography variant="h6" color="primary">Total Budget</Typography>
-                            <Typography variant="h4">${budgetSummary.budget_overview.total_budget}</Typography>
+                            <Typography variant="h4">Rs.{budgetSummary.budget_overview.total_budget}</Typography>
                             <Typography variant="body2" color="text.secondary">
-                                ${budgetSummary.budget_overview.remaining_budget} remaining
+                                Rs.{budgetSummary.budget_overview.remaining_budget} remaining
                             </Typography>
                         </CardContent>
                     </Card>
@@ -180,14 +180,14 @@ const BudgetManagement: React.FC = () => {
                             <Typography variant="h6" color="primary">Price Alerts</Typography>
                             <Typography variant="h4">{budgetSummary.alerts_summary.price_alerts}</Typography>
                             <Typography variant="body2" color="text.secondary">
-                                ${budgetSummary.alerts_summary.total_potential_savings} potential savings
+                                Rs.{budgetSummary.alerts_summary.total_potential_savings} potential savings
                             </Typography>
                         </CardContent>
                     </Card>
                     <Card>
                         <CardContent>
                             <Typography variant="h6" color="primary">Monthly Forecast</Typography>
-                            <Typography variant="h4">${budgetSummary.monthly_forecast}</Typography>
+                            <Typography variant="h4">Rs.{budgetSummary.monthly_forecast}</Typography>
                             <Typography variant="body2" color="text.secondary">
                                 Based on spending patterns
                             </Typography>
@@ -233,8 +233,8 @@ const BudgetManagement: React.FC = () => {
                                     </Typography>
 
                                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                                        <Typography variant="body2">Spent: ${goal.spent}</Typography>
-                                        <Typography variant="body2">Target: ${goal.target}</Typography>
+                                        <Typography variant="body2">Spent: Rs.{goal.spent}</Typography>
+                                        <Typography variant="body2">Target: Rs.{goal.target}</Typography>
                                     </Box>
 
                                     <LinearProgress
@@ -251,7 +251,7 @@ const BudgetManagement: React.FC = () => {
                                         sx={{ mr: 1 }}
                                     />
                                     <Chip
-                                        label={`$${goal.remaining} left`}
+                                        label={`Rs.${goal.remaining} left`}
                                         variant="outlined"
                                         size="small"
                                     />
@@ -289,7 +289,7 @@ const BudgetManagement: React.FC = () => {
                                     {forecast.period.charAt(0).toUpperCase() + forecast.period.slice(1)} Budget Forecast
                                 </Typography>
                                 <Typography variant="h4" color="primary" gutterBottom>
-                                    ${forecast.total_forecast}
+                                    Rs.{forecast.total_forecast}
                                 </Typography>
 
                                 <Typography variant="subtitle2" gutterBottom>Category Breakdown:</Typography>
@@ -300,7 +300,7 @@ const BudgetManagement: React.FC = () => {
                                                 {category}:
                                             </Typography>
                                             <Typography variant="body2" fontWeight="bold">
-                                                ${data.forecast_amount}
+                                                Rs.{data.forecast_amount}
                                             </Typography>
                                         </Box>
                                     ))}
@@ -334,7 +334,7 @@ const BudgetManagement: React.FC = () => {
                             <CardContent>
                                 <Typography variant="h6" gutterBottom>Overview</Typography>
                                 <Typography variant="h4" color="primary" gutterBottom>
-                                    ${spendingAnalysis.total_spent}
+                                    Rs.{spendingAnalysis.total_spent}
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
                                     Total spent across all categories
@@ -354,7 +354,7 @@ const BudgetManagement: React.FC = () => {
                                                     {category.name}
                                                 </Typography>
                                                 <Typography variant="body1" fontWeight="bold">
-                                                    ${category.total} ({category.percentage}%)
+                                                    Rs.{category.total} ({category.percentage}%)
                                                 </Typography>
                                             </Box>
                                             <LinearProgress
@@ -376,11 +376,11 @@ const BudgetManagement: React.FC = () => {
                                             <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                                                 <Typography variant="body1">{store.name}</Typography>
                                                 <Typography variant="body1" fontWeight="bold">
-                                                    ${store.total} ({store.percentage}%)
+                                                    Rs.{store.total} ({store.percentage}%)
                                                 </Typography>
                                             </Box>
                                             <Typography variant="body2" color="text.secondary">
-                                                {store.transactions} transactions, ${store.avg_per_visit} avg per visit
+                                                {store.transactions} transactions, Rs.{store.avg_per_visit} avg per visit
                                             </Typography>
                                         </Box>
                                     ))}
@@ -440,7 +440,7 @@ const BudgetManagement: React.FC = () => {
                                                     {transaction.category}
                                                 </TableCell>
                                                 <TableCell>{transaction.store}</TableCell>
-                                                <TableCell align="right">${transaction.amount}</TableCell>
+                                                <TableCell align="right">Rs.{transaction.amount}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
@@ -477,15 +477,15 @@ const BudgetManagement: React.FC = () => {
 
                                     <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                                         <Typography variant="body2" sx={{ textDecoration: 'line-through' }}>
-                                            Was: ${alert.target_price}
+                                            Was: Rs.{alert.target_price}
                                         </Typography>
                                         <Typography variant="h6" color="success.main">
-                                            Now: ${alert.current_price}
+                                            Now: Rs.{alert.current_price}
                                         </Typography>
                                     </Box>
 
                                     <Alert severity="success">
-                                        Save ${alert.savings_amount} per unit!
+                                        Save Rs.{alert.savings_amount} per unit!
                                     </Alert>
                                 </CardContent>
                             </Card>
@@ -523,7 +523,7 @@ const BudgetManagement: React.FC = () => {
 
                                     {opportunity.potential_savings && (
                                         <Chip
-                                            label={`Save $${opportunity.potential_savings}`}
+                                            label={`Save Rs.${opportunity.potential_savings}`}
                                             color="success"
                                             sx={{ mr: 1 }}
                                         />
@@ -573,7 +573,7 @@ const BudgetManagement: React.FC = () => {
                             </Select>
                         </FormControl>
                         <TextField
-                            label="Amount ($)"
+                            label="Amount (Rs.)"
                             type="number"
                             fullWidth
                             value={newTransaction.amount}
@@ -620,7 +620,7 @@ const BudgetManagement: React.FC = () => {
                             </Select>
                         </FormControl>
                         <TextField
-                            label="Target Amount ($)"
+                            label="Target Amount (Rs.)"
                             type="number"
                             fullWidth
                             value={newGoal.target_amount}

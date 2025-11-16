@@ -370,7 +370,7 @@ class BudgetManagementEngine:
                     most_expensive = prices[-1]
                     savings = most_expensive[1] - cheapest[1]
                     
-                    if savings > 0.50:  # Alert for $0.50+ savings
+                    if savings > 25.0:  # Alert for Rs.25+ savings
                         opportunities.append({
                             'type': 'store_comparison',
                             'item': item,
@@ -378,7 +378,7 @@ class BudgetManagementEngine:
                             'best_price': cheapest[1],
                             'highest_price': most_expensive[1],
                             'potential_savings': round(savings, 2),
-                            'recommendation': f"Buy {item} at {cheapest[0]} to save ${savings:.2f}"
+                            'recommendation': f"Buy {item} at {cheapest[0]} to save Rs.{savings:.2f}"
                         })
         
         # Bulk purchase opportunities
@@ -409,7 +409,7 @@ class BudgetManagementEngine:
         
         # Find highest spending category
         highest_category = max(forecasts.items(), key=lambda x: x[1]['forecast_amount'])
-        recommendations.append(f"Focus on optimizing {highest_category[0]} spending (${highest_category[1]['forecast_amount']:.2f} forecasted)")
+        recommendations.append(f"Focus on optimizing {highest_category[0]} spending (Rs.{highest_category[1]['forecast_amount']:.2f} forecasted)")
         
         recommendations.append("Look for bulk purchase opportunities to reduce costs")
         
