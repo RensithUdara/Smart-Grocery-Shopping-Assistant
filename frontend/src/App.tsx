@@ -20,6 +20,7 @@ import Analytics from './pages/Analytics';
 import PurchaseHistory from './pages/PurchaseHistory';
 import Nutrition from './pages/Nutrition';
 import BudgetManagement from './pages/BudgetManagement';
+import SmartRecipe from './pages/SmartRecipe';
 
 // Create a light, colorful theme
 const theme = createTheme({
