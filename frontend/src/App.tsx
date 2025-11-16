@@ -118,7 +118,7 @@ function App() {
           >
             {/* Toolbar spacer */}
             <Box sx={{ minHeight: '64px' }} />
-            
+
             <Box sx={{ p: 3 }}>
               <Routes>
                 <Route path="/" element={<Dashboard />} />
