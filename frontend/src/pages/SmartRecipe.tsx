@@ -100,7 +100,7 @@ const SmartRecipe: React.FC = () => {
     const [activeTab, setActiveTab] = useState(0);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    
+
     // Recipe Search State
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState<Recipe[]>([]);
@@ -166,7 +166,7 @@ const SmartRecipe: React.FC = () => {
 
     const handleIngredientSearch = async () => {
         if (!availableIngredients.trim()) return;
-        
+
         setLoading(true);
         setError(null);
         try {
@@ -216,10 +216,10 @@ const SmartRecipe: React.FC = () => {
         }
     };
 
-    const RecipeCard: React.FC<{ recipe: Recipe; showMatchScore?: boolean; matchScore?: number }> = ({ 
-        recipe, 
-        showMatchScore, 
-        matchScore 
+    const RecipeCard: React.FC<{ recipe: Recipe; showMatchScore?: boolean; matchScore?: number }> = ({
+        recipe,
+        showMatchScore,
+        matchScore
     }) => (
         <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
             <CardContent sx={{ flexGrow: 1 }}>
@@ -228,10 +228,10 @@ const SmartRecipe: React.FC = () => {
                         {recipe.title}
                     </Typography>
                     {showMatchScore && matchScore && (
-                        <Chip 
-                            label={`${Math.round(matchScore * 100)}% match`} 
-                            color="primary" 
-                            size="small" 
+                        <Chip
+                            label={`${Math.round(matchScore * 100)}% match`}
+                            color="primary"
+                            size="small"
                         />
                     )}
                 </Box>
@@ -490,7 +490,7 @@ const SmartRecipe: React.FC = () => {
                                                 day: 'numeric'
                                             })}
                                         </Typography>
-                                        
+
                                         <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 2, mb: 3 }}>
                                             {['breakfast', 'lunch', 'dinner'].map((mealType) => {
                                                 const meal = plan[mealType as keyof typeof plan] as Recipe | null;
@@ -614,7 +614,7 @@ const SmartRecipe: React.FC = () => {
                             <Typography variant="body1" paragraph>
                                 {selectedRecipe.description}
                             </Typography>
-                            
+
                             <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
                                 <Chip icon={<AccessTime />} label={formatTime(selectedRecipe.prep_time + selectedRecipe.cook_time)} />
                                 <Chip icon={<Person />} label={`${selectedRecipe.servings} servings`} />
