@@ -278,7 +278,7 @@ const Expiration: React.FC = () => {
                                                                     `Expired ${Math.abs(daysLeft)} day${Math.abs(daysLeft) > 1 ? 's' : ''} ago`
                                                                 )}
                                                                 {item.quantity && ` • Quantity: ${item.quantity}`}
-                                                                {item.price && ` • $${item.price.toFixed(2)}`}
+                                                                {item.price && ` • Rs.${item.price.toFixed(2)}`}
                                                             </Typography>
                                                         }
                                                     />
