@@ -214,8 +214,9 @@ def check_database_connection():
     """Check if database connection is working"""
     try:
         print("🔍 Checking database connection...")
+        from sqlalchemy import text
         db = SessionLocal()
-        db.execute("SELECT 1")
+        db.execute(text("SELECT 1"))
         db.close()
         print("✅ Database connection successful")
         return True
