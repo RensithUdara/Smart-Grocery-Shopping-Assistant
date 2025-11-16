@@ -31,6 +31,7 @@ def create_app():
     from app.routes.store import store_bp
     from app.routes.ml import ml_bp
     from app.routes.nutrition import nutrition_bp
+    from app.routes.recipe import recipe_bp
     
     app.register_blueprint(shopping_bp, url_prefix='/api')
     app.register_blueprint(suggestions_bp, url_prefix='/api')
@@ -43,6 +44,7 @@ def create_app():
     app.register_blueprint(store_bp)
     app.register_blueprint(ml_bp)
     app.register_blueprint(nutrition_bp, url_prefix='/api')
+    app.register_blueprint(recipe_bp)
     
     return app
 
