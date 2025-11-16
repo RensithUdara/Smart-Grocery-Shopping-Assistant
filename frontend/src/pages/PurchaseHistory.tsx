@@ -351,7 +351,7 @@ const PurchaseHistory: React.FC = () => {
                                             secondary={
                                                 <Box sx={{ mt: 1 }}>
                                                     <Typography variant="body2" color="textSecondary">
-                                                        {item.quantity} {item.unit} • ${item.price.toFixed(2)} each • Total: ${(item.price * item.quantity).toFixed(2)}
+                                                        {item.quantity} {item.unit} • Rs.{item.price.toFixed(2)} each • Total: Rs.{(item.price * item.quantity).toFixed(2)}
                                                     </Typography>
                                                     {item.purchase_date && (
                                                         <Typography variant="body2" color="textSecondary">
@@ -437,7 +437,7 @@ const PurchaseHistory: React.FC = () => {
 
                         <Box sx={{ display: 'flex', gap: 2 }}>
                             <TextField
-                                label="Price ($)"
+                                label="Price (Rs.)"
                                 type="number"
                                 value={newPurchase.price}
                                 onChange={(e) => setNewPurchase({ ...newPurchase, price: parseFloat(e.target.value) || 0 })}
