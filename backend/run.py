@@ -11,7 +11,8 @@ import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, current_dir)
 
-from app import create_app
+# Import create_app from flask_app.py
+from flask_app import create_app
 
 def main():
     """Main entry point for the backend server"""
