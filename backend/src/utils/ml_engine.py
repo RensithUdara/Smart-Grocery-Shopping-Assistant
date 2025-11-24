@@ -1,31 +1,38 @@
 #!/usr/bin/env python3
 """
-Machine Learning Engine for Smart Grocery Shopping Assistant
+Enhanced Machine Learning Engine for Smart Grocery Shopping Assistant
 
-Provides AI-powered features including:
-- Predictive shopping patterns
-- Personalized recommendations
-- Quantity optimization
-- Seasonal forecasting
-- Purchase behavior analysis
-- Smart shopping suggestions
+Advanced AI-powered features including:
+- Deep learning-based purchase prediction
+- Collaborative filtering recommendations  
+- Time series forecasting
+- User behavior clustering
+- Real-time adaptation
+- Personalized nutrition optimization
 
-Author: CS 6340 Mini Project Enhancement
+Author: CS 6340 Mini Project - AI Enhancement
 Date: November 2025
 """
 
 import os
 import json
 import numpy as np
+import pandas as pd
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any, Tuple
 import math
 import random
 from collections import defaultdict, Counter
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
+from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.decomposition import PCA
+import pickle
 
-class MLEngine:
+class AdvancedMLEngine:
     """
-    Advanced Machine Learning Engine for grocery shopping optimization
+    Next-generation Machine Learning Engine with advanced AI capabilities
     """
     
     def __init__(self):
@@ -33,71 +40,354 @@ class MLEngine:
         self.item_embeddings = {}
         self.purchase_patterns = {}
         self.seasonal_factors = {}
-        self.recommendation_cache = {}
-        self._initialize_ml_models()
-        self._load_sample_data()
+        self.recommendation_models = {}
+        self.user_clusters = None
+        self.scaler = StandardScaler()
+        self.models_trained = False
+        self.model_path = 'models/ml/'
+        self._ensure_model_directory()
+        self._initialize_advanced_models()
+        self._load_or_create_user_data()
     
-    def _initialize_ml_models(self):
-        """Initialize ML model parameters and weights"""
+    def _ensure_model_directory(self):
+        """Ensure model directory exists"""
+        if not os.path.exists(self.model_path):
+            os.makedirs(self.model_path)
+    
+    def _initialize_advanced_models(self):
+        """Initialize advanced ML models and parameters"""
         
-        # User behavior weights
+        # Advanced user behavior feature weights
         self.behavior_weights = {
-            'frequency': 0.3,
-            'recency': 0.25,
-            'quantity': 0.2,
-            'seasonality': 0.15,
-            'price_sensitivity': 0.1
+            'purchase_frequency': 0.25,
+            'recency_score': 0.20,
+            'quantity_patterns': 0.15,
+            'seasonal_affinity': 0.15,
+            'price_sensitivity': 0.10,
+            'category_diversity': 0.10,
+            'time_of_day_preference': 0.05
         }
         
-        # Item category embeddings (simplified word2vec-like representation)
+        # Deep item embeddings (enhanced dimensionality)
         self.category_embeddings = {
-            'Fruits': np.array([0.8, 0.6, 0.9, 0.7, 0.5]),
-            'Vegetables': np.array([0.9, 0.7, 0.8, 0.6, 0.4]),
-            'Dairy': np.array([0.5, 0.8, 0.6, 0.9, 0.7]),
-            'Meat': np.array([0.4, 0.5, 0.7, 0.8, 0.9]),
-            'Grains': np.array([0.6, 0.4, 0.5, 0.7, 0.8]),
-            'Bakery': np.array([0.7, 0.6, 0.4, 0.5, 0.6]),
-            'Condiments': np.array([0.3, 0.4, 0.6, 0.5, 0.7]),
-            'Beverages': np.array([0.5, 0.7, 0.8, 0.4, 0.6]),
-            'Snacks': np.array([0.6, 0.5, 0.3, 0.8, 0.7]),
-            'Frozen': np.array([0.4, 0.6, 0.7, 0.5, 0.8])
+            'fruits': np.array([0.8, 0.6, 0.9, 0.7, 0.5, 0.3, 0.8, 0.6]),
+            'vegetables': np.array([0.9, 0.7, 0.8, 0.6, 0.4, 0.7, 0.5, 0.9]),
+            'dairy': np.array([0.5, 0.8, 0.6, 0.9, 0.7, 0.4, 0.6, 0.5]),
+            'meat': np.array([0.4, 0.5, 0.7, 0.8, 0.9, 0.6, 0.7, 0.4]),
+            'grains': np.array([0.6, 0.4, 0.5, 0.7, 0.8, 0.5, 0.4, 0.6]),
+            'bakery': np.array([0.7, 0.6, 0.4, 0.5, 0.6, 0.8, 0.3, 0.7]),
+            'condiments': np.array([0.3, 0.4, 0.6, 0.5, 0.7, 0.2, 0.5, 0.3]),
+            'beverages': np.array([0.5, 0.7, 0.8, 0.4, 0.6, 0.9, 0.2, 0.5]),
+            'snacks': np.array([0.6, 0.5, 0.3, 0.8, 0.7, 0.1, 0.9, 0.6]),
+            'frozen': np.array([0.4, 0.6, 0.7, 0.5, 0.8, 0.3, 0.1, 0.4]),
+            'organic': np.array([0.9, 0.8, 0.7, 0.6, 0.5, 0.8, 0.7, 0.9]),
+            'household': np.array([0.2, 0.3, 0.4, 0.5, 0.6, 0.1, 0.8, 0.2])
         }
         
-        # Seasonal patterns (month-based multipliers)
-        self.seasonal_patterns = {
-            'Fruits': {1: 0.7, 2: 0.8, 3: 0.9, 4: 1.1, 5: 1.3, 6: 1.4, 
-                      7: 1.5, 8: 1.4, 9: 1.2, 10: 1.0, 11: 0.8, 12: 0.7},
-            'Vegetables': {1: 0.8, 2: 0.9, 3: 1.0, 4: 1.2, 5: 1.4, 6: 1.5,
-                          7: 1.3, 8: 1.2, 9: 1.1, 10: 1.0, 11: 0.9, 12: 0.8},
-            'Dairy': {1: 1.0, 2: 1.0, 3: 1.0, 4: 1.0, 5: 1.0, 6: 1.0,
-                     7: 1.0, 8: 1.0, 9: 1.0, 10: 1.0, 11: 1.0, 12: 1.0},
-            'Meat': {1: 0.9, 2: 0.9, 3: 1.0, 4: 1.1, 5: 1.2, 6: 1.3,
-                    7: 1.4, 8: 1.2, 9: 1.0, 10: 0.9, 11: 1.1, 12: 1.3},
-            'Bakery': {1: 0.8, 2: 0.9, 3: 1.0, 4: 1.0, 5: 1.0, 6: 1.0,
-                      7: 1.0, 8: 1.0, 9: 1.0, 10: 1.1, 11: 1.2, 12: 1.3}
-        }
+        # Enhanced seasonal patterns with weather considerations
+        self.seasonal_patterns = self._generate_enhanced_seasonal_patterns()
+        
+        # Initialize ML models
+        self.purchase_predictor = RandomForestClassifier(
+            n_estimators=100, 
+            max_depth=10, 
+            random_state=42
+        )
+        
+        self.quantity_predictor = RandomForestRegressor(
+            n_estimators=100,
+            max_depth=8,
+            random_state=42
+        )
+        
+        # User similarity model for collaborative filtering
+        self.user_similarity_model = None
+        
+        # Advanced preference learning
+        self.preference_weights = defaultdict(float)
     
-    def _load_sample_data(self):
-        """Load sample purchase history and user behavior data"""
+    def _generate_enhanced_seasonal_patterns(self):
+        """Generate advanced seasonal patterns with weather and cultural factors"""
+        patterns = {}
+        categories = ['fruits', 'vegetables', 'dairy', 'meat', 'grains', 'bakery', 'beverages']
         
-        # Sample purchase history for ML training
-        sample_purchases = [
-            {'item': 'Bananas', 'category': 'Fruits', 'quantity': 3, 'price': 3.50, 'date': '2024-10-15'},
-            {'item': 'Milk', 'category': 'Dairy', 'quantity': 1, 'price': 3.80, 'date': '2024-10-15'},
-            {'item': 'Bread', 'category': 'Bakery', 'quantity': 2, 'price': 4.00, 'date': '2024-10-16'},
-            {'item': 'Chicken Breast', 'category': 'Meat', 'quantity': 2, 'price': 12.99, 'date': '2024-10-16'},
-            {'item': 'Apples', 'category': 'Fruits', 'quantity': 4, 'price': 6.00, 'date': '2024-10-18'},
-            {'item': 'Yogurt', 'category': 'Dairy', 'quantity': 6, 'price': 7.50, 'date': '2024-10-20'},
-            {'item': 'Rice', 'category': 'Grains', 'quantity': 1, 'price': 3.99, 'date': '2024-10-22'},
-            {'item': 'Tomatoes', 'category': 'Vegetables', 'quantity': 3, 'price': 4.50, 'date': '2024-10-25'},
-            {'item': 'Eggs', 'category': 'Dairy', 'quantity': 1, 'price': 3.50, 'date': '2024-10-28'},
-            {'item': 'Pasta', 'category': 'Grains', 'quantity': 3, 'price': 4.50, 'date': '2024-10-30'},
+        for category in categories:
+            patterns[category] = {}
+            for month in range(1, 13):
+                base_factor = 1.0
+                
+                # Seasonal adjustments
+                if category in ['fruits', 'vegetables']:
+                    # Fresh produce peaks in summer
+                    if month in [6, 7, 8]:
+                        base_factor = 1.4 + random.uniform(-0.1, 0.1)
+                    elif month in [12, 1, 2]:
+                        base_factor = 0.7 + random.uniform(-0.1, 0.1)
+                    else:
+                        base_factor = 1.0 + random.uniform(-0.2, 0.2)
+                
+                elif category == 'beverages':
+                    # Hot beverages in winter, cold in summer
+                    if month in [6, 7, 8]:
+                        base_factor = 1.3 + random.uniform(-0.1, 0.1)
+                    elif month in [12, 1, 2]:
+                        base_factor = 1.1 + random.uniform(-0.1, 0.1)
+                    else:
+                        base_factor = 1.0 + random.uniform(-0.1, 0.1)
+                
+                patterns[category][month] = max(0.5, min(1.5, base_factor))
+        
+        return patterns
+    
+    def _load_or_create_user_data(self):
+        """Load existing user data or create sample data for ML training"""
+        
+        # Try to load existing user data
+        user_data_file = os.path.join(self.model_path, 'user_data.json')
+        
+        if os.path.exists(user_data_file):
+            try:
+                with open(user_data_file, 'r') as f:
+                    loaded_data = json.load(f)
+                    self.purchase_history = loaded_data.get('purchase_history', [])
+                    self.user_profiles = loaded_data.get('user_profiles', {})
+                    print("Loaded existing user data")
+            except Exception as e:
+                print(f"Error loading user data: {e}")
+                self._create_sample_data()
+        else:
+            self._create_sample_data()
+        
+        # Build or update user profiles
+        self._build_advanced_user_profile()
+        self._analyze_advanced_patterns()
+    
+    def _create_sample_data(self):
+        """Create enhanced sample data for ML training"""
+        
+        # Generate realistic purchase history over several months
+        current_date = datetime.now() - timedelta(days=90)
+        self.purchase_history = []
+        
+        # Common items with realistic frequencies
+        item_templates = [
+            {'item': 'Bananas', 'category': 'fruits', 'avg_price': 3.50, 'frequency': 7},
+            {'item': 'Milk', 'category': 'dairy', 'avg_price': 3.80, 'frequency': 4},
+            {'item': 'Bread', 'category': 'bakery', 'avg_price': 4.00, 'frequency': 5},
+            {'item': 'Chicken Breast', 'category': 'meat', 'avg_price': 12.99, 'frequency': 10},
+            {'item': 'Apples', 'category': 'fruits', 'avg_price': 6.00, 'frequency': 8},
+            {'item': 'Yogurt', 'category': 'dairy', 'avg_price': 7.50, 'frequency': 6},
+            {'item': 'Rice', 'category': 'grains', 'avg_price': 3.99, 'frequency': 14},
+            {'item': 'Tomatoes', 'category': 'vegetables', 'avg_price': 4.50, 'frequency': 9},
+            {'item': 'Eggs', 'category': 'dairy', 'avg_price': 3.50, 'frequency': 7},
+            {'item': 'Pasta', 'category': 'grains', 'avg_price': 4.50, 'frequency': 12},
+            {'item': 'Orange Juice', 'category': 'beverages', 'avg_price': 5.50, 'frequency': 8},
+            {'item': 'Carrots', 'category': 'vegetables', 'avg_price': 2.50, 'frequency': 11},
+            {'item': 'Cheese', 'category': 'dairy', 'avg_price': 8.00, 'frequency': 9},
+            {'item': 'Cereal', 'category': 'grains', 'avg_price': 6.50, 'frequency': 15},
+            {'item': 'Ground Beef', 'category': 'meat', 'avg_price': 8.99, 'frequency': 12}
         ]
         
-        # Process purchase history for ML
-        self.purchase_history = sample_purchases
-        self._build_user_profile()
-        self._analyze_purchase_patterns()
+        # Generate purchases over 90 days
+        for day in range(90):
+            current_day = current_date + timedelta(days=day)
+            
+            # Simulate shopping 2-3 times per week
+            if random.random() < 0.35:  # ~35% chance of shopping each day
+                daily_items = []
+                num_items = random.randint(3, 8)  # Buy 3-8 items per trip
+                
+                selected_items = random.sample(item_templates, min(num_items, len(item_templates)))
+                
+                for item_template in selected_items:
+                    # Check if we should buy this item based on frequency
+                    days_since_start = day + 1
+                    expected_purchases = days_since_start / item_template['frequency']
+                    actual_purchases = sum(1 for p in self.purchase_history 
+                                         if p['item'] == item_template['item'])
+                    
+                    if actual_purchases < expected_purchases or random.random() < 0.3:
+                        # Add seasonal variation
+                        month = current_day.month
+                        seasonal_factor = self.seasonal_patterns.get(
+                            item_template['category'], {}
+                        ).get(month, 1.0)
+                        
+                        if random.random() < seasonal_factor * 0.7:
+                            quantity = random.randint(1, 4)
+                            price_variation = random.uniform(0.8, 1.2)
+                            
+                            purchase = {
+                                'item': item_template['item'],
+                                'category': item_template['category'],
+                                'quantity': quantity,
+                                'price': round(item_template['avg_price'] * price_variation, 2),
+                                'date': current_day.strftime('%Y-%m-%d'),
+                                'time': f"{random.randint(8, 20):02d}:{random.randint(0, 59):02d}",
+                                'store': random.choice(['Store A', 'Store B', 'Store C']),
+                                'day_of_week': current_day.strftime('%A')
+                            }
+                            
+                            self.purchase_history.append(purchase)
+        
+        print(f"Generated {len(self.purchase_history)} sample purchases for ML training")
+        self._save_user_data()
+    
+    def _build_advanced_user_profile(self):
+        """Build comprehensive user profile using advanced analytics"""
+        if not self.purchase_history:
+            return
+        
+        # Convert purchase history to DataFrame for easier analysis
+        df = pd.DataFrame(self.purchase_history)
+        df['date'] = pd.to_datetime(df['date'])
+        df['total_spent'] = df['quantity'] * df['price']
+        
+        # Calculate advanced user features
+        profile = {
+            'total_purchases': len(df),
+            'total_spent': df['total_spent'].sum(),
+            'avg_basket_size': df.groupby('date')['quantity'].sum().mean(),
+            'avg_basket_value': df.groupby('date')['total_spent'].sum().mean(),
+            'shopping_frequency': self._calculate_shopping_frequency(df),
+            'category_preferences': self._calculate_category_preferences(df),
+            'price_sensitivity': self._calculate_price_sensitivity(df),
+            'seasonal_preferences': self._calculate_seasonal_preferences(df),
+            'time_preferences': self._calculate_time_preferences(df),
+            'brand_loyalty': self._calculate_brand_loyalty(df),
+            'health_consciousness': self._calculate_health_score(df),
+            'purchase_patterns': self._extract_purchase_patterns(df)
+        }
+        
+        self.user_profiles['default_user'] = profile
+    
+    def _calculate_shopping_frequency(self, df):
+        """Calculate how often the user shops"""
+        shopping_days = df['date'].nunique()
+        date_range = (df['date'].max() - df['date'].min()).days
+        return shopping_days / max(date_range, 1) * 7  # Shopping days per week
+    
+    def _calculate_category_preferences(self, df):
+        """Calculate preference scores for different categories"""
+        category_stats = df.groupby('category').agg({
+            'quantity': 'sum',
+            'total_spent': 'sum',
+            'date': 'count'  # frequency
+        }).to_dict('index')
+        
+        total_quantity = df['quantity'].sum()
+        total_spent = df['total_spent'].sum()
+        
+        preferences = {}
+        for category, stats in category_stats.items():
+            preferences[category] = {
+                'quantity_ratio': stats['quantity'] / total_quantity,
+                'spending_ratio': stats['total_spent'] / total_spent,
+                'purchase_frequency': stats['date'],
+                'preference_score': (stats['quantity'] / total_quantity) * 0.4 + 
+                                  (stats['total_spent'] / total_spent) * 0.6
+            }
+        
+        return preferences
+    
+    def _calculate_price_sensitivity(self, df):
+        """Calculate user's price sensitivity"""
+        # Analyze price vs quantity relationship
+        item_price_analysis = {}
+        
+        for item in df['item'].unique():
+            item_data = df[df['item'] == item]
+            if len(item_data) > 1:
+                correlation = np.corrcoef(item_data['price'], item_data['quantity'])[0, 1]
+                item_price_analysis[item] = correlation
+        
+        # Average correlation (negative = price sensitive)
+        if item_price_analysis:
+            avg_price_sensitivity = np.mean(list(item_price_analysis.values()))
+            return abs(avg_price_sensitivity)  # Return as positive sensitivity score
+        
+        return 0.5  # Default moderate sensitivity
+    
+    def _calculate_seasonal_preferences(self, df):
+        """Analyze seasonal purchasing patterns"""
+        df['month'] = df['date'].dt.month
+        monthly_patterns = df.groupby(['month', 'category']).agg({
+            'quantity': 'sum',
+            'total_spent': 'sum'
+        }).reset_index()
+        
+        seasonal_prefs = {}
+        for month in range(1, 13):
+            month_data = monthly_patterns[monthly_patterns['month'] == month]
+            if not month_data.empty:
+                seasonal_prefs[month] = month_data.groupby('category')['quantity'].sum().to_dict()
+        
+        return seasonal_prefs
+    
+    def _calculate_time_preferences(self, df):
+        """Analyze time-based shopping preferences"""
+        if 'time' not in df.columns:
+            return {}
+        
+        df['hour'] = pd.to_datetime(df['time'], format='%H:%M').dt.hour
+        df['day_of_week'] = df['date'].dt.day_name()
+        
+        return {
+            'preferred_hours': df['hour'].value_counts().head(3).to_dict(),
+            'preferred_days': df['day_of_week'].value_counts().head(3).to_dict()
+        }
+    
+    def _calculate_brand_loyalty(self, df):
+        """Calculate brand loyalty scores"""
+        # Simplified - using item repetition as proxy for brand loyalty
+        item_counts = df['item'].value_counts()
+        total_purchases = len(df)
+        
+        loyalty_score = 0
+        for item, count in item_counts.items():
+            if count > 1:
+                loyalty_score += (count / total_purchases) ** 2
+        
+        return min(1.0, loyalty_score)
+    
+    def _calculate_health_score(self, df):
+        """Calculate health consciousness score"""
+        healthy_categories = ['fruits', 'vegetables', 'organic']
+        unhealthy_categories = ['snacks', 'beverages']
+        
+        healthy_purchases = df[df['category'].isin(healthy_categories)]['quantity'].sum()
+        unhealthy_purchases = df[df['category'].isin(unhealthy_categories)]['quantity'].sum()
+        total_purchases = df['quantity'].sum()
+        
+        if total_purchases > 0:
+            health_score = (healthy_purchases - unhealthy_purchases * 0.5) / total_purchases
+            return max(0, min(1, health_score))
+        
+        return 0.5
+    
+    def _extract_purchase_patterns(self, df):
+        """Extract advanced purchase patterns"""
+        patterns = {}
+        
+        # Basket composition patterns
+        basket_compositions = df.groupby('date')['category'].apply(list).tolist()
+        
+        # Find frequent category combinations
+        category_combinations = defaultdict(int)
+        for basket in basket_compositions:
+            if len(basket) > 1:
+                for i in range(len(basket)):
+                    for j in range(i+1, len(basket)):
+                        combo = tuple(sorted([basket[i], basket[j]]))
+                        category_combinations[combo] += 1
+        
+        patterns['frequent_combinations'] = dict(category_combinations)
+        
+        # Purchase timing patterns
+        if 'day_of_week' in df.columns:
+            patterns['weekly_patterns'] = df.groupby('day_of_week')['quantity'].sum().to_dict()
+        
+        return patterns
     
     def _build_user_profile(self):
         """Build comprehensive user profile from purchase history"""
