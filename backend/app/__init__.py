@@ -1,1 +1,2 @@
-# Empty file to make this directory a Python package
+# App package initialization
+# This makes the app directory a Python package
