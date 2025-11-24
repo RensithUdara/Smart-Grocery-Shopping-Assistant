@@ -14,31 +14,80 @@ from datetime import datetime
 import json
 import os
 
-# Import the ML engine
+# Import the enhanced ML engines
+import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'utils'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'engines'))
+
 try:
-    from ...src.utils.ml_engine import MLEngine
-except ImportError:
-    import sys
-    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'src', 'utils'))
-    from ml_engine import MLEngine
+    from ml_engine import AdvancedMLEngine
+    from smart_rule_engine import SmartRuleEngine
+    from data_manager import DataManager
+except ImportError as e:
+    print(f"Import error in ML routes: {e}")
+    # Fallback to basic ML engine if available
+    try:
+        from ml_engine import MLEngine as AdvancedMLEngine
+    except ImportError:
+        AdvancedMLEngine = None
+    SmartRuleEngine = None
+    DataManager = None
 
 ml_bp = Blueprint('ml', __name__)
-ml_engine = MLEngine()
+advanced_ml_engine = AdvancedMLEngine()
+smart_rule_engine = SmartRuleEngine()
+data_manager = DataManager()
 
 @ml_bp.route('/api/ml/recommendations', methods=['GET'])
 def get_personalized_recommendations():
-    """Get AI-powered personalized item recommendations"""
+    """Get advanced AI-powered personalized item recommendations"""
     try:
-        limit = request.args.get('limit', 10, type=int)
+        limit = request.args.get('limit', 15, type=int)
+        current_list = request.args.getlist('current_items')
         
-        recommendations = ml_engine.get_personalized_recommendations(limit)
+        # Get recommendations from advanced ML engine
+        ml_recommendations = advanced_ml_engine.get_personalized_recommendations(current_list, limit)
+        
+        # Get smart rule-based suggestions
+        shopping_list = data_manager.load_shopping_list()
+        purchase_history = data_manager.load_purchase_history()
+        rule_suggestions = smart_rule_engine.generate_smart_suggestions(shopping_list, purchase_history)
+        
+        # Combine and rank recommendations
+        combined_recommendations = ml_recommendations + rule_suggestions
+        
+        # Remove duplicates and sort by confidence
+        seen_items = set()
+        unique_recommendations = []
+        
+        for rec in combined_recommendations:
+            item_key = rec['item'].lower() if 'item' in rec else rec['name'].lower()
+            if item_key not in seen_items:
+                seen_items.add(item_key)
+                # Standardize recommendation format
+                standardized_rec = {
+                    'item': rec.get('item', rec.get('name', 'Unknown')),
+                    'category': rec.get('category', 'other'),
+                    'reason': rec.get('reason', 'AI recommendation'),
+                    'confidence': rec.get('confidence', 0.5),
+                    'type': rec.get('type', rec.get('rule_type', 'general')),
+                    'ai_insights': rec.get('ai_insights', {})
+                }
+                unique_recommendations.append(standardized_rec)
+        
+        # Sort by confidence and limit results
+        unique_recommendations.sort(key=lambda x: x['confidence'], reverse=True)
+        final_recommendations = unique_recommendations[:limit]
         
         return jsonify({
             'success': True,
             'data': {
-                'recommendations': recommendations,
-                'count': len(recommendations),
-                'generated_at': datetime.now().isoformat()
+                'recommendations': final_recommendations,
+                'count': len(final_recommendations),
+                'ml_count': len(ml_recommendations),
+                'rule_count': len(rule_suggestions),
+                'generated_at': datetime.now().isoformat(),
+                'ai_powered': True
             }
         })
     except Exception as e:
@@ -46,7 +95,124 @@ def get_personalized_recommendations():
 
 @ml_bp.route('/api/ml/predictions', methods=['GET'])
 def predict_shopping_behavior():
-    """Predict shopping behavior for upcoming days"""
+    """Advanced AI predictions for shopping behavior"""
+    try:
+        # Get AI-powered shopping predictions
+        next_shopping_prediction = advanced_ml_engine.predict_next_shopping_day()
+        
+        return jsonify({
+            'success': True,
+            'data': {
+                'next_shopping': next_shopping_prediction,
+                'generated_at': datetime.now().isoformat(),
+                'model_trained': advanced_ml_engine.models_trained
+            }
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@ml_bp.route('/api/ml/ai-insights', methods=['GET'])
+def get_ai_insights():
+    """Get comprehensive AI insights about user behavior and patterns"""
+    try:
+        # Get insights from advanced ML engine
+        ml_insights = advanced_ml_engine.get_ai_insights()
+        
+        # Get insights from smart rule engine
+        rule_insights = smart_rule_engine.get_ai_insights()
+        
+        combined_insights = {
+            'ml_insights': ml_insights,
+            'rule_insights': rule_insights,
+            'data_sources': {
+                'purchase_history_count': len(advanced_ml_engine.purchase_history),
+                'user_profiles': len(advanced_ml_engine.user_profiles),
+                'learned_associations': len(smart_rule_engine.item_associations),
+                'seasonal_patterns': len(smart_rule_engine.seasonal_patterns)
+            },
+            'ai_capabilities': {
+                'advanced_ml': advanced_ml_engine.models_trained,
+                'pattern_learning': True,
+                'personalization': True,
+                'real_time_adaptation': True
+            },
+            'generated_at': datetime.now().isoformat()
+        }
+        
+        return jsonify({
+            'success': True,
+            'data': combined_insights
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@ml_bp.route('/api/ml/learn-from-purchase', methods=['POST'])
+def learn_from_purchase():
+    """Update AI models with new purchase data"""
+    try:
+        purchase_data = request.get_json()
+        
+        if not purchase_data:
+            return jsonify({'success': False, 'error': 'No purchase data provided'}), 400
+        
+        # Add to purchase history
+        purchase_entry = {
+            'item': purchase_data.get('item', ''),
+            'category': purchase_data.get('category', 'other'),
+            'quantity': purchase_data.get('quantity', 1),
+            'price': purchase_data.get('price', 0.0),
+            'date': purchase_data.get('date', datetime.now().strftime('%Y-%m-%d')),
+            'time': purchase_data.get('time', datetime.now().strftime('%H:%M')),
+            'store': purchase_data.get('store', 'Unknown'),
+            'day_of_week': datetime.now().strftime('%A')
+        }
+        
+        # Update ML engine
+        advanced_ml_engine.purchase_history.append(purchase_entry)
+        advanced_ml_engine._build_advanced_user_profile()
+        advanced_ml_engine._save_user_data()
+        
+        # Update rule engine with purchase history
+        purchase_history = data_manager.load_purchase_history()
+        smart_rule_engine.learn_from_purchase_history(purchase_history)
+        
+        return jsonify({
+            'success': True,
+            'message': 'AI models updated with new purchase data',
+            'purchase_added': purchase_entry
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@ml_bp.route('/api/ml/smart-suggestions', methods=['GET'])
+def get_smart_suggestions():
+    """Get intelligent suggestions using learned patterns"""
+    try:
+        shopping_list = data_manager.load_shopping_list()
+        purchase_history = data_manager.load_purchase_history()
+        
+        suggestions = smart_rule_engine.generate_smart_suggestions(shopping_list, purchase_history)
+        
+        return jsonify({
+            'success': True,
+            'data': {
+                'suggestions': suggestions,
+                'count': len(suggestions),
+                'learning_stats': {
+                    'associations_learned': len(smart_rule_engine.item_associations),
+                    'seasonal_patterns': len(smart_rule_engine.seasonal_patterns),
+                    'category_preferences': len(smart_rule_engine.category_preferences),
+                    'purchase_patterns': len(smart_rule_engine.purchase_patterns)
+                },
+                'generated_at': datetime.now().isoformat()
+            }
+        })
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+@ml_bp.route('/api/ml/retrain-models', methods=['POST'])
+def retrain_models():
+    """Retrain AI models with latest data"""
     try:
         days_ahead = request.args.get('days_ahead', 7, type=int)
         
