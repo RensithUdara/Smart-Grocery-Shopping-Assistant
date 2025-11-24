@@ -1,81 +1,21 @@
 {
   "items": [
     {
-      "name": "whole wheat bread",
-      "category": "grains",
-      "quantity": 1,
-      "unit": "loaf",
-      "purchase_date": "2025-10-31T10:30:17.205295",
-      "expiration_days": 7,
-      "price": 0.0,
-      "is_organic": true
-    },
-    {
-      "name": "low-fat milk",
-      "category": "dairy",
+      "name": "orange",
+      "category": "fruits & vegetables",
       "quantity": 2,
-      "unit": "liters",
-      "purchase_date": "2025-10-31T10:30:17.205295",
-      "expiration_days": 7,
-      "price": 0.0,
-      "is_organic": false
-    },
-    {
-      "name": "chicken breast",
-      "category": "protein",
-      "quantity": 1,
-      "unit": "kg",
-      "purchase_date": "2025-10-31T10:30:17.205295",
-      "expiration_days": 7,
-      "price": 0.0,
-      "is_organic": false
-    },
-    {
-      "name": "broccoli",
-      "category": "vegetables",
-      "quantity": 3,
-      "unit": "heads",
-      "purchase_date": "2025-10-31T10:30:17.205295",
-      "expiration_days": 7,
-      "price": 0.0,
-      "is_organic": false
-    },
-    {
-      "name": "bananas",
-      "category": "fruits",
-      "quantity": 6,
       "unit": "pieces",
-      "purchase_date": "2025-10-31T10:30:17.205295",
-      "expiration_days": 7,
-      "price": 0.0,
-      "is_organic": false
-    },
-    {
-      "name": "white bread",
-      "category": "bakery",
-      "quantity": 1,
-      "unit": "pieces",
-      "purchase_date": "2025-10-31T15:55:31.180680",
+      "purchase_date": "2025-11-24T00:48:23.302343",
       "expiration_days": 7,
       "price": 10,
-      "is_organic": false
+      "is_organic": true
     },
     {
       "name": "bread",
       "category": "grains",
       "quantity": 1,
       "unit": "pieces",
-      "purchase_date": "2025-10-31T15:55:53.578644",
-      "expiration_days": 7,
-      "price": 0,
-      "is_organic": false
-    },
-    {
-      "name": "chicken",
-      "category": "protein",
-      "quantity": 1,
-      "unit": "pieces",
-      "purchase_date": "2025-10-31T15:55:55.132225",
+      "purchase_date": "2025-11-24T00:49:05.617802",
       "expiration_days": 7,
       "price": 0,
       "is_organic": false
@@ -85,14 +25,114 @@
       "category": "vegetables",
       "quantity": 1,
       "unit": "pieces",
-      "purchase_date": "2025-10-31T15:55:57.095156",
+      "purchase_date": "2025-11-24T00:49:08.485927",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "pasta",
+      "category": "grains",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-11-24T01:25:23.759026",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "apples",
+      "category": "fruits",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-11-24T01:25:24.967685",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "tomatoes",
+      "category": "vegetables",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-11-24T01:30:08.768029",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "milk",
+      "category": "dairy",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-11-24T01:30:21.367604",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "butter",
+      "category": "dairy",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-11-24T01:30:22.628421",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "jam",
+      "category": "other",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-11-24T01:30:24.117575",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "cheese",
+      "category": "dairy",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-11-24T01:30:25.428791",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "rice",
+      "category": "grains",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-11-24T01:30:44.167079",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "chicken",
+      "category": "protein",
+      "quantity": 1,
+      "unit": "pieces",
+      "purchase_date": "2025-11-24T01:30:44.726716",
+      "expiration_days": 7,
+      "price": 0,
+      "is_organic": false
+    },
+    {
+      "name": "pasta sauce",
+      "category": "grains",
+      "quantity": 2,
+      "unit": "pieces",
+      "purchase_date": "2025-11-24T01:30:45.235272",
       "expiration_days": 7,
       "price": 0,
       "is_organic": false
     }
   ],
   "created_date": "2025-10-31T10:30:17.205295",
-  "item_count": 9,
-  "total_quantity": 17,
-  "last_saved": "2025-10-31T15:55:57.095156"
+  "item_count": 13,
+  "total_quantity": 15,
+  "last_saved": "2025-11-24T01:30:45.450397"
 }
