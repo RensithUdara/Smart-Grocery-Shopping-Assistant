@@ -19,6 +19,8 @@ export interface GroceryItem {
     price: number;
     is_organic: boolean;
     purchase_date?: string;
+    last_purchased?: string;
+    purchase_frequency?: number;
 }
 
 export interface ShoppingListResponse {
@@ -69,6 +71,7 @@ export const suggestionsApi = {
 export const purchaseHistoryApi = {
     getHistory: () => api.get('/purchase-history'),
     addPurchase: (item: GroceryItem) => api.post('/purchase-history/items', item),
+    checkRecentPurchase: (itemName: string) => api.get(`/purchase-history/check-recent/${encodeURIComponent(itemName)}`),
 };
 
 // Expiration API
