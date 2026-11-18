@@ -303,3 +303,5 @@ dist/
 .env
 .env.local
 .vscode/
+.env.*
+.env.production
