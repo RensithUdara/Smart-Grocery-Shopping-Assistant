@@ -300,6 +300,4 @@ dist/
 
 # Local development files
 .local/
-.env
-.env.local
-.vscode/
+config.bat
