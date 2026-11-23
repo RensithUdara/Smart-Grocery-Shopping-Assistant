@@ -300,4 +300,7 @@ dist/
 
 # Local development files
 .local/
-config.bat
+.env
+.env.*
+.env.local
+.env.production
